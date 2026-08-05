@@ -1,0 +1,5204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مسارك الآن - منصة الإعلانات والخدمات الإنسانية</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+--primary-color: #2c3e50;
+--secondary-color: #3498db;
+--accent-color: #e74c3c;
+--success-color: #27ae60;
+--warning-color: #f39c12;
+--bg-color: #f5f6fa;
+--text-color: #2c3e50;
+--card-bg: #ffffff;
+--border-color: #dcdde1;
+}
+[data-theme="dark"] {
+--bg-color: #1a1a2e;
+--text-color: #eaeaea;
+--card-bg: #16213e;
+--border-color: #0f3460;
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+background-color: var(--bg-color);
+color: var(--text-color);
+transition: all 0.3s ease;
+}
+.header {
+background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+color: white;
+padding: 1rem;
+position: sticky;
+top: 0;
+z-index: 1000;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.header-top {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
+flex-wrap: wrap;
+gap: 1rem;
+}
+.logo { font-size: 2rem; font-weight: bold; }
+.header-controls {
+display: flex;
+gap: 0.8rem;
+align-items: center;
+flex-wrap: wrap;
+}
+.btn {
+padding: 0.5rem 1rem;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: all 0.3s;
+font-size: 0.9rem;
+display: inline-flex;
+align-items: center;
+gap: 0.3rem;
+}
+.btn-primary { background: var(--secondary-color); color: white; }
+.btn-success { background: var(--success-color); color: white; }
+.btn-danger { background: var(--accent-color); color: white; }
+.btn-warning { background: var(--warning-color); color: white; }
+.btn-info { background: #17a2b8; color: white; }
+.btn-secondary { background: #6c757d; color: white; }
+.btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.notification-wrapper { position: relative; }
+.notification-bell {
+background: transparent;
+border: none;
+color: white;
+font-size: 1.3rem;
+cursor: pointer;
+position: relative;
+padding: 0.5rem;
+}
+.notification-badge {
+position: absolute;
+top: 0;
+right: 0;
+background: var(--accent-color);
+color: white;
+border-radius: 50%;
+width: 20px;
+height: 20px;
+font-size: 0.7rem;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+}
+.notification-dropdown {
+position: absolute;
+top: 100%;
+left: 0;
+background: var(--card-bg);
+color: var(--text-color);
+border-radius: 10px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+width: 320px;
+max-height: 400px;
+overflow-y: auto;
+display: none;
+z-index: 1100;
+}
+.notification-dropdown.active { display: block; }
+.notification-header {
+padding: 1rem;
+border-bottom: 1px solid var(--border-color);
+font-weight: bold;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.notification-item {
+padding: 1rem;
+border-bottom: 1px solid var(--border-color);
+cursor: pointer;
+transition: background 0.3s;
+}
+.notification-item:hover { background: rgba(52, 152, 219, 0.1); }
+.notification-item.unread {
+background: rgba(52, 152, 219, 0.05);
+border-right: 3px solid var(--secondary-color);
+}
+.notification-item-title { font-weight: bold; margin-bottom: 0.3rem; }
+.notification-item-time { font-size: 0.8rem; color: #999; }
+.user-menu-wrapper { position: relative; }
+.user-menu-btn {
+background: rgba(255,255,255,0.2);
+color: white;
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 25px;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.user-dropdown {
+position: absolute;
+top: 100%;
+left: 0;
+background: var(--card-bg);
+color: var(--text-color);
+border-radius: 10px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+width: 220px;
+display: none;
+z-index: 1100;
+overflow: hidden;
+}
+.user-dropdown.active { display: block; }
+.user-dropdown-item {
+padding: 0.8rem 1rem;
+cursor: pointer;
+transition: background 0.3s;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+border-bottom: 1px solid var(--border-color);
+}
+.user-dropdown-item:hover { background: rgba(52, 152, 219, 0.1); }
+.category-scroll {
+overflow-x: auto;
+white-space: nowrap;
+padding: 1rem 0;
+background: rgba(255,255,255,0.1);
+border-radius: 10px;
+}
+.category-scroll::-webkit-scrollbar { height: 8px; }
+.category-scroll::-webkit-scrollbar-thumb {
+background: var(--secondary-color);
+border-radius: 4px;
+}
+.category-btn {
+display: inline-block;
+padding: 0.8rem 1.5rem;
+margin: 0 0.5rem;
+background: var(--card-bg);
+color: var(--text-color);
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s;
+border: 2px solid transparent;
+}
+.category-btn:hover, .category-btn.active {
+background: var(--secondary-color);
+color: white;
+border-color: white;
+}
+.container {
+max-width: 1400px;
+margin: 0 auto;
+padding: 2rem;
+}
+.section { display: none; animation: fadeIn 0.5s; }
+.section.active { display: block; }
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.section-title {
+font-size: 2rem;
+margin-bottom: 2rem;
+color: var(--secondary-color);
+border-bottom: 3px solid var(--secondary-color);
+padding-bottom: 0.5rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.section-divider {
+border: none;
+height: 4px;
+background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+margin: 3rem 0;
+border-radius: 2px;
+}
+.card {
+background: var(--card-bg);
+border-radius: 15px;
+padding: 1.5rem;
+margin-bottom: 1.5rem;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+border: 1px solid var(--border-color);
+}
+.card-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
+}
+.card-title {
+font-size: 1.3rem;
+color: var(--primary-color);
+}
+.vip-badge {
+background: gold;
+color: #333;
+padding: 0.3rem 0.8rem;
+border-radius: 20px;
+font-weight: bold;
+animation: pulse 2s infinite;
+}
+@keyframes pulse {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.05); }
+}
+.stars { color: gold; font-size: 1.2rem; }
+.form-group { margin-bottom: 1.5rem; }
+.form-label {
+display: block;
+margin-bottom: 0.5rem;
+font-weight: bold;
+color: var(--primary-color);
+}
+.form-control {
+width: 100%;
+padding: 0.8rem;
+border: 2px solid var(--border-color);
+border-radius: 8px;
+font-size: 1rem;
+background: var(--card-bg);
+color: var(--text-color);
+transition: all 0.3s;
+}
+.form-control:focus {
+outline: none;
+border-color: var(--secondary-color);
+}
+textarea.form-control { min-height: 120px; resize: vertical; }
+.image-upload {
+border: 2px dashed var(--border-color);
+border-radius: 10px;
+padding: 2rem;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s;
+}
+.image-upload:hover {
+border-color: var(--secondary-color);
+background: rgba(52, 152, 219, 0.1);
+}
+.image-preview {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+gap: 1rem;
+margin-top: 1rem;
+}
+.image-preview img {
+width: 100%;
+height: 150px;
+object-fit: cover;
+border-radius: 8px;
+border: 2px solid var(--border-color);
+}
+.video-studio {
+background: #000;
+border-radius: 10px;
+padding: 1rem;
+margin-top: 1rem;
+}
+.video-preview {
+width: 100%;
+height: 400px;
+background: #1a1a1a;
+border-radius: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 3rem;
+}
+.ads-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+gap: 2rem;
+}
+.ad-card {
+background: var(--card-bg);
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+transition: transform 0.3s;
+}
+.ad-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.ad-images {
+position: relative;
+height: 250px;
+overflow: hidden;
+}
+.ad-images img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+.ad-content { padding: 1.5rem; }
+.ad-price {
+font-size: 1.5rem;
+color: var(--accent-color);
+font-weight: bold;
+margin: 1rem 0 0.5rem;
+}
+.ad-price-conversions {
+background: var(--bg-color);
+border-radius: 8px;
+padding: 0.8rem;
+margin: 0.5rem 0;
+border: 1px solid var(--border-color);
+}
+.ad-price-conversions .price-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0.3rem 0;
+font-size: 0.85rem;
+border-bottom: 1px dashed var(--border-color);
+}
+.ad-price-conversions .price-row:last-child {
+border-bottom: none;
+}
+.ad-price-conversions .price-label {
+color: #888;
+font-size: 0.8rem;
+}
+.ad-price-conversions .price-value {
+font-weight: bold;
+}
+.price-old-syp { color: var(--warning-color); }
+.price-new-syp { color: var(--success-color); }
+.price-usd { color: var(--secondary-color); }
+.ad-buttons {
+display: flex;
+gap: 0.5rem;
+margin-top: 1rem;
+flex-wrap: wrap;
+}
+.table-container {
+overflow-x: auto;
+margin: 2rem 0;
+}
+table {
+width: 100%;
+border-collapse: collapse;
+background: var(--card-bg);
+border-radius: 10px;
+overflow: hidden;
+}
+th, td {
+padding: 1rem;
+text-align: right;
+border-bottom: 1px solid var(--border-color);
+}
+th {
+background: var(--primary-color);
+color: white;
+font-weight: bold;
+}
+tr:hover { background: rgba(52, 152, 219, 0.1); }
+.trend-up { color: var(--success-color); }
+.trend-down { color: var(--accent-color); }
+.trend-stable { color: var(--warning-color); }
+.hospital-card, .charity-card {
+background: var(--card-bg);
+border-radius: 15px;
+overflow: hidden;
+margin-bottom: 2rem;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.hospital-cover {
+width: 100%;
+height: 280px;
+object-fit: cover;
+border-bottom: 4px solid var(--secondary-color);
+transition: transform 0.5s;
+}
+.hospital-card:hover .hospital-cover {
+transform: scale(1.02);
+}
+.hospital-header, .charity-header {
+display: flex;
+align-items: center;
+gap: 1rem;
+margin: 1.5rem;
+padding-bottom: 1rem;
+border-bottom: 2px solid var(--border-color);
+}
+.hospital-img, .charity-img {
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+border: 4px solid var(--secondary-color);
+}
+.donation-buttons {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin: 1rem 1.5rem 1.5rem;
+}
+.hospital-info {
+padding: 0 1.5rem 1.5rem;
+}
+.chat-bot {
+position: fixed;
+bottom: 100px;
+left: 20px;
+width: 380px;
+background: var(--card-bg);
+border-radius: 15px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+display: none;
+z-index: 999;
+overflow: hidden;
+}
+.chat-bot.active { display: block; }
+.chat-header {
+background: var(--secondary-color);
+color: white;
+padding: 1rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.chat-body {
+height: 350px;
+overflow-y: auto;
+padding: 1rem;
+display: flex;
+flex-direction: column;
+}
+.chat-message {
+margin-bottom: 1rem;
+padding: 0.8rem;
+border-radius: 10px;
+max-width: 80%;
+word-wrap: break-word;
+white-space: pre-line;
+}
+.chat-message.bot {
+background: var(--bg-color);
+align-self: flex-start;
+}
+.chat-message.user {
+background: var(--secondary-color);
+color: white;
+align-self: flex-end;
+margin-right: auto;
+}
+.chat-quick-replies {
+display: flex;
+flex-wrap: wrap;
+gap: 0.5rem;
+padding: 0.5rem 1rem;
+border-top: 1px solid var(--border-color);
+}
+.quick-reply-btn {
+background: var(--bg-color);
+border: 1px solid var(--secondary-color);
+color: var(--secondary-color);
+padding: 0.3rem 0.8rem;
+border-radius: 15px;
+font-size: 0.8rem;
+cursor: pointer;
+transition: all 0.3s;
+}
+.quick-reply-btn:hover {
+background: var(--secondary-color);
+color: white;
+}
+.chat-input {
+display: flex;
+padding: 1rem;
+border-top: 1px solid var(--border-color);
+}
+.chat-input input {
+flex: 1;
+padding: 0.8rem;
+border: 1px solid var(--border-color);
+border-radius: 20px;
+margin-left: 0.5rem;
+}
+.chat-toggle {
+position: fixed;
+bottom: 20px;
+left: 20px;
+width: 60px;
+height: 60px;
+border-radius: 50%;
+background: var(--secondary-color);
+color: white;
+border: none;
+font-size: 1.5rem;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+z-index: 998;
+}
+.footer {
+background: var(--primary-color);
+color: white;
+padding: 3rem 2rem;
+margin-top: 3rem;
+}
+.footer-content {
+max-width: 1400px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 2rem;
+}
+.footer-section h3 {
+margin-bottom: 1rem;
+color: var(--secondary-color);
+}
+.footer-section ul { list-style: none; }
+.footer-section ul li {
+padding: 0.3rem 0;
+cursor: pointer;
+transition: color 0.3s;
+}
+.footer-section ul li:hover { color: var(--secondary-color); }
+.footer-bottom {
+text-align: center;
+margin-top: 2rem;
+padding-top: 2rem;
+border-top: 1px solid rgba(255,255,255,0.1);
+}
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.7);
+z-index: 2000;
+align-items: center;
+justify-content: center;
+overflow-y: auto;
+padding: 2rem 0;
+}
+.modal.active { display: flex; }
+.modal-content {
+background: var(--card-bg);
+border-radius: 15px;
+padding: 2rem;
+max-width: 700px;
+width: 90%;
+max-height: 90vh;
+overflow-y: auto;
+margin: auto;
+}
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1.5rem;
+}
+.close-modal {
+font-size: 1.5rem;
+cursor: pointer;
+color: var(--accent-color);
+}
+@media (max-width: 768px) {
+.ads-grid { grid-template-columns: 1fr; }
+.chat-bot { width: 90%; left: 5%; }
+.header-top { flex-direction: column; gap: 1rem; }
+.logo { font-size: 1.5rem; }
+.hospital-cover { height: 200px; }
+}
+.alert {
+padding: 1rem;
+border-radius: 8px;
+margin-bottom: 1rem;
+display: none;
+animation: slideIn 0.3s;
+}
+@keyframes slideIn {
+from { transform: translateX(-100%); opacity: 0; }
+to { transform: translateX(0); opacity: 1; }
+}
+.alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.alert-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+.alert-info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+.search-box {
+position: relative;
+margin-bottom: 2rem;
+}
+.search-box input {
+width: 100%;
+padding: 1rem 3rem 1rem 1rem;
+border: 2px solid var(--border-color);
+border-radius: 25px;
+font-size: 1rem;
+}
+.search-box i {
+position: absolute;
+left: 1rem;
+top: 50%;
+transform: translateY(-50%);
+color: var(--secondary-color);
+}
+.bot-indicator {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+background: var(--success-color);
+color: white;
+padding: 0.3rem 0.8rem;
+border-radius: 20px;
+font-size: 0.8rem;
+}
+.bot-indicator::before {
+content: '';
+width: 8px;
+height: 8px;
+background: white;
+border-radius: 50%;
+animation: blink 1.5s infinite;
+}
+@keyframes blink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.3; }
+}
+.commission-info {
+background: #fff3cd;
+border: 1px solid #ffeaa7;
+padding: 1rem;
+border-radius: 8px;
+margin: 1rem 0;
+color: #856404;
+}
+.qr-section {
+background: var(--bg-color);
+padding: 1.5rem;
+border-radius: 10px;
+margin: 1rem 0;
+border: 2px solid var(--border-color);
+}
+.qr-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+margin-top: 1rem;
+}
+.qr-card {
+background: white;
+padding: 1.5rem;
+border-radius: 10px;
+text-align: center;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.qr-card h4 { margin-bottom: 1rem; color: var(--primary-color); }
+.qr-code {
+display: inline-block;
+padding: 0.5rem;
+background: white;
+border: 2px solid var(--border-color);
+border-radius: 10px;
+overflow: hidden;
+}
+.qr-code img {
+max-width: 100%;
+height: auto;
+}
+.qr-card p { margin-top: 1rem; font-size: 0.9rem; color: #666; }
+.payment-methods {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin: 1rem 0;
+}
+.payment-method {
+background: var(--bg-color);
+padding: 1rem;
+border-radius: 10px;
+border: 2px solid var(--border-color);
+cursor: pointer;
+transition: all 0.3s;
+}
+.payment-method:hover {
+border-color: var(--secondary-color);
+transform: translateY(-2px);
+}
+.payment-method.selected {
+border-color: var(--success-color);
+background: rgba(39, 174, 96, 0.1);
+}
+.commission-bot {
+background: linear-gradient(135deg, #667eea, #764ba2);
+color: white;
+padding: 1.5rem;
+border-radius: 15px;
+margin: 2rem 0;
+}
+.commission-stats {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+gap: 1rem;
+margin-top: 1rem;
+}
+.stat-card {
+background: rgba(255,255,255,0.2);
+padding: 1rem;
+border-radius: 10px;
+text-align: center;
+}
+.stat-value {
+font-size: 1.8rem;
+font-weight: bold;
+margin: 0.5rem 0;
+}
+.sold-overlay {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0,0,0,0.7);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 2rem;
+font-weight: bold;
+}
+.auth-tabs {
+display: flex;
+margin-bottom: 1.5rem;
+border-bottom: 2px solid var(--border-color);
+}
+.auth-tab {
+flex: 1;
+padding: 1rem;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s;
+border-bottom: 3px solid transparent;
+}
+.auth-tab.active {
+color: var(--secondary-color);
+border-bottom-color: var(--secondary-color);
+font-weight: bold;
+}
+.auth-form { display: none; }
+.auth-form.active { display: block; }
+.admin-stats {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin-bottom: 2rem;
+}
+.admin-stat-card {
+background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+color: white;
+padding: 1.5rem;
+border-radius: 15px;
+text-align: center;
+}
+.admin-stat-value {
+font-size: 2.5rem;
+font-weight: bold;
+margin: 0.5rem 0;
+}
+.admin-tabs {
+display: flex;
+gap: 0.5rem;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+}
+.admin-tab {
+padding: 0.8rem 1.5rem;
+background: var(--bg-color);
+border: 2px solid var(--border-color);
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s;
+}
+.admin-tab.active {
+background: var(--secondary-color);
+color: white;
+border-color: var(--secondary-color);
+}
+.admin-content { display: none; }
+.admin-content.active { display: block; }
+.filter-panel {
+background: var(--card-bg);
+border-radius: 15px;
+padding: 1.5rem;
+margin-bottom: 2rem;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+border: 1px solid var(--border-color);
+}
+.filter-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin-top: 1rem;
+}
+.filter-actions {
+display: flex;
+gap: 0.5rem;
+margin-top: 1rem;
+justify-content: flex-end;
+}
+.info-page {
+background: var(--card-bg);
+border-radius: 15px;
+padding: 2rem;
+line-height: 1.8;
+}
+.info-page h2 {
+color: var(--secondary-color);
+margin-bottom: 1rem;
+border-bottom: 2px solid var(--secondary-color);
+padding-bottom: 0.5rem;
+}
+.info-page h3 {
+color: var(--primary-color);
+margin: 1.5rem 0 0.5rem;
+}
+.info-page p { margin-bottom: 1rem; }
+.info-page ul { margin: 1rem 0 1rem 1.5rem; }
+.info-page li { margin-bottom: 0.5rem; }
+.faq-item {
+background: var(--bg-color);
+border-radius: 10px;
+padding: 1rem;
+margin-bottom: 1rem;
+cursor: pointer;
+transition: all 0.3s;
+}
+.faq-item:hover { background: rgba(52, 152, 219, 0.1); }
+.faq-question {
+font-weight: bold;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.faq-answer {
+display: none;
+margin-top: 1rem;
+padding-top: 1rem;
+border-top: 1px solid var(--border-color);
+}
+.faq-item.active .faq-answer { display: block; }
+.faq-item.active .faq-question i { transform: rotate(180deg); }
+.faq-question i { transition: transform 0.3s; }
+.contact-form {
+background: var(--bg-color);
+padding: 1.5rem;
+border-radius: 10px;
+margin-top: 1rem;
+}
+.all-sections-view .combined-section {
+margin-bottom: 3rem;
+padding: 2rem;
+background: var(--card-bg);
+border-radius: 15px;
+box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.combined-section-title {
+font-size: 1.8rem;
+color: var(--secondary-color);
+margin-bottom: 1.5rem;
+padding-bottom: 0.5rem;
+border-bottom: 2px solid var(--secondary-color);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.back-to-top {
+position: fixed;
+bottom: 90px;
+right: 20px;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background: var(--primary-color);
+color: white;
+border: none;
+font-size: 1.2rem;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+z-index: 997;
+display: none;
+}
+.back-to-top.visible { display: block; }
+.currency-switcher {
+display: flex;
+gap: 0.5rem;
+margin-bottom: 1rem;
+padding: 0.5rem;
+background: var(--bg-color);
+border-radius: 10px;
+border: 2px solid var(--border-color);
+}
+.currency-btn {
+flex: 1;
+padding: 0.8rem;
+border: 2px solid transparent;
+background: var(--card-bg);
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.3s;
+font-weight: bold;
+text-align: center;
+color: var(--text-color);
+}
+.currency-btn.active {
+border-color: var(--success-color);
+background: rgba(39, 174, 96, 0.1);
+color: var(--success-color);
+}
+.currency-badge {
+display: inline-block;
+background: var(--secondary-color);
+color: white;
+padding: 0.2rem 0.6rem;
+border-radius: 12px;
+font-size: 0.75rem;
+font-weight: bold;
+margin-right: 0.3rem;
+}
+.price-display {
+display: flex;
+flex-direction: column;
+gap: 0.2rem;
+font-size: 0.9rem;
+}
+.price-usd { color: var(--success-color); font-weight: bold; }
+.price-syp { color: var(--warning-color); font-weight: bold; }
+.account-select {
+padding: 0.8rem;
+border: 2px solid var(--border-color);
+border-radius: 8px;
+background: var(--card-bg);
+color: var(--text-color);
+font-size: 1rem;
+width: 100%;
+cursor: pointer;
+transition: all 0.3s;
+}
+.account-select:focus {
+outline: none;
+border-color: var(--success-color);
+}
+.transaction-number-display {
+background: linear-gradient(135deg, #667eea, #764ba2);
+color: white;
+padding: 1rem;
+border-radius: 10px;
+text-align: center;
+font-family: 'Courier New', monospace;
+font-size: 1.1rem;
+font-weight: bold;
+letter-spacing: 1px;
+margin-bottom: 1rem;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.sms-indicator {
+display: flex;
+align-items: center;
+gap: 0.5rem;
+background: #d4edda;
+color: #155724;
+padding: 0.8rem;
+border-radius: 8px;
+border: 1px solid #c3e6cb;
+margin: 1rem 0;
+font-size: 0.9rem;
+}
+.sms-indicator i {
+color: var(--success-color);
+}
+.amount-conversion {
+margin-top: 0.5rem;
+padding: 0.5rem;
+background: rgba(52, 152, 219, 0.1);
+border-radius: 6px;
+font-size: 0.9rem;
+color: var(--secondary-color);
+text-align: center;
+}
+.form-select-modern {
+width: 100%;
+padding: 0.8rem;
+border: 2px solid var(--border-color);
+border-radius: 8px;
+font-size: 1rem;
+background: var(--card-bg);
+color: var(--text-color);
+cursor: pointer;
+transition: all 0.3s;
+appearance: none;
+-webkit-appearance: none;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232c3e50' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: left 1rem center;
+padding-left: 2.5rem;
+}
+.form-select-modern:focus {
+outline: none;
+border-color: var(--success-color);
+box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+}
+.donation-summary {
+background: linear-gradient(135deg, #f093fb, #f5576c);
+color: white;
+padding: 1rem;
+border-radius: 10px;
+margin: 1rem 0;
+text-align: center;
+}
+.donation-summary h4 {
+margin-bottom: 0.5rem;
+font-size: 1.1rem;
+}
+.donation-summary .amount {
+font-size: 1.8rem;
+font-weight: bold;
+margin: 0.5rem 0;
+}
+.new-syp-badge {
+display: inline-block;
+background: linear-gradient(135deg, #11998e, #38ef7d);
+color: white;
+padding: 0.2rem 0.6rem;
+border-radius: 12px;
+font-size: 0.75rem;
+font-weight: bold;
+margin-right: 0.3rem;
+}
+.exchange-rate-banner {
+background: linear-gradient(135deg, #667eea, #764ba2);
+color: white;
+padding: 1rem 1.5rem;
+border-radius: 12px;
+margin-bottom: 1.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+.exchange-rate-banner .rate-item {
+text-align: center;
+}
+.exchange-rate-banner .rate-value {
+font-size: 1.4rem;
+font-weight: bold;
+}
+.exchange-rate-banner .rate-label {
+font-size: 0.85rem;
+opacity: 0.9;
+}
+.gold-section-header {
+display: flex;
+align-items: center;
+gap: 1rem;
+margin-bottom: 1rem;
+flex-wrap: wrap;
+}
+.gold-icon {
+width: 50px;
+height: 50px;
+background: linear-gradient(135deg, #f7971e, #ffd200);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.5rem;
+box-shadow: 0 4px 10px rgba(247, 151, 30, 0.4);
+}
+.silver-icon {
+width: 50px;
+height: 50px;
+background: linear-gradient(135deg, #bdc3c7, #ecf0f1);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.5rem;
+box-shadow: 0 4px 10px rgba(189, 195, 199, 0.4);
+}
+.table-section-title {
+font-size: 1.2rem;
+color: var(--primary-color);
+margin: 1.5rem 0 0.8rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+padding-bottom: 0.5rem;
+border-bottom: 2px solid var(--border-color);
+}
+.buy-price { color: var(--success-color); font-weight: bold; }
+.sell-price { color: var(--accent-color); font-weight: bold; }
+.price-cell { font-weight: bold; }
+.commission-tracking {
+background: linear-gradient(135deg, #e74c3c, #c0392b);
+color: white;
+padding: 1.5rem;
+border-radius: 15px;
+margin: 1rem 0;
+}
+.commission-tracking h4 {
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.pending-commission {
+background: rgba(255,255,255,0.15);
+padding: 1rem;
+border-radius: 10px;
+margin: 0.5rem 0;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 0.5rem;
+}
+.pending-commission .status-badge {
+padding: 0.3rem 0.8rem;
+border-radius: 15px;
+font-size: 0.8rem;
+font-weight: bold;
+}
+.status-waiting { background: var(--warning-color); color: #333; }
+.status-confirmed { background: var(--success-color); color: white; }
+.status-overdue { background: var(--accent-color); color: white; }
+.transfer-info {
+background: linear-gradient(135deg, #11998e, #38ef7d);
+color: white;
+padding: 1.5rem;
+border-radius: 15px;
+margin: 1rem 0;
+}
+.transfer-info h4 {
+margin-bottom: 1rem;
+}
+.account-status {
+display: inline-flex;
+align-items: center;
+gap: 0.3rem;
+padding: 0.2rem 0.6rem;
+border-radius: 12px;
+font-size: 0.75rem;
+font-weight: bold;
+}
+.account-active { background: #d4edda; color: #155724; }
+.account-inactive { background: #f8d7da; color: #721c24; }
+</style>
+</head>
+<body>
+<header class="header">
+<div class="header-top">
+<div class="logo">
+<i class="fas fa-route"></i>
+<span>مسارك الآن</span>
+</div>
+<div class="header-controls">
+<button class="btn" onclick="toggleLanguage()">
+<i class="fas fa-language"></i>
+<span id="langText">English</span>
+</button>
+<button class="btn" onclick="toggleTheme()">
+<i class="fas fa-moon" id="themeIcon"></i>
+</button>
+<div class="notification-wrapper">
+<button class="notification-bell" onclick="toggleNotifications(event)">
+<i class="fas fa-bell"></i>
+<span class="notification-badge" id="notificationBadge">0</span>
+</button>
+<div class="notification-dropdown" id="notificationDropdown">
+<div class="notification-header">
+<span>الإشعارات</span>
+<button class="btn btn-secondary" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" onclick="clearNotifications()">مسح الكل</button>
+</div>
+<div id="notificationList">
+<p style="padding: 2rem; text-align: center; color: #999;">لا توجد إشعارات</p>
+</div>
+</div>
+</div>
+<div class="user-menu-wrapper" id="userMenuWrapper">
+<button class="user-menu-btn" onclick="toggleUserMenu(event)" id="userMenuBtn">
+<i class="fas fa-user"></i>
+<span id="userNameDisplay">تسجيل الدخول</span>
+</button>
+<div class="user-dropdown" id="userDropdown">
+<div id="userMenuContent">
+<div class="user-dropdown-item" onclick="openAuthModal()">
+<i class="fas fa-sign-in-alt"></i>
+<span>تسجيل الدخول</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="category-scroll">
+<span class="category-btn active" onclick="showSection('all-sections', event)">
+<i class="fas fa-th"></i> جميع الأقسام
+</span>
+<span class="category-btn" onclick="showSection('ads', event)">
+<i class="fas fa-ad"></i> نشر إعلان
+</span>
+<span class="category-btn" onclick="showSection('cars', event)">
+<i class="fas fa-car"></i> السيارات
+</span>
+<span class="category-btn" onclick="showSection('realestate', event)">
+<i class="fas fa-home"></i> العقارات
+</span>
+<span class="category-btn" onclick="showSection('furniture', event)">
+<i class="fas fa-couch"></i> الأثاث
+</span>
+<span class="category-btn" onclick="showSection('mobiles', event)">
+<i class="fas fa-mobile-alt"></i> الجوالات
+</span>
+<span class="category-btn" onclick="showSection('laptops', event)">
+<i class="fas fa-laptop"></i> اللابتوبات
+</span>
+<span class="category-btn" onclick="showSection('bikes', event)">
+<i class="fas fa-bicycle"></i> الدراجات
+</span>
+<span class="category-btn" onclick="showSection('appliances', event)">
+<i class="fas fa-plug"></i> الكهربائيات
+</span>
+<span class="category-btn" onclick="showSection('electronics', event)">
+<i class="fas fa-microchip"></i> الالكترونات
+</span>
+<span class="category-btn" onclick="showSection('machines', event)">
+<i class="fas fa-industry"></i> المكنات الصناعية
+</span>
+<span class="category-btn" onclick="showSection('courses', event)">
+<i class="fas fa-graduation-cap"></i> الكورسات
+</span>
+<span class="category-btn" onclick="showSection('hospitals', event)">
+<i class="fas fa-hospital"></i> المشافي
+</span>
+<span class="category-btn" onclick="showSection('charities', event)">
+<i class="fas fa-hand-holding-heart"></i> الجمعيات
+</span>
+<span class="category-btn" onclick="showSection('exchange', event)">
+<i class="fas fa-exchange-alt"></i> أسعار العملات
+</span>
+<span class="category-btn" onclick="showSection('gold', event)">
+<i class="fas fa-gem"></i> المجوهرات
+</span>
+<span class="category-btn" onclick="showSection('commission', event)">
+<i class="fas fa-percentage"></i> العمولة
+</span>
+<span class="category-btn" onclick="showSection('transfers', event)">
+<i class="fas fa-money-check-alt"></i> الحوالات
+</span>
+<span class="category-btn" onclick="showSection('about', event)">
+<i class="fas fa-info-circle"></i> من نحن
+</span>
+<span class="category-btn" onclick="showSection('terms', event)">
+<i class="fas fa-file-contract"></i> الشروط
+</span>
+<span class="category-btn" onclick="showSection('faq', event)">
+<i class="fas fa-question-circle"></i> الأسئلة
+</span>
+<span class="category-btn" onclick="showSection('contact', event)">
+<i class="fas fa-envelope"></i> اتصل بنا
+</span>
+</div>
+</header>
+<div class="container">
+<div id="alertContainer"></div>
+
+<!-- All Sections Combined View -->
+<section id="all-sections" class="section active all-sections-view">
+<h2 class="section-title">
+<i class="fas fa-th"></i> جميع الأقسام
+</h2>
+
+<!-- 1. Ad Posting Form -->
+<div class="combined-section" id="combined-ads-form">
+<h3 class="combined-section-title">
+<i class="fas fa-ad"></i> نشر إعلان جديد
+</h3>
+<div class="commission-info">
+<i class="fas fa-info-circle"></i>
+<strong>ملاحظة:</strong> يتم خصم عمولة 0.2% من سعر الإعلان عند إتمام عملية البيع.
+تُرسل العمولة إلى حساب شام كاش المدير (0982657714) باسم "مسارك الآن"
+</div>
+<div class="card">
+<form id="adForm" onsubmit="handleAdSubmit(event)">
+<div class="form-group">
+<label class="form-label">نوع الإعلان *</label>
+<select class="form-control" id="adType" required>
+<option value="">اختر النوع</option>
+<option value="sell">بيع</option>
+<option value="buy">شراء</option>
+<option value="exchange">تبادل</option>
+<option value="service">خدمة</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">القسم *</label>
+<select class="form-control" id="adCategory" required>
+<option value="">اختر القسم</option>
+<option value="cars">سيارات</option>
+<option value="realestate">عقارات</option>
+<option value="furniture">أثاث منزلي</option>
+<option value="mobiles">جوالات</option>
+<option value="laptops">لابتوبات</option>
+<option value="bikes">دراجات</option>
+<option value="appliances">كهربائيات</option>
+<option value="electronics">الكترونيات</option>
+<option value="machines">مكنات صناعية</option>
+<option value="courses">كورسات مهنية وتعليمية</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">عنوان الإعلان *</label>
+<input type="text" class="form-control" id="adTitle" required placeholder="أدخل عنوان الإعلان">
+</div>
+<div class="form-group">
+<label class="form-label">رقم العميل *</label>
+<input type="tel" class="form-control" id="clientPhone" required pattern="09[0-9]{8}" placeholder="09xxxxxxxx">
+</div>
+<div class="form-group">
+<label class="form-label">رقم الواتساب *</label>
+<input type="tel" class="form-control" id="whatsappNumber" required pattern="09[0-9]{8}" placeholder="09xxxxxxxx">
+</div>
+<div class="form-group">
+<label class="form-label">السعر *</label>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+<input type="number" class="form-control" id="adPrice" required placeholder="أدخل السعر">
+<select class="form-control" id="currency" required>
+<option value="SYP">ليرة سورية</option>
+<option value="USD">دولار أمريكي</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">وصف الإعلان (المواصفات) *</label>
+<textarea class="form-control" id="adDescription" required placeholder="أدخل وصف تفصيلي للإعلان مع المواصفات"></textarea>
+</div>
+<div class="form-group">
+<label class="form-label">
+<input type="checkbox" id="isVIP">
+إعلان VIP (يظهر أولاً + 5 نجوم)
+</label>
+</div>
+<div class="form-group">
+<label class="form-label">الصور (1-10 صور) *</label>
+<div class="image-upload" onclick="document.getElementById('adImages').click()">
+<i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--secondary-color);"></i>
+<p>اضغط لرفع الصور</p>
+<small>يمكنك رفع حتى 10 صور</small>
+</div>
+<input type="file" id="adImages" multiple accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+<div class="image-preview" id="imagePreview"></div>
+</div>
+<div class="form-group">
+<label class="form-label">الفيديو (اختياري)</label>
+<button type="button" class="btn btn-primary" onclick="showVideoStudioDirect()" style="margin-top: 1rem;">
+<i class="fas fa-video"></i> فتح الاستديو المباشر
+</button>
+<div class="video-studio" id="videoStudio" style="display: none;">
+<div class="video-preview" id="videoPreview">
+<i class="fas fa-video"></i>
+</div>
+<div style="margin-top: 1rem; text-align: center;">
+<button type="button" class="btn btn-primary" onclick="startRecording()">
+<i class="fas fa-record-vinyl"></i> بدء التسجيل
+</button>
+<button type="button" class="btn btn-danger" onclick="stopRecording()" style="display: none;" id="stopRecord">
+<i class="fas fa-stop"></i> إيقاف التسجيل
+</button>
+</div>
+</div>
+</div>
+<div class="form-group">
+<button type="button" class="btn btn-primary" onclick="previewAd()">
+<i class="fas fa-eye"></i> معاينة الإعلان
+</button>
+<button type="submit" class="btn btn-success">
+<i class="fas fa-paper-plane"></i> نشر الإعلان مجاناً
+</button>
+</div>
+</form>
+</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- 2. Commercial Sections -->
+<div class="combined-section" id="combined-commercial">
+<h3 class="combined-section-title">
+<i class="fas fa-store"></i> الأقسام التجارية
+</h3>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-car"></i> السيارات
+</h4>
+<div class="ads-grid" id="combined-carsGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-home"></i> العقارات
+</h4>
+<div class="ads-grid" id="combined-realestateGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-couch"></i> الأثاث المنزلي
+</h4>
+<div class="ads-grid" id="combined-furnitureGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-mobile-alt"></i> الجوالات
+</h4>
+<div class="ads-grid" id="combined-mobilesGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-laptop"></i> اللابتوبات
+</h4>
+<div class="ads-grid" id="combined-laptopsGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-bicycle"></i> الدراجات
+</h4>
+<div class="ads-grid" id="combined-bikesGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-plug"></i> الكهربائيات
+</h4>
+<div class="ads-grid" id="combined-appliancesGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-microchip"></i> الالكترونات
+</h4>
+<div class="ads-grid" id="combined-electronicsGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-industry"></i> المكنات الصناعية
+</h4>
+<div class="ads-grid" id="combined-machinesGrid"></div>
+</div>
+<div style="margin-bottom: 2rem;">
+<h4 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.4rem;">
+<i class="fas fa-graduation-cap"></i> الكورسات المهنية والتعليمية
+</h4>
+<div class="ads-grid" id="combined-coursesGrid"></div>
+</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- 3. Hospitals -->
+<div class="combined-section" id="combined-hospitals">
+<h3 class="combined-section-title">
+<i class="fas fa-hospital"></i> المشافي والتبرعات الطبية
+</h3>
+<div id="combined-hospitalsContainer"></div>
+</div>
+
+<hr class="section-divider">
+
+<!-- 4. Charities -->
+<div class="combined-section" id="combined-charities">
+<h3 class="combined-section-title">
+<i class="fas fa-hand-holding-heart"></i> الجمعيات الخيرية
+</h3>
+<div id="combined-charitiesContainer"></div>
+</div>
+
+<hr class="section-divider">
+
+<!-- 5. Exchange Rates -->
+<div class="combined-section" id="combined-exchange">
+<h3 class="combined-section-title">
+<i class="fas fa-exchange-alt"></i> أسعار العملات
+</h3>
+<div class="exchange-rate-banner">
+<div class="rate-item">
+<div class="rate-label">سعر الدولار (ل.س قديمة)</div>
+<div class="rate-value" id="bannerUsdOld">13,000</div>
+</div>
+<div class="rate-item">
+<div class="rate-label">سعر الدولار (ل.س جديدة)</div>
+<div class="rate-value" id="bannerUsdNew">130</div>
+</div>
+<div class="rate-item">
+<div class="rate-label">معامل التحويل</div>
+<div class="rate-value">1 ل.س.ج = <span id="bannerDivisor">100</span> ل.س</div>
+</div>
+</div>
+<div class="bot-indicator">يتم التحديث كل 15 دقيقة</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>العملة</th>
+<th>العلم</th>
+<th>الرمز</th>
+<th>شراء (ل.س)</th>
+<th>بيع (ل.س)</th>
+<th>شراء (ل.س.ج)</th>
+<th>بيع (ل.س.ج)</th>
+<th>التغير</th>
+</tr>
+</thead>
+<tbody id="combined-exchangeBody"></tbody>
+</table>
+</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- 6. Gold Prices -->
+<div class="combined-section" id="combined-gold">
+<h3 class="combined-section-title">
+<i class="fas fa-gem"></i> أسعار المجوهرات الثمينة
+</h3>
+<div class="bot-indicator">يتم التحديث كل 15 دقيقة</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>النوع</th>
+<th>العيار</th>
+<th>شراء (ل.س)</th>
+<th>بيع (ل.س)</th>
+<th>شراء (USD)</th>
+<th>بيع (USD)</th>
+<th>شراء (ل.س.ج)</th>
+<th>بيع (ل.س.ج)</th>
+<th>التغير</th>
+</tr>
+</thead>
+<tbody id="combined-goldBody"></tbody>
+</table>
+</div>
+</div>
+</section>
+
+<!-- Individual Ad Posting Section -->
+<section id="ads" class="section">
+<h2 class="section-title">
+<i class="fas fa-ad"></i> نشر إعلان جديد
+</h2>
+<div class="commission-info">
+<i class="fas fa-info-circle"></i>
+<strong>ملاحظة:</strong> يتم خصم عمولة 0.2% من سعر الإعلان عند إتمام عملية البيع.
+تُرسل العمولة إلى حساب شام كاش المدير (0982657714) باسم "مسارك الآن"
+</div>
+<div class="filter-panel">
+<h3><i class="fas fa-filter"></i> فلترة متقدمة</h3>
+<div class="filter-grid">
+<div>
+<label class="form-label">القسم</label>
+<select class="form-control" id="filterCategory" onchange="applyFilters()">
+<option value="">الكل</option>
+<option value="cars">سيارات</option>
+<option value="realestate">عقارات</option>
+<option value="furniture">أثاث</option>
+<option value="mobiles">جوالات</option>
+<option value="laptops">لابتوبات</option>
+<option value="bikes">دراجات</option>
+<option value="appliances">كهربائيات</option>
+<option value="electronics">الكترونات</option>
+<option value="machines">مكنات صناعية</option>
+<option value="courses">كورسات</option>
+</select>
+</div>
+<div>
+<label class="form-label">النوع</label>
+<select class="form-control" id="filterType" onchange="applyFilters()">
+<option value="">الكل</option>
+<option value="sell">بيع</option>
+<option value="buy">شراء</option>
+<option value="exchange">تبادل</option>
+<option value="service">خدمة</option>
+</select>
+</div>
+<div>
+<label class="form-label">السعر من</label>
+<input type="number" class="form-control" id="filterPriceMin" placeholder="0" onchange="applyFilters()">
+</div>
+<div>
+<label class="form-label">السعر إلى</label>
+<input type="number" class="form-control" id="filterPriceMax" placeholder="∞" onchange="applyFilters()">
+</div>
+<div>
+<label class="form-label">العملة</label>
+<select class="form-control" id="filterCurrency" onchange="applyFilters()">
+<option value="">الكل</option>
+<option value="USD">دولار</option>
+<option value="SYP">ليرة سورية</option>
+</select>
+</div>
+<div>
+<label class="form-label">الترتيب</label>
+<select class="form-control" id="filterSort" onchange="applyFilters()">
+<option value="newest">الأحدث أولاً</option>
+<option value="oldest">الأقدم أولاً</option>
+<option value="price-low">السعر: من الأقل</option>
+<option value="price-high">السعر: من الأعلى</option>
+<option value="vip">VIP أولاً</option>
+</select>
+</div>
+</div>
+<div class="filter-actions">
+<button class="btn btn-secondary" onclick="resetFilters()">
+<i class="fas fa-redo"></i> إعادة تعيين
+</button>
+</div>
+</div>
+<div class="search-box">
+<input type="text" id="adSearch" placeholder="ابحث في الإعلانات..." onkeyup="searchAds()">
+<i class="fas fa-search"></i>
+</div>
+<div class="ads-grid" id="adsGrid"></div>
+</section>
+
+<!-- Individual Sections -->
+<section id="hospitals" class="section">
+<h2 class="section-title"><i class="fas fa-hospital"></i> المشافي والتبرعات الطبية</h2>
+<div id="hospitalsContainer"></div>
+</section>
+
+<section id="charities" class="section">
+<h2 class="section-title"><i class="fas fa-hand-holding-heart"></i> الجمعيات الخيرية</h2>
+<div id="charitiesContainer"></div>
+</section>
+
+<section id="exchange" class="section">
+<h2 class="section-title"><i class="fas fa-exchange-alt"></i> أسعار العملات</h2>
+<div class="exchange-rate-banner">
+<div class="rate-item">
+<div class="rate-label">سعر الدولار (ل.س قديمة)</div>
+<div class="rate-value" id="bannerUsdOld2">13,000</div>
+</div>
+<div class="rate-item">
+<div class="rate-label">سعر الدولار (ل.س جديدة)</div>
+<div class="rate-value" id="bannerUsdNew2">130</div>
+</div>
+<div class="rate-item">
+<div class="rate-label">معامل التحويل</div>
+<div class="rate-value">1 ل.س.ج = <span id="bannerDivisor2">100</span> ل.س</div>
+</div>
+</div>
+<div class="bot-indicator">يتم التحديث كل 15 دقيقة</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>العملة</th>
+<th>العلم</th>
+<th>الرمز</th>
+<th>شراء (ل.س)</th>
+<th>بيع (ل.س)</th>
+<th>شراء (ل.س.ج)</th>
+<th>بيع (ل.س.ج)</th>
+<th>التغير</th>
+</tr>
+</thead>
+<tbody id="exchangeBody"></tbody>
+</table>
+</div>
+</section>
+
+<section id="gold" class="section">
+<h2 class="section-title"><i class="fas fa-gem"></i> أسعار المجوهرات الثمينة</h2>
+<div class="bot-indicator">يتم التحديث كل 15 دقيقة</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>النوع</th>
+<th>العيار</th>
+<th>شراء (ل.س)</th>
+<th>بيع (ل.س)</th>
+<th>شراء (USD)</th>
+<th>بيع (USD)</th>
+<th>شراء (ل.س.ج)</th>
+<th>بيع (ل.س.ج)</th>
+<th>التغير</th>
+</tr>
+</thead>
+<tbody id="goldBody"></tbody>
+</table>
+</div>
+</section>
+
+<!-- Commission Section - Enhanced with Tracking Bot -->
+<section id="commission" class="section">
+<h2 class="section-title"><i class="fas fa-percentage"></i> نظام العمولة (0.2%)</h2>
+
+<div class="commission-bot">
+<h3><i class="fas fa-robot"></i> بوت إدارة العمولة وتتبع المدفوعات</h3>
+<p>بوت ذكي لإدارة وتتبع العمولات من عمليات البيع مع نظام متابعة تلقائي</p>
+<div class="commission-stats">
+<div class="stat-card">
+<div>إجمالي المبيعات</div>
+<div class="stat-value" id="totalSales">0</div>
+<div>عملية</div>
+</div>
+<div class="stat-card">
+<div>إجمالي العمولة</div>
+<div class="stat-value" id="totalCommission">$0</div>
+<div>دولار</div>
+</div>
+<div class="stat-card">
+<div>عمليات اليوم</div>
+<div class="stat-value" id="todaySales">0</div>
+<div>عملية</div>
+</div>
+<div class="stat-card">
+<div>عمولات معلقة</div>
+<div class="stat-value" id="pendingCommissions">0</div>
+<div>عملية</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3><i class="fas fa-info-circle"></i> كيفية عمل نظام العمولة</h3>
+<ul style="margin-top: 1rem; padding-right: 1.5rem; line-height: 2;">
+<li>عند إتمام عملية بيع لأي إعلان في الأقسام التجارية، يتم تسجيل عمولة 0.2% تلقائياً</li>
+<li>يُرسل إشعار واتساب للمدير فور تأكيد البيع يحتوي على:
+<ul>
+<li>اسم المنتج</li>
+<li>نوع الإعلان (بيع/شراء/تبادل/خدمة)</li>
+<li>سعر الإعلان</li>
+<li>المواصفات</li>
+<li>"مسارك الآن"</li>
+<li>رابط الإعلان</li>
+<li>حالة البيع</li>
+<li>مبلغ العمولة المطلوب</li>
+</ul>
+</li>
+<li>يُرسل المبلغ عبر شام كاش المدير (0982657714) باسم "مسارك الآن"</li>
+<li>بوت المتابعة يتحقق تلقائياً من وصول العمولة خلال 24-72 ساعة</li>
+</ul>
+</div>
+
+<!-- Commission Tracking Bot -->
+<div class="commission-tracking">
+<h4><i class="fas fa-robot"></i> بوت متابعة العمولات المعلقة</h4>
+<p style="margin-bottom: 1rem; opacity: 0.9;">
+هذا البوت يتابع تلقائياً العمولات التي لم تُدفع بعد:
+</p>
+<ul style="padding-right: 1.5rem; line-height: 2; margin-bottom: 1rem;">
+<li>⏰ بعد 24 ساعة: تذكير أول عبر واتساب للبائع</li>
+<li>⏰ بعد 48 ساعة: تذكير ثاني + إشعار للمدير</li>
+<li>⏰ بعد 72 ساعة: تعليق الإعلان + تحذير للبائع</li>
+<li>⏰ بعد 7 أيام: حظر مؤقت للبائع + إشعار نهائي</li>
+</ul>
+<div id="pendingCommissionsList"></div>
+<button class="btn btn-warning" onclick="runCommissionBot()" style="margin-top: 1rem;">
+<i class="fas fa-play"></i> تشغيل بوت المتابعة الآن
+</button>
+</div>
+
+<div class="card">
+<h3><i class="fas fa-history"></i> سجل العمليات</h3>
+<div id="commissionLog" style="margin-top: 1rem;">
+<p style="text-align: center; color: #999;">لا توجد عمليات حالياً</p>
+</div>
+</div>
+</section>
+
+<!-- Transfers Section - NEW -->
+<section id="transfers" class="section">
+<h2 class="section-title"><i class="fas fa-money-check-alt"></i> الحوالات المالية</h2>
+
+<div class="transfer-info">
+<h4><i class="fas fa-info-circle"></i> نظام الحوالات المالية</h4>
+<p style="margin-bottom: 1rem;">
+يتم استقبال جميع الحوالات المالية على الرقم الخاص بالمدير: <strong>0982657714 (سيرياتيل)</strong>
+</p>
+<p style="opacity: 0.9;">
+يجب ذكر: "مسارك الآن" + نوع التبرع/الحوالة + التفاصيل
+</p>
+</div>
+
+<div class="card">
+<h3><i class="fas fa-building-columns"></i> حوالات الهرم والفؤاد</h3>
+<p style="margin: 1rem 0; color: #666;">
+يتم إرسال الحوالات المالية عبر شركتي الهرم والفؤاد إلى رقم سيرياتيل الخاص بالمدير
+</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+<div class="card" style="margin-bottom: 0; border: 2px solid var(--warning-color);">
+<h4 style="color: var(--warning-color);"><i class="fas fa-landmark"></i> حوالات الهرم</h4>
+<ul style="margin-top: 1rem; padding-right: 1.5rem; line-height: 2;">
+<li><strong>الرقم المستلم:</strong> 0982657714</li>
+<li><strong>الشبكة:</strong> سيرياتيل</li>
+<li><strong>الاسم:</strong> مسارك الآن</li>
+<li><strong>الاستخدام:</strong> تبرعات + عمولات + مدفوعات</li>
+</ul>
+<div class="form-group" style="margin-top: 1rem;">
+<label class="form-label">نوع الحوالة</label>
+<select class="form-control" id="haramTransferType">
+<option value="donation">تبرع</option>
+<option value="commission">عمولة إعلان</option>
+<option value="payment">دفعة شراء</option>
+<option value="other">أخرى</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">المبلغ</label>
+<input type="number" class="form-control" id="haramAmount" placeholder="أدخل المبلغ">
+</div>
+<div class="form-group">
+<label class="form-label">التفاصيل</label>
+<textarea class="form-control" id="haramDetails" placeholder="اذكر نوع التبرع أو الإعلان والتفاصيل"></textarea>
+</div>
+<button class="btn btn-warning" onclick="sendHaramTransfer()">
+<i class="fas fa-paper-plane"></i> تسجيل حوالة الهرم
+</button>
+</div>
+<div class="card" style="margin-bottom: 0; border: 2px solid var(--secondary-color);">
+<h4 style="color: var(--secondary-color);"><i class="fas fa-landmark"></i> حوالات الفؤاد</h4>
+<ul style="margin-top: 1rem; padding-right: 1.5rem; line-height: 2;">
+<li><strong>الرقم المستلم:</strong> 0982657714</li>
+<li><strong>الشبكة:</strong> سيرياتيل</li>
+<li><strong>الاسم:</strong> مسارك الآن</li>
+<li><strong>الاستخدام:</strong> تبرعات + عمولات + مدفوعات</li>
+</ul>
+<div class="form-group" style="margin-top: 1rem;">
+<label class="form-label">نوع الحوالة</label>
+<select class="form-control" id="fouadTransferType">
+<option value="donation">تبرع</option>
+<option value="commission">عمولة إعلان</option>
+<option value="payment">دفعة شراء</option>
+<option value="other">أخرى</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">المبلغ</label>
+<input type="number" class="form-control" id="fouadAmount" placeholder="أدخل المبلغ">
+</div>
+<div class="form-group">
+<label class="form-label">التفاصيل</label>
+<textarea class="form-control" id="fouadDetails" placeholder="اذكر نوع التبرع أو الإعلان والتفاصيل"></textarea>
+</div>
+<button class="btn btn-primary" onclick="sendFouadTransfer()">
+<i class="fas fa-paper-plane"></i> تسجيل حوالة الفؤاد
+</button>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3><i class="fas fa-list-check"></i> سجل الحوالات</h3>
+<div id="transfersLog" style="margin-top: 1rem;">
+<p style="text-align: center; color: #999;">لا توجد حوالات مسجلة</p>
+</div>
+</div>
+</section>
+
+<!-- About Page -->
+<section id="about" class="section">
+<h2 class="section-title"><i class="fas fa-info-circle"></i> من نحن</h2>
+<div class="info-page">
+<h2>منصة مسارك الآن</h2>
+<p>مرحباً بك في <strong>مسارك الآن</strong>، المنصة السورية المتكاملة للإعلانات والخدمات الإنسانية.</p>
+<h3>🎯 رؤيتنا</h3>
+<p>أن نكون المنصة الرائدة في سوريا التي تربط بين الأفراد والتجار وتسهل عمليات البيع والشراء بأمان وشفافية.</p>
+<h3>💡 رسالتنا</h3>
+<p>تقديم منصة سهلة الاستخدام تخدم جميع فئات المجتمع، مع دعم العمل الإنساني.</p>
+<h3>✨ خدماتنا</h3>
+<ul>
+<li><strong>الإعلانات المبوبة:</strong> نشر إعلانات مجانية في 10 أقسام مختلفة</li>
+<li><strong>نظام VIP:</strong> إعلانات مميزة تظهر في المقدمة</li>
+<li><strong>استديو الفيديو:</strong> تسجيل فيديو مباشر للإعلانات</li>
+<li><strong>التبرعات الطبية:</strong> دعم 6 مشافي سورية</li>
+<li><strong>الجمعيات الخيرية:</strong> دعم 3 جمعيات إنسانية</li>
+<li><strong>أسعار العملات والذهب:</strong> تحديث كل 15 دقيقة</li>
+<li><strong>نظام عمولة شفاف:</strong> 0.2% فقط عند إتمام البيع</li>
+<li><strong>حوالات الهرم والفؤاد:</strong> استقبال على رقم سيرياتيل 0982657714</li>
+</ul>
+<h3>📞 تواصل معنا</h3>
+<ul>
+<li>الهاتف: 0982657714</li>
+<li>واتساب: 0982657714</li>
+<li>MTN: 0958357949</li>
+</ul>
+</div>
+</section>
+
+<!-- Terms Page -->
+<section id="terms" class="section">
+<h2 class="section-title"><i class="fas fa-file-contract"></i> الشروط والأحكام</h2>
+<div class="info-page">
+<h2>شروط استخدام منصة مسارك الآن</h2>
+<p>آخر تحديث: أغسطس 2026</p>
+<h3>1. قبول الشروط</h3>
+<p>باستخدامك لمنصة مسارك الآن، فإنك توافق على هذه الشروط والأحكام.</p>
+<h3>2. التسجيل والحسابات</h3>
+<ul>
+<li>يجب أن يكون عمر المستخدم 18 عاماً أو أكثر</li>
+<li>المعلومات المقدمة يجب أن تكون صحيحة ودقيقة</li>
+<li>كل مستخدم مسؤول عن الحفاظ على سرية حسابه</li>
+</ul>
+<h3>3. نشر الإعلانات</h3>
+<ul>
+<li>الإعلانات مجانية تماماً</li>
+<li>يجب أن يكون المحتوى قانونياً</li>
+<li>يمنع نشر محتوى مسيء أو احتيالي</li>
+</ul>
+<h3>4. نظام العمولة</h3>
+<ul>
+<li>يتم خصم عمولة 0.2% فقط عند إتمام عملية البيع</li>
+<li>العمولة تُحسب على السعر النهائي للصفقة</li>
+<li>تُرسل العمولة إلى حساب شام كاش المدير (0982657714)</li>
+<li>يجب ذكر "مسارك الآن" + اسم الإعلان عند التحويل</li>
+</ul>
+<h3>5. نظام التحذيرات والحظر</h3>
+<ul>
+<li><strong>التحذير الأول:</strong> بطاقة حمراء وتنبيه</li>
+<li><strong>التحذير الثاني:</strong> حظر مؤقت لمدة 12 ساعة</li>
+<li><strong>التحذير الثالث:</strong> حظر نهائي</li>
+</ul>
+</div>
+</section>
+
+<!-- FAQ Page -->
+<section id="faq" class="section">
+<h2 class="section-title"><i class="fas fa-question-circle"></i> الأسئلة الشائعة</h2>
+<div class="info-page">
+<h2>الأسئلة الأكثر شيوعاً</h2>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>كيف أنشر إعلاناً على المنصة؟</span>
+<i class="fas fa-chevron-down"></i>
+</div>
+<div class="faq-answer">
+<p>لنشر إعلان:</p>
+<ol>
+<li>سجل دخولك إلى حسابك</li>
+<li>انتقل إلى قسم "نشر إعلان"</li>
+<li>املأ النموذج وارفع الصور</li>
+<li>اضغط على "نشر الإعلان مجاناً"</li>
+</ol>
+</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>هل نشر الإعلانات مجاني؟</span>
+<i class="fas fa-chevron-down"></i>
+</div>
+<div class="faq-answer">
+<p>نعم، نشر الإعلانات مجاني تماماً. يتم خصم عمولة 0.2% فقط عند إتمام عملية البيع.</p>
+</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>ما هو إعلان VIP؟</span>
+<i class="fas fa-chevron-down"></i>
+</div>
+<div class="faq-answer">
+<p>إعلان VIP هو إعلان مميز يظهر في مقدمة نتائج البحث مع تقييم 5 نجوم.</p>
+</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>كيف يتم حساب العمولة؟</span>
+<i class="fas fa-chevron-down"></i>
+</div>
+<div class="faq-answer">
+<p>العمولة 0.2% من سعر البيع النهائي. مثلاً: بيع 1000$ = عمولة 2$ فقط.</p>
+</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>كيف أدفع العمولة بعد البيع؟</span>
+<i class="fas fa-chevron-down"></i>
+</div>
+<div class="faq-answer">
+<p>بعد تأكيد البيع، أرسل مبلغ العمولة إلى:</p>
+<ul>
+<li>📱 شام كاش المدير: 0982657714</li>
+<li>الاسم: مسارك الآن</li>
+<li>اذكر: اسم الإعلان + نوعه</li>
+</ul>
+</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>ما هي طرق الدفع المتاحة؟</span>
+<i class="fas fa-chevron-down"></i>
+</div>
+<div class="faq-answer">
+<ul>
+<li>شام كاش - المدير: 0982657714</li>
+<li>شام كاش - مسارك الآن 2: 0982657714</li>
+<li>سيريتل كاش: 0982657714</li>
+<li>MTN كاش: 0958357949</li>
+<li>حوالات الهرم: 0982657714 (سيرياتيل)</li>
+<li>حوالات الفؤاد: 0982657714 (سيرياتيل)</li>
+</ul>
+</div>
+</div>
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>ماذا لو لم أرسل العمولة بعد البيع؟</span>
+<i class="fas fa-chevron-down"></i>
+</div>
+<div class="faq-answer">
+<p>بوت المتابعة سيتابع تلقائياً:</p>
+<ol>
+<li>بعد 24 ساعة: تذكير واتساب</li>
+<li>بعد 48 ساعة: تذكير ثاني + إشعار للمدير</li>
+<li>بعد 72 ساعة: تعليق الإعلان</li>
+<li>بعد 7 أيام: حظر مؤقت</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Contact Page -->
+<section id="contact" class="section">
+<h2 class="section-title"><i class="fas fa-envelope"></i> اتصل بنا</h2>
+<div class="info-page">
+<h2>تواصل معنا</h2>
+<h3>📞 معلومات الاتصال</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+<div class="card" style="margin-bottom: 0;">
+<h4><i class="fas fa-phone" style="color: var(--success-color);"></i> الهاتف</h4>
+<p style="margin-top: 0.5rem;">
+<a href="tel:0982657714" style="color: var(--secondary-color); text-decoration: none;">0982657714</a>
+</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<h4><i class="fab fa-whatsapp" style="color: var(--success-color);"></i> واتساب</h4>
+<p style="margin-top: 0.5rem;">
+<a href="https://wa.me/963982657714" style="color: var(--secondary-color); text-decoration: none;">0982657714</a>
+</p>
+</div>
+<div class="card" style="margin-bottom: 0;">
+<h4><i class="fas fa-sim-card" style="color: var(--warning-color);"></i> MTN كاش</h4>
+<p style="margin-top: 0.5rem;">0958357949</p>
+</div>
+</div>
+<h3>✉️ أرسل لنا رسالة</h3>
+<div class="contact-form">
+<form onsubmit="submitContactForm(event)">
+<div class="form-group">
+<label class="form-label">الاسم *</label>
+<input type="text" class="form-control" required>
+</div>
+<div class="form-group">
+<label class="form-label">البريد الإلكتروني أو رقم الهاتف *</label>
+<input type="text" class="form-control" required>
+</div>
+<div class="form-group">
+<label class="form-label">الموضوع *</label>
+<select class="form-control" required>
+<option value="">اختر الموضوع</option>
+<option value="inquiry">استفسار</option>
+<option value="suggestion">اقتراح</option>
+<option value="complaint">شكوى</option>
+<option value="other">أخرى</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">الرسالة *</label>
+<textarea class="form-control" required placeholder="اكتب رسالتك هنا..."></textarea>
+</div>
+<button type="submit" class="btn btn-primary">
+<i class="fas fa-paper-plane"></i> إرسال الرسالة
+</button>
+</form>
+</div>
+</div>
+</section>
+
+<!-- Individual Category Sections -->
+<section id="cars" class="section">
+<h2 class="section-title"><i class="fas fa-car"></i> سيارات</h2>
+<div class="ads-grid" id="carsGrid"></div>
+</section>
+<section id="realestate" class="section">
+<h2 class="section-title"><i class="fas fa-home"></i> عقارات</h2>
+<div class="ads-grid" id="realestateGrid"></div>
+</section>
+<section id="furniture" class="section">
+<h2 class="section-title"><i class="fas fa-couch"></i> أثاث منزلي</h2>
+<div class="ads-grid" id="furnitureGrid"></div>
+</section>
+<section id="mobiles" class="section">
+<h2 class="section-title"><i class="fas fa-mobile-alt"></i> جوالات</h2>
+<div class="ads-grid" id="mobilesGrid"></div>
+</section>
+<section id="laptops" class="section">
+<h2 class="section-title"><i class="fas fa-laptop"></i> لابتوبات</h2>
+<div class="ads-grid" id="laptopsGrid"></div>
+</section>
+<section id="bikes" class="section">
+<h2 class="section-title"><i class="fas fa-bicycle"></i> دراجات</h2>
+<div class="ads-grid" id="bikesGrid"></div>
+</section>
+<section id="appliances" class="section">
+<h2 class="section-title"><i class="fas fa-plug"></i> كهربائيات</h2>
+<div class="ads-grid" id="appliancesGrid"></div>
+</section>
+<section id="electronics" class="section">
+<h2 class="section-title"><i class="fas fa-microchip"></i> الكترونيات</h2>
+<div class="ads-grid" id="electronicsGrid"></div>
+</section>
+<section id="machines" class="section">
+<h2 class="section-title"><i class="fas fa-industry"></i> مكنات صناعية</h2>
+<div class="ads-grid" id="machinesGrid"></div>
+</section>
+<section id="courses" class="section">
+<h2 class="section-title"><i class="fas fa-graduation-cap"></i> كورسات مهنية وتعليمية</h2>
+<div class="ads-grid" id="coursesGrid"></div>
+</section>
+
+<!-- Admin Panel -->
+<section id="admin" class="section">
+<h2 class="section-title"><i class="fas fa-user-shield"></i> لوحة تحكم المدير</h2>
+<div class="admin-stats">
+<div class="admin-stat-card">
+<div>إجمالي الإعلانات</div>
+<div class="admin-stat-value" id="adminTotalAds">0</div>
+</div>
+<div class="admin-stat-card">
+<div>المبيعات</div>
+<div class="admin-stat-value" id="adminTotalSales">0</div>
+</div>
+<div class="admin-stat-card">
+<div>الشكاوى</div>
+<div class="admin-stat-value" id="adminTotalComplaints">0</div>
+</div>
+<div class="admin-stat-card">
+<div>المستخدمين</div>
+<div class="admin-stat-value" id="adminTotalUsers">0</div>
+</div>
+</div>
+<div class="admin-tabs">
+<div class="admin-tab active" onclick="showAdminTab('ads-management', event)">إدارة الإعلانات</div>
+<div class="admin-tab" onclick="showAdminTab('users-management', event)">المستخدمين</div>
+<div class="admin-tab" onclick="showAdminTab('complaints-management', event)">الشكاوى</div>
+<div class="admin-tab" onclick="showAdminTab('commissions-management', event)">العمولات</div>
+</div>
+<div class="admin-content active" id="ads-management">
+<div class="card">
+<h3>جميع الإعلانات</h3>
+<div id="adminAdsList" style="margin-top: 1rem;"></div>
+</div>
+</div>
+<div class="admin-content" id="users-management">
+<div class="card">
+<h3>قائمة المستخدمين</h3>
+<div id="adminUsersList" style="margin-top: 1rem;"></div>
+</div>
+</div>
+<div class="admin-content" id="complaints-management">
+<div class="card">
+<h3>الشكاوى المقدمة</h3>
+<div id="adminComplaintsList" style="margin-top: 1rem;"></div>
+</div>
+</div>
+<div class="admin-content" id="commissions-management">
+<div class="card">
+<h3>سجل العمولات</h3>
+<div id="adminCommissionsList" style="margin-top: 1rem;"></div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+<i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Chat Bot -->
+<button class="chat-toggle" onclick="toggleChat()">
+<i class="fas fa-comments"></i>
+</button>
+<div class="chat-bot" id="chatBot">
+<div class="chat-header">
+<div>
+<i class="fas fa-robot"></i>
+<span id="chatBotTitle">مساعد مسارك الآن</span>
+</div>
+<span class="close-modal" onclick="toggleChat()">
+<i class="fas fa-times"></i>
+</span>
+</div>
+<div class="chat-body" id="chatBody">
+<div class="chat-message bot">
+مرحباً بك! أنا هنا لمساعدتك. كيف يمكنني خدمتك؟
+</div>
+</div>
+<div class="chat-quick-replies" id="chatQuickReplies">
+<button class="quick-reply-btn" onclick="sendQuickReply('كيف أنشر إعلان؟')">نشر إعلان</button>
+<button class="quick-reply-btn" onclick="sendQuickReply('كيف أتبرع؟')">التبرع</button>
+<button class="quick-reply-btn" onclick="sendQuickReply('أسعار العملات')">العملات</button>
+<button class="quick-reply-btn" onclick="sendQuickReply('العمولة')">العمولة</button>
+<button class="quick-reply-btn" onclick="sendQuickReply('الحوالات')">الحوالات</button>
+</div>
+<div class="chat-input">
+<input type="text" id="chatInput" placeholder="اكتب رسالتك..." onkeypress="handleChatKeypress(event)">
+<button class="btn btn-primary" onclick="sendMessage()">
+<i class="fas fa-paper-plane"></i>
+</button>
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-content">
+<div class="footer-section">
+<h3>تواصل مع المدير</h3>
+<p>
+<i class="fas fa-phone"></i>
+<a href="tel:0982657714" style="color: white; text-decoration: none;">0982657714</a>
+</p>
+<p>
+<i class="fab fa-whatsapp"></i>
+<a href="https://wa.me/963982657714" style="color: white; text-decoration: none;">واتساب</a>
+</p>
+</div>
+<div class="footer-section">
+<h3>روابط سريعة</h3>
+<ul>
+<li onclick="showSection('about', event)"><i class="fas fa-info-circle"></i> من نحن</li>
+<li onclick="showSection('terms', event)"><i class="fas fa-file-contract"></i> الشروط والأحكام</li>
+<li onclick="showSection('faq', event)"><i class="fas fa-question-circle"></i> الأسئلة الشائعة</li>
+<li onclick="showSection('contact', event)"><i class="fas fa-envelope"></i> اتصل بنا</li>
+<li onclick="showSection('transfers', event)"><i class="fas fa-money-check-alt"></i> الحوالات المالية</li>
+</ul>
+</div>
+<div class="footer-section">
+<h3>الأقسام</h3>
+<ul>
+<li><i class="fas fa-ad"></i> الإعلانات المبوبة</li>
+<li><i class="fas fa-hospital"></i> التبرعات الطبية</li>
+<li><i class="fas fa-hand-holding-heart"></i> الجمعيات الخيرية</li>
+<li><i class="fas fa-exchange-alt"></i> أسعار العملات والذهب</li>
+<li><i class="fas fa-money-check-alt"></i> حوالات الهرم والفؤاد</li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2026 مسارك الآن - جميع الحقوق محفوظة</p>
+</div>
+</footer>
+
+<!-- Auth Modal -->
+<div class="modal" id="authModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="authModalTitle">تسجيل الدخول</h2>
+<span class="close-modal" onclick="closeModal('authModal')">
+<i class="fas fa-times"></i>
+</span>
+</div>
+<div class="auth-tabs">
+<div class="auth-tab active" onclick="switchAuthTab('login', event)">تسجيل الدخول</div>
+<div class="auth-tab" onclick="switchAuthTab('register', event)">حساب جديد</div>
+</div>
+<div class="auth-form active" id="loginForm">
+<form onsubmit="handleLogin(event)">
+<div class="form-group">
+<label class="form-label">رقم الهاتف</label>
+<input type="tel" class="form-control" id="loginPhone" required pattern="09[0-9]{8}" placeholder="09xxxxxxxx">
+</div>
+<div class="form-group">
+<label class="form-label">كلمة المرور</label>
+<input type="password" class="form-control" id="loginPassword" required>
+</div>
+<button type="submit" class="btn btn-primary" style="width: 100%;">
+<i class="fas fa-sign-in-alt"></i> دخول
+</button>
+<p style="margin-top: 1rem; text-align: center; font-size: 0.9rem; color: #666;">
+<strong>للدخول كمدير:</strong><br>
+الهاتف: 0982657714<br>
+كلمة المرور: admin123
+</p>
+</form>
+</div>
+<div class="auth-form" id="registerForm">
+<form onsubmit="handleRegister(event)">
+<div class="form-group">
+<label class="form-label">الاسم الكامل</label>
+<input type="text" class="form-control" id="registerName" required>
+</div>
+<div class="form-group">
+<label class="form-label">رقم الهاتف</label>
+<input type="tel" class="form-control" id="registerPhone" required pattern="09[0-9]{8}" placeholder="09xxxxxxxx">
+</div>
+<div class="form-group">
+<label class="form-label">كلمة المرور</label>
+<input type="password" class="form-control" id="registerPassword" required minlength="6">
+</div>
+<div class="form-group">
+<label class="form-label">تأكيد كلمة المرور</label>
+<input type="password" class="form-control" id="registerPasswordConfirm" required>
+</div>
+<button type="submit" class="btn btn-success" style="width: 100%;">
+<i class="fas fa-user-plus"></i> إنشاء حساب
+</button>
+</form>
+</div>
+</div>
+</div>
+
+<div class="modal" id="previewModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>معاينة الإعلان</h2>
+<span class="close-modal" onclick="closeModal('previewModal')">
+<i class="fas fa-times"></i>
+</span>
+</div>
+<div id="previewContent"></div>
+<div style="margin-top: 2rem; display: flex; gap: 1rem;">
+<button class="btn btn-secondary" onclick="closeModal('previewModal')">تعديل</button>
+<button class="btn btn-success" onclick="confirmAndPublish()">تأكيد ونشر</button>
+</div>
+</div>
+</div>
+
+<div class="modal" id="complaintModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>تقديم شكوى</h2>
+<span class="close-modal" onclick="closeModal('complaintModal')">
+<i class="fas fa-times"></i>
+</span>
+</div>
+<form onsubmit="submitComplaint(event)">
+<div class="form-group">
+<label class="form-label">نوع الشكوى</label>
+<select class="form-control" id="complaintType" required>
+<option value="">اختر النوع</option>
+<option value="inappropriate">محتوى غير لائق</option>
+<option value="fraud">احتيال</option>
+<option value="spam">إعلانات مزعجة</option>
+<option value="other">أخرى</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">تفاصيل الشكوى</label>
+<textarea class="form-control" id="complaintDetails" required placeholder="اكتب تفاصيل الشكوى"></textarea>
+</div>
+<button type="submit" class="btn btn-danger">إرسال الشكوى</button>
+</form>
+</div>
+</div>
+
+<div class="modal" id="paymentModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2><i class="fas fa-credit-card"></i> إتمام عملية الشراء</h2>
+<span class="close-modal" onclick="closeModal('paymentModal')">
+<i class="fas fa-times"></i>
+</span>
+</div>
+<div id="paymentContent"></div>
+</div>
+</div>
+
+<div class="modal" id="soldModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2><i class="fas fa-check-circle"></i> تأكيد إتمام البيع</h2>
+<span class="close-modal" onclick="closeModal('soldModal')">
+<i class="fas fa-times"></i>
+</span>
+</div>
+<div id="soldContent"></div>
+</div>
+</div>
+
+<div class="modal" id="donationModal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="donationTitle">التبرع</h2>
+<span class="close-modal" onclick="closeModal('donationModal')">
+<i class="fas fa-times"></i>
+</span>
+</div>
+<div id="donationContent"></div>
+</div>
+</div>
+
+<script>
+// Global Variables
+let currentTheme = 'light';
+let currentLang = 'ar';
+let uploadedImages = [];
+let recordedVideo = null;
+let currentAdData = null;
+let warnings = {};
+let commissionData = { totalSales: 0, totalCommission: 0, todaySales: 0, logs: [], pendingCommissions: [] };
+let currentUser = null;
+let users = [];
+let notifications = [];
+let complaints = [];
+let allAds = [];
+let currentComplaintAdId = null;
+let chatContext = 'general';
+let currentDonationCurrency = 'USD';
+let currentTransactionNumber = '';
+let transfersLog = [];
+
+const adminPhone = '0982657714';
+const adminWhatsApp = '963982657714';
+const adminMTN = '0958357949';
+const COMMISSION_RATE = 0.002;
+const SYR_EXCHANGE_RATE = 13000;
+const NEW_SYP_DIVISOR = 100;
+
+// ============= قائمة الحسابات المتاحة (محدثة مع الهرم والفؤاد) =============
+const paymentAccounts = [
+{ id: 'sham-director', name: 'شام كاش - المدير', number: '0982657714', icon: '📱', protocol: 'shamcash', displayName: 'مسارك الآن' },
+{ id: 'sham-masarak', name: 'شام كاش - مسارك الآن 2', number: '0982657714', icon: '📱', protocol: 'shamcash', displayName: 'مسارك الآن 2' },
+{ id: 'syriatel', name: 'سيريتل كاش', number: '0982657714', icon: '📡', protocol: 'syriatelcash', displayName: 'مسارك الآن' },
+{ id: 'mtn', name: 'MTN كاش', number: '0958357949', icon: '📡', protocol: 'mtncash', displayName: 'مسارك الآن' },
+{ id: 'haram', name: 'حوالات الهرم', number: '0982657714', icon: '🏦', protocol: 'haram', displayName: 'مسارك الآن' },
+{ id: 'fouad', name: 'حوالات الفؤاد', number: '0982657714', icon: '🏦', protocol: 'fouad', displayName: 'مسارك الآن' }
+];
+
+const shamCashDirectorQR = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoKCgoKCgsMDAsPEA4QDxYUExMUFiIYGhgaGCIzICUgICUgMy03LCksNy1RQDg4QFFeT0pPXnFlZXGPiI+7u/sBCgoKCgoKCwwMCw8QDhAPFhQTExQWIhgaGBoYIjMgJSAgJSAzLTcsKSw3LVFAODhAUV5PSk9ecWVlcY+Ij7u7+//CABEIBDgDOwMBIgACEQEDEQH/xAAvAAEAAwEBAQAAAAAAAAAAAAAAAgQFBgMBAQEBAQEAAAAAAAAAAAAAAAAAAQID/9oADAMBAAIQAxAAAALFAAAAAAAAAAAAAAAAAAAAN8q7HsAACNey0JQAAHz6M3D66Bx718gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC50+TrAAAEMzTzOmZXaDU1mbe5a9BKAABm892XGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHRaOdogAAJHL1fmplvXy6QD3vZTN1lS3ihKA4zs+MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOi0c7RABSZs1YHJ7eA0vGpouuXHWq7U31p8l8+GpLx9uVBXGdnxgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0WjnaIAztHNcz4YWPLQbBsUK9aZ0gWaHt4+3LQSuM7PjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADotHO0QBmaddmo+/Lzffgt2M2U1Yo6U9aynvDpPP3teuaHPQDjOz4wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6LRztEAAVbRM1o03PyDL18xoq1l1BoABxnZ8YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdFo52iAAAAQqXjGcuVnP1s17DoDYADjOz4wAAAAAAAAAAAAAAAAAAAAAAPtgrLopLopLopLopLopLopLopLopLopLopLopLopLopLopLopLopLo1dGjeAAAAAASMgBQAHGdnzJSXRSXRSXRSXRSXRSXRSXRSXRSXRSXRSXRSXRSXRSXRSXRSXRSXYlR6eYAAPc89vR9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABUtjl6nZ4JlA+9Zk7gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABzNLrOTOrsAAM5NFgNN9gDfYA32AN9gDfYA32AN9gDfYA32AN9gDfYA32Bsx7CUAA8cazfYCt9hRN9gDfYUTfYEjdYA32BoRfEoyk1WA032FuwEoAAABhw1N9gDfYA32AN9gDfYA32AN9gDfYA32AN9gDfYA32B9N4ZoDlupqFsADL1MuzOHTIAAAAAAAAAADdwt3NsDGgAPDB3sHeQ1JRlGAqUZRhOEyApqZepm6IxpjbONZTHTM+i53osaDNAAAA57z9PPpgKAAAAAAAAAAffn06QctgAAAMvUy7M4dMrFfpc3CbqXCbowm6MJujCbowm6MJujCbowodBTTGG43cLdzbAxpGXOWdC5xZtY6OkkSe/wB0bmbhN0uJHdGF93InPItZlp5WpLojGmPsY1lVFvPpv89GXo3OI6Vka8oSgAc95+nn0wlGyfG6zrCbowm6MJujCbowm6MJujCbowm6Odhdpay+/PtdIOWwAAAGXqZdmcOmXS810uKGdAAAAAAAKdynZjDplu4W7m2BjTnOj5zWYjclGUYCtm5Tuc9BKAjKKc4OuWpl6mbojGmNs41lMdMyjKMBV7XyNfnoJQAOe8/Tz6YWa1k3Bz2AAAAAAABj0rtLpl9+fbOkHLYAAADL1MuzOHTLpea6XFDOq2HuYe8hqAAAPvz6dIOW1O5Tsxh0y3cLdzbAxoADwwd7B3kNTZuU7nPQS4Hj7ePTCxXsG6OewAGNs41lMdMz6LneixoM2th7mHvIam3aq2uWgXnvP08+mFmtZNwc9srVyrM8dMgAAAXNnG2eeglx6V2l0y+/PtnSDlsAAABl6mXZnDpl0vNdLihnVbD3MPeQ1AAAH359OkHLancp2Yw6ZbuFu5tgY0z9Amc0VZVHcwdSSKzZuU7mNBLTjneO867IsFxos3Os2AErH2Mayqi3n00M7opc5os2h99cOzXZCujlVtYoLz3n6efTCzWsm4Oe1S3lWfWc3NFnDRZw0WcNFnDYu42zihLj0rtLpl9+fbOkHLYAAADL1MuzOHTLpea6XFDOq2HuYe8hqAAAPvz6dIOW1O5Tsxh0y3cLdzbAxoADwwd7B3kNTZuU7nPQS4Hj7ePTCxXsG6OewAGNs41lMdMz6LneixoM2th7mHvIam3aq2uWgXnvP08+mFmtZNwc9srVyrM8dMgAAAXNnG2eeglx6V2l0y+/PtnSDlsAAABl6mXZnDpl0vNdLihnVbD3MPeQ1AAAH359OkHLancp2Yw6ZbuFu5tgY0z9Amc0VZVHcwdSSKzZuU7mNBLTjneO867IsFxos3Os2AErH2Mayqi3n00M7opc5os2h99cOzXZCujlVtYoLz3n6efTCzWsm4Oe1S3lWfWc3NFnDRZw0WcNFnDYu42zihLj0rtLpl9+fbOkHLYAAADL1MuzOHTLpea6XFDOq2HuYe8hqAAAPvz6dIOW1O5Tsxh0y3cLdzbAxoADwwd7B3kNTZuU7nPQS4Hj7ePTCxXsG6OewAGNs41lMdMz6LneixoM2th7mHvIam3aq2uWgXnvP08+mFmtZNwc9srVyrM8dMgAAAXNnG2eeglx6V2l0y+/PtnSDlsAAABl6mXZnDpl0vNdLihnVbD3MPeQ1AAAH359OkHLancp2Yw6ZbuFu5tgY0z9Amc0VZVHcwdSSKzZuU7mNBLTjneO867IsFxos3Os2AErH2Mayqi3n00M7opc5os2h99cOzXZCujlVtYoLz3n6efTCzWsm4Oe1S3lWfWc3NFnDRZw0WcNFnDYu42zihLj0rtLpl9+fbOkHLYAAADL1MuzOHTLpea6XFDOq2HuYe8hqAAAPvz6dIOW1O5Tsxh0y3cLdzbAxoADwwd7B3kNTZuU7nPQS4Hj7ePTCxXsG6OewAGNs41lMdMz6LneixoM2th7mHvIam3aq2uWgXnvP08+mFmtZNwc9srVyrM8dMgAAAXNnG2eeglx6V2l0y+/PtnSDlsAAABl6mXZnDpl0vNdLihnVbD3MPeQ1AAAH359OkHLancp2Yw6ZbuFu5tgY0z9Amc0VZVHcwdSSKzZuU7mNBLTjneO867IsFxos3Os2AErH2Mayqi3n00M7opc5os2h99cOzXZCujlVtYoLz3n6efTCzWsm4Oe1S3lWfWc3NFnDRZw0WcNFnDYu42zihLj0rtLpl9+fbOkHLYAAADL1MuzOHTLpea6XFDOq2HuYe8hqAAAPvz6dIOW1O5Tsxh0y3cLdzbAxoADwwd7B3kNTZuU7nPQS4Hj7ePTCxXsG6OewAGNs41lMdMz6LneixoM2th7mHvIam3aq2uWgXnvP08+mFmtZNwc9srVyrM8dMgAAAXNnG2eeglx6V2l0y+/PtnSDlsAAABl6mXZnDpl0vNdLihnVbD3MPeQ1AAAH359OkHLancp2Yw6ZbuFu5tgY0z9Amc0VZVHcwdSSKzZuU7mNBLTjneO867IsFxos3Os2AErH2Mayqi3n00M7opc5os2h99cOzXZCujlVtYoLz3n6efTCzWsm4Oe1S3lWfWc3NFnDRZw0WcNFnDYu42zihLj0rtLpl9+fbOkHLYAAADL1MuzOHTLpea6XFDOq2HuYe8hqAAAPvz6dIOW1O5Tsxh0y3cLdzbAxoADwwd7B3kNTZuU7nPQS4Hj7ePTCxXsG6OewAGNs41lMdMz6LneixoM2th7mHvIam3aq2uWgXnv";
+
+const hospitals = [
+{ id: 1, name: 'مشفى المجتهد', image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400', coverImage: 'https://images.unsplash.com/photo-1551076805-e1869033e561?w=800', desc: 'غرفة العمليات' },
+{ id: 2, name: 'مشفى المواساة', image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400', coverImage: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800', desc: 'غرفة التصوير بالأشعة' },
+{ id: 3, name: 'مشفى الوطني', image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400', coverImage: 'https://images.unsplash.com/photo-1538108149393-fbbd8748445b?w=800', desc: 'غرفة الإنعاش القلبي' },
+{ id: 4, name: 'مشفى العسكرية تشرين', image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400', coverImage: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800', desc: 'غرفة مختبر التحاليل' },
+{ id: 5, name: 'مشفى السرطان', image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400', coverImage: 'https://images.unsplash.com/photo-1519494026892-80edfd26fd0d?w=800', desc: 'قسم الاستقبال' },
+{ id: 6, name: 'مشفى المكفوفين', image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400', coverImage: 'https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=800', desc: 'غرفة المعاينة' }
+];
+
+const charities = [
+{ id: 1, name: 'جمعية إعمار وتأهيل المساجد', image: 'https://images.unsplash.com/photo-1564121211832-e05458e679d5?w=400', type: 'mosque' },
+{ id: 2, name: 'جمعية الأيتام والأرامل', image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400', type: 'orphans' },
+{ id: 3, name: 'جمعية إعمار منازل الشهداء', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400', type: 'martyrs' }
+];
+
+const exchangeRates = {
+USD: { name: 'الدولار الأمريكي', symbol: '$', flag: '🇺🇸', buy: 13000, sell: 13100 },
+EUR: { name: 'اليورو', symbol: '€', flag: '🇪🇺', buy: 14200, sell: 14350 },
+GBP: { name: 'الجنيه الإسترليني', symbol: '£', flag: '🇬🇧', buy: 16500, sell: 16700 },
+SAR: { name: 'الريال السعودي', symbol: '﷼', flag: '🇸🇦', buy: 3460, sell: 3490 },
+AED: { name: 'الدرهم الإماراتي', symbol: 'د.إ', flag: '🇦🇪', buy: 3540, sell: 3570 },
+JOD: { name: 'الدينار الأردني', symbol: 'د.ا', flag: '🇯🇴', buy: 18300, sell: 18500 },
+TRY: { name: 'الليرة التركية', symbol: '₺', flag: '🇹🇷', buy: 395, sell: 405 },
+EGP: { name: 'الجنيه المصري', symbol: 'ج.م', flag: '🇪🇬', buy: 270, sell: 280 },
+IQD: { name: 'الدينار العراقي', symbol: 'د.ع', flag: '🇮🇶', buy: 10, sell: 10.5 },
+KWD: { name: 'الدينار الكويتي', symbol: 'د.ك', flag: '🇰🇼', buy: 42300, sell: 42800 }
+};
+
+const preciousMetals = {
+gold24: { name: 'ذهب عيار 24', karat: '24', type: 'gold', buyUSD: 1.23, sellUSD: 1.25 },
+gold21: { name: 'ذهب عيار 21', karat: '21', type: 'gold', buyUSD: 1.07, sellUSD: 1.09 },
+gold18: { name: 'ذهب عيار 18', karat: '18', type: 'gold', buyUSD: 0.92, sellUSD: 0.94 },
+goldCoin: { name: 'الليرة الذهبية', karat: '-', type: 'gold', buyUSD: 96, sellUSD: 98 },
+englishCoin: { name: 'الليرة الذهبية الإنجليزية', karat: '-', type: 'gold', buyUSD: 104, sellUSD: 106 },
+goldOunce: { name: 'الأونصة الذهبية', karat: '-', type: 'gold', buyUSD: 38.15, sellUSD: 38.50 },
+silverOunce: { name: 'الأونصة الفضية', karat: '999', type: 'silver', buyUSD: 0.45, sellUSD: 0.47 },
+silverKg: { name: 'الفضة (كيلو غرام)', karat: '925', type: 'silver', buyUSD: 14.5, sellUSD: 15.2 },
+silverCoin: { name: 'الليرة الفضية', karat: '925', type: 'silver', buyUSD: 12, sellUSD: 13 },
+silverBar: { name: 'سبيكة الفضة (100 غرام)', karat: '999', type: 'silver', buyUSD: 1.45, sellUSD: 1.55 }
+};
+
+const medicalEquipment = [
+{ name: 'جهاز تخطيط القلب (ECG)', price: 1500 },
+{ name: 'جهاز ايكو (Ultrasound)', price: 8000 },
+{ name: 'جهاز قياس السكر', price: 50 },
+{ name: 'جهاز قياس الضغط', price: 80 },
+{ name: 'جهاز التنفس الصناعي', price: 5000 },
+{ name: 'جهاز الأشعة السينية', price: 15000 },
+{ name: 'جهاز الرنين المغناطيسي', price: 100000 },
+{ name: 'جهاز العناية المركزة', price: 12000 }
+];
+
+const medicines = [
+{ name: 'باراسيتامول (سيتامول)', price: 2 },
+{ name: 'ايبوبروفين (بروفين)', price: 3 },
+{ name: 'مضاد التهاب', price: 5 },
+{ name: 'دواء المعدة', price: 4 },
+{ name: 'دواء الضغط', price: 8 },
+{ name: 'دواء القلب', price: 12 },
+{ name: 'مضاد حيوي', price: 10 },
+{ name: 'دواء السكري', price: 15 }
+];
+
+const buildingMaterials = [
+{ name: 'رمل (متر مكعب)', price: 15 },
+{ name: 'بحص (متر مكعب)', price: 20 },
+{ name: 'اسمنت (طن)', price: 150 },
+{ name: 'سيراميك (متر مربع)', price: 12 },
+{ name: 'طوب (ألف قطعة)', price: 80 },
+{ name: 'حديد تسليح (طن)', price: 800 }
+];
+
+// ============= دوال مساعدة للعملات =============
+function formatPrice(priceUSD, currency) {
+if (currency === 'SYP') {
+const priceSYP = priceUSD * SYR_EXCHANGE_RATE;
+return priceSYP.toLocaleString('ar-SY') + ' ل.س';
+}
+return priceUSD.toLocaleString('ar-SY') + '$';
+}
+
+function convertToNewSYP(oldSYPAmount) {
+return oldSYPAmount / NEW_SYP_DIVISOR;
+}
+
+function formatNewSYP(amount) {
+return amount.toLocaleString('ar-SY', { maximumFractionDigits: 2 }) + ' ل.س.ج';
+}
+
+function getAdPriceConversionsHTML(price, currency) {
+let priceUSD, priceOldSYP, priceNewSYP;
+if (currency === 'USD') {
+priceUSD = parseFloat(price);
+priceOldSYP = priceUSD * SYR_EXCHANGE_RATE;
+priceNewSYP = priceOldSYP / NEW_SYP_DIVISOR;
+} else {
+priceOldSYP = parseFloat(price);
+priceUSD = priceOldSYP / SYR_EXCHANGE_RATE;
+priceNewSYP = priceOldSYP / NEW_SYP_DIVISOR;
+}
+return `
+<div class="ad-price-conversions">
+<div class="price-row">
+<span class="price-label"><i class="fas fa-dollar-sign"></i> بالدولار:</span>
+<span class="price-value price-usd">$${priceUSD.toLocaleString('ar-SY', {maximumFractionDigits: 2})}</span>
+</div>
+<div class="price-row">
+<span class="price-label"><i class="fas fa-coins"></i> ل.س قديمة:</span>
+<span class="price-value price-old-syp">${priceOldSYP.toLocaleString('ar-SY')} ل.س</span>
+</div>
+<div class="price-row">
+<span class="price-label"><i class="fas fa-star"></i> ل.س جديدة:</span>
+<span class="price-value price-new-syp">${priceNewSYP.toLocaleString('ar-SY', {maximumFractionDigits: 2})} ل.س.ج</span>
+</div>
+</div>
+`;
+}
+
+function switchDonationCurrency(currency) {
+currentDonationCurrency = currency;
+document.querySelectorAll('.currency-btn').forEach(btn => {
+btn.classList.remove('active');
+if (btn.dataset.currency === currency) btn.classList.add('active');
+});
+updateAmountDisplay();
+}
+
+function updateAmountDisplay() {
+const amountInput = document.getElementById('moneyAmount');
+if (!amountInput) return;
+const amount = parseFloat(amountInput.value);
+if (!amount || amount <= 0) {
+const conversionDiv = document.getElementById('amountConversion');
+if (conversionDiv) conversionDiv.textContent = '';
+return;
+}
+updateAmountConversion(amount);
+}
+
+function updateAmountConversion(amount) {
+const conversionDiv = document.getElementById('amountConversion');
+if (!conversionDiv) return;
+if (currentDonationCurrency === 'SYP') {
+const usdAmount = (amount / SYR_EXCHANGE_RATE).toFixed(2);
+const newSypAmount = (amount / NEW_SYP_DIVISOR).toFixed(2);
+conversionDiv.innerHTML = `<i class="fas fa-exchange-alt"></i> ما يعادل: <strong>${usdAmount}$</strong> | <strong>${newSypAmount} ل.س.ج</strong>`;
+} else {
+const sypAmount = (amount * SYR_EXCHANGE_RATE).toLocaleString('ar-SY');
+const newSypAmount = (amount * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY');
+conversionDiv.innerHTML = `<i class="fas fa-exchange-alt"></i> ما يعادل: <strong>${sypAmount} ل.س</strong> | <strong>${newSypAmount} ل.س.ج</strong>`;
+}
+}
+
+function getCurrencySwitcherHTML() {
+return `
+<div class="currency-switcher">
+<div class="currency-btn ${currentDonationCurrency === 'USD' ? 'active' : ''}"
+data-currency="USD"
+onclick="switchDonationCurrency('USD')">
+<i class="fas fa-dollar-sign"></i> دولار أمريكي
+</div>
+<div class="currency-btn ${currentDonationCurrency === 'SYP' ? 'active' : ''}"
+data-currency="SYP"
+onclick="switchDonationCurrency('SYP')">
+<i class="fas fa-coins"></i> ليرة سورية
+</div>
+</div>
+<div style="background: #fff3cd; padding: 0.5rem; border-radius: 8px; font-size: 0.85rem; text-align: center; margin-bottom: 1rem;">
+<i class="fas fa-info-circle"></i> سعر الصرف: 1$ = ${SYR_EXCHANGE_RATE.toLocaleString('ar-SY')} ل.س | 1 ل.س.ج = ${NEW_SYP_DIVISOR} ل.س
+</div>
+`;
+}
+
+function getPriceDisplayHTML(priceUSD) {
+const priceSYP = priceUSD * SYR_EXCHANGE_RATE;
+return `
+<div class="price-display" data-price="${priceUSD}">
+<span class="price-usd" style="display: ${currentDonationCurrency === 'USD' ? 'block' : 'none'};">
+<i class="fas fa-dollar-sign"></i> ${priceUSD.toLocaleString('ar-SY')}$
+</span>
+<span class="price-syp" style="display: ${currentDonationCurrency === 'SYP' ? 'block' : 'none'};">
+<i class="fas fa-coins"></i> ${priceSYP.toLocaleString('ar-SY')} ل.س
+</span>
+</div>
+`;
+}
+
+// ============= توليد رقم المعاملة =============
+function generateTransactionNumber() {
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth() + 1).padStart(2, '0');
+const day = String(now.getDate()).padStart(2, '0');
+const hours = String(now.getHours()).padStart(2, '0');
+const minutes = String(now.getMinutes()).padStart(2, '0');
+const seconds = String(now.getSeconds()).padStart(2, '0');
+const random = Math.floor(1000 + Math.random() * 9000);
+return `TXN-${year}${month}${day}-${hours}${minutes}${seconds}-${random}`;
+}
+
+// ============= إرسال الرسائل النصية SMS =============
+async function sendSMS(phoneNumber, message) {
+try {
+const response = await fetch('https://textbelt.com/text', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/x-www-form-urlencoded',
+},
+body: `phone=${encodeURIComponent(phoneNumber)}&message=${encodeURIComponent(message)}&key=textbelt`
+});
+const result = await response.json();
+console.log('SMS Response:', result);
+if (result.success) {
+console.log('✅ تم إرسال الرسالة النصية بنجاح');
+return { success: true, quotaRemaining: result.quotaRemaining };
+} else {
+console.warn('⚠️ فشل إرسال SMS:', result.error);
+return { success: false, error: result.error };
+}
+} catch (error) {
+console.error('❌ خطأ في إرسال SMS:', error);
+return { success: false, error: error.message };
+}
+}
+
+// ============= إرسال إشعار شامل (SMS + WhatsApp) =============
+async function sendComprehensiveNotification(message, transactionNumber = '') {
+const smsResult = await sendSMS(adminWhatsApp, message);
+sendWhatsAppToAdmin(message);
+const notificationLog = {
+id: Date.now(),
+message: message,
+transactionNumber: transactionNumber,
+smsSent: smsResult.success,
+whatsappSent: true,
+timestamp: new Date().toISOString()
+};
+let sentNotifications = JSON.parse(localStorage.getItem('sentNotifications') || '[]');
+sentNotifications.unshift(notificationLog);
+if (sentNotifications.length > 50) sentNotifications = sentNotifications.slice(0, 50);
+localStorage.setItem('sentNotifications', JSON.stringify(sentNotifications));
+return {
+sms: smsResult,
+whatsapp: { success: true },
+log: notificationLog
+};
+}
+
+// ============= عرض قائمة الحسابات المنسدلة (محدثة مع الهرم والفؤاد) =============
+function getAccountSelectHTML(selectedId = '') {
+const options = paymentAccounts.map(acc =>
+`<option value="${acc.id}" ${acc.id === selectedId ? 'selected' : ''}>
+${acc.icon} ${acc.name} - ${acc.number} (${acc.displayName})
+</option>`
+).join('');
+return `
+<select class="form-select-modern" id="selectedAccount" required>
+<option value="">🔽 اختر الحساب للتحويل</option>
+${options}
+</select>
+`;
+}
+
+function getCurrencySelectHTML() {
+return `
+<select class="form-select-modern" id="donationCurrencySelect" onchange="switchDonationCurrency(this.value)" required>
+<option value="USD" ${currentDonationCurrency === 'USD' ? 'selected' : ''}>
+💵 دولار أمريكي (USD)
+</option>
+<option value="SYP" ${currentDonationCurrency === 'SYP' ? 'selected' : ''}>
+🪙 ليرة سورية (SYP)
+</option>
+</select>
+<div style="background: #fff3cd; padding: 0.5rem; border-radius: 8px; font-size: 0.85rem; text-align: center; margin-top: 0.5rem;">
+<i class="fas fa-info-circle"></i> سعر الصرف: 1$ = ${SYR_EXCHANGE_RATE.toLocaleString('ar-SY')} ل.س | 1 ل.س.ج = ${NEW_SYP_DIVISOR} ل.س
+</div>
+`;
+}
+
+function getTransactionNumberHTML(txnNumber) {
+return `
+<div class="transaction-number-display">
+<i class="fas fa-hashtag"></i> رقم المعاملة: ${txnNumber}
+</div>
+`;
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+loadTheme();
+loadUserData();
+loadAllData();
+initializeSections();
+updateExchangeRates();
+updateGoldPrices();
+updateExchangeBanner();
+setInterval(updateExchangeRates, 15 * 60 * 1000);
+setInterval(updateGoldPrices, 15 * 60 * 1000);
+// Check pending commissions every hour
+setInterval(checkPendingCommissions, 60 * 60 * 1000);
+renderHospitals();
+renderCharities();
+loadCommissionData();
+loadTransfersLog();
+updateNotificationBadge();
+updateUserMenu();
+addSampleAds();
+window.addEventListener('scroll', function() {
+const btn = document.getElementById('backToTop');
+if (window.scrollY > 300) {
+btn.classList.add('visible');
+} else {
+btn.classList.remove('visible');
+}
+});
+});
+
+function updateExchangeBanner() {
+const usdOld = SYR_EXCHANGE_RATE.toLocaleString('ar-SY');
+const usdNew = (SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY');
+const elements = [
+{ old: 'bannerUsdOld', new: 'bannerUsdNew', divisor: 'bannerDivisor' },
+{ old: 'bannerUsdOld2', new: 'bannerUsdNew2', divisor: 'bannerDivisor2' }
+];
+elements.forEach(el => {
+const oldEl = document.getElementById(el.old);
+const newEl = document.getElementById(el.new);
+const divEl = document.getElementById(el.divisor);
+if (oldEl) oldEl.textContent = usdOld;
+if (newEl) newEl.textContent = usdNew;
+if (divEl) divEl.textContent = NEW_SYP_DIVISOR;
+});
+}
+
+function scrollToTop() {
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleTheme() {
+currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+document.documentElement.setAttribute('data-theme', currentTheme);
+document.getElementById('themeIcon').className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+localStorage.setItem('theme', currentTheme);
+}
+
+function loadTheme() {
+const savedTheme = localStorage.getItem('theme') || 'light';
+currentTheme = savedTheme;
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.getElementById('themeIcon').className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+}
+
+function toggleLanguage() {
+currentLang = currentLang === 'ar' ? 'en' : 'ar';
+document.getElementById('langText').textContent = currentLang === 'ar' ? 'English' : 'العربية';
+document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+document.documentElement.setAttribute('lang', currentLang);
+}
+
+function showSection(sectionId, event) {
+if (sectionId === 'admin' && (!currentUser || !currentUser.isAdmin)) {
+showAlert('يجب تسجيل الدخول كمدير للوصول إلى هذه الصفحة', 'danger');
+return;
+}
+document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+document.getElementById(sectionId).classList.add('active');
+document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+if (event && event.target && event.target.closest) {
+const btn = event.target.closest('.category-btn');
+if (btn) btn.classList.add('active');
+}
+if (sectionId === 'admin') {
+updateAdminPanel();
+}
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openAuthModal() {
+document.getElementById('authModal').classList.add('active');
+closeUserMenu();
+}
+
+function switchAuthTab(tab, event) {
+document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+event.target.classList.add('active');
+document.getElementById(tab + 'Form').classList.add('active');
+}
+
+function handleLogin(event) {
+event.preventDefault();
+const phone = document.getElementById('loginPhone').value;
+const password = document.getElementById('loginPassword').value;
+if (phone === adminPhone && password === 'admin123') {
+currentUser = { name: 'المدير', phone: adminPhone, isAdmin: true, id: 'admin' };
+localStorage.setItem('currentUser', JSON.stringify(currentUser));
+showAlert('مرحباً بك أيها المدير!', 'success');
+closeModal('authModal');
+updateUserMenu();
+addNotification('تسجيل دخول المدير', 'تم تسجيل دخولك بنجاح كمدير', 'admin');
+return;
+}
+const user = users.find(u => u.phone === phone && u.password === password);
+if (user) {
+if (user.banned) {
+showAlert('حسابك محظور. تواصل مع الإدارة', 'danger');
+return;
+}
+currentUser = user;
+localStorage.setItem('currentUser', JSON.stringify(currentUser));
+showAlert(`مرحباً ${user.name}!`, 'success');
+closeModal('authModal');
+updateUserMenu();
+addNotification('تسجيل دخول', `مرحباً ${user.name}`, 'login');
+} else {
+showAlert('رقم الهاتف أو كلمة المرور غير صحيحة', 'danger');
+}
+}
+
+function handleRegister(event) {
+event.preventDefault();
+const name = document.getElementById('registerName').value;
+const phone = document.getElementById('registerPhone').value;
+const password = document.getElementById('registerPassword').value;
+const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
+if (password !== passwordConfirm) {
+showAlert('كلمات المرور غير متطابقة', 'danger');
+return;
+}
+if (users.find(u => u.phone === phone)) {
+showAlert('رقم الهاتف مسجل مسبقاً', 'danger');
+return;
+}
+const newUser = {
+id: Date.now(),
+name, phone, password,
+isAdmin: false, banned: false, warnings: 0,
+joinDate: new Date().toISOString()
+};
+users.push(newUser);
+localStorage.setItem('users', JSON.stringify(users));
+currentUser = newUser;
+localStorage.setItem('currentUser', JSON.stringify(currentUser));
+showAlert('تم إنشاء الحساب بنجاح!', 'success');
+closeModal('authModal');
+updateUserMenu();
+addNotification('حساب جديد', `مرحباً ${name} في مسارك الآن`, 'register');
+}
+
+function logout() {
+currentUser = null;
+localStorage.removeItem('currentUser');
+updateUserMenu();
+showAlert('تم تسجيل الخروج', 'info');
+closeUserMenu();
+}
+
+function loadUserData() {
+const savedUser = localStorage.getItem('currentUser');
+if (savedUser) currentUser = JSON.parse(savedUser);
+const savedUsers = localStorage.getItem('users');
+if (savedUsers) users = JSON.parse(savedUsers);
+}
+
+function updateUserMenu() {
+const content = document.getElementById('userMenuContent');
+const nameDisplay = document.getElementById('userNameDisplay');
+if (currentUser) {
+nameDisplay.textContent = currentUser.name;
+let menuHTML = `
+<div class="user-dropdown-item" style="background: rgba(52,152,219,0.1); cursor: default;">
+<i class="fas fa-user"></i>
+<span>${currentUser.name}</span>
+${currentUser.isAdmin ? '<span style="background: gold; color: #333; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.7rem;">مدير</span>' : ''}
+</div>
+`;
+if (currentUser.isAdmin) {
+menuHTML += `
+<div class="user-dropdown-item" onclick="showSection('admin', event); closeUserMenu();">
+<i class="fas fa-user-shield"></i>
+<span>لوحة التحكم</span>
+</div>
+`;
+}
+menuHTML += `
+<div class="user-dropdown-item" onclick="logout()">
+<i class="fas fa-sign-out-alt"></i>
+<span>تسجيل الخروج</span>
+</div>
+`;
+content.innerHTML = menuHTML;
+} else {
+nameDisplay.textContent = 'تسجيل الدخول';
+content.innerHTML = `
+<div class="user-dropdown-item" onclick="openAuthModal()">
+<i class="fas fa-sign-in-alt"></i>
+<span>تسجيل الدخول</span>
+</div>
+`;
+}
+}
+
+function toggleUserMenu(event) {
+event.stopPropagation();
+document.getElementById('userDropdown').classList.toggle('active');
+document.getElementById('notificationDropdown').classList.remove('active');
+}
+
+function closeUserMenu() {
+document.getElementById('userDropdown').classList.remove('active');
+}
+
+function addNotification(title, message, type = 'info') {
+const notification = {
+id: Date.now(),
+title, message, type,
+time: new Date().toISOString(),
+read: false
+};
+notifications.unshift(notification);
+localStorage.setItem('notifications', JSON.stringify(notifications));
+updateNotificationBadge();
+renderNotifications();
+}
+
+function loadAllData() {
+const savedNotifications = localStorage.getItem('notifications');
+if (savedNotifications) notifications = JSON.parse(savedNotifications);
+const savedComplaints = localStorage.getItem('complaints');
+if (savedComplaints) complaints = JSON.parse(savedComplaints);
+const savedAds = localStorage.getItem('allAds');
+if (savedAds) {
+allAds = JSON.parse(savedAds);
+allAds.forEach(ad => renderAdToAllGrids(ad));
+}
+}
+
+function updateNotificationBadge() {
+const unread = notifications.filter(n => !n.read).length;
+const badge = document.getElementById('notificationBadge');
+badge.textContent = unread;
+badge.style.display = unread > 0 ? 'flex' : 'none';
+}
+
+function toggleNotifications(event) {
+event.stopPropagation();
+const dropdown = document.getElementById('notificationDropdown');
+dropdown.classList.toggle('active');
+document.getElementById('userDropdown').classList.remove('active');
+if (dropdown.classList.contains('active')) renderNotifications();
+}
+
+function renderNotifications() {
+const list = document.getElementById('notificationList');
+if (notifications.length === 0) {
+list.innerHTML = '<p style="padding: 2rem; text-align: center; color: #999;">لا توجد إشعارات</p>';
+return;
+}
+list.innerHTML = notifications.slice(0, 20).map(n => `
+<div class="notification-item ${n.read ? '' : 'unread'}" onclick="markNotificationRead(${n.id})">
+<div class="notification-item-title">${n.title}</div>
+<div>${n.message}</div>
+<div class="notification-item-time">${getTimeAgo(n.time)}</div>
+</div>
+`).join('');
+}
+
+function markNotificationRead(id) {
+const n = notifications.find(n => n.id === id);
+if (n) {
+n.read = true;
+localStorage.setItem('notifications', JSON.stringify(notifications));
+updateNotificationBadge();
+renderNotifications();
+}
+}
+
+function clearNotifications() {
+notifications = [];
+localStorage.setItem('notifications', JSON.stringify(notifications));
+updateNotificationBadge();
+renderNotifications();
+}
+
+function getTimeAgo(dateString) {
+const date = new Date(dateString);
+const now = new Date();
+const diff = Math.floor((now - date) / 1000);
+if (diff < 60) return 'الآن';
+if (diff < 3600) return `منذ ${Math.floor(diff/60)} دقيقة`;
+if (diff < 86400) return `منذ ${Math.floor(diff/3600)} ساعة`;
+return `منذ ${Math.floor(diff/86400)} يوم`;
+}
+
+function handleImageUpload(event) {
+const files = event.target.files;
+const preview = document.getElementById('imagePreview');
+if (files.length + uploadedImages.length > 10) {
+showAlert('يمكنك رفع 10 صور كحد أقصى', 'danger');
+return;
+}
+Array.from(files).forEach(file => {
+const reader = new FileReader();
+reader.onload = function(e) {
+uploadedImages.push(e.target.result);
+const img = document.createElement('img');
+img.src = e.target.result;
+preview.appendChild(img);
+};
+reader.readAsDataURL(file);
+});
+}
+
+function showVideoStudioDirect() {
+document.getElementById('videoStudio').style.display = 'block';
+document.getElementById('videoStudio').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+let mediaRecorder;
+let videoChunks = [];
+
+async function startRecording() {
+try {
+const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+const videoPreview = document.getElementById('videoPreview');
+videoPreview.innerHTML = '<video autoplay playsinline style="width:100%;height:100%;object-fit:cover;"></video>';
+videoPreview.querySelector('video').srcObject = stream;
+mediaRecorder = new MediaRecorder(stream);
+videoChunks = [];
+mediaRecorder.ondataavailable = function(event) { videoChunks.push(event.data); };
+mediaRecorder.onstop = function() {
+const videoBlob = new Blob(videoChunks, { type: 'video/webm' });
+recordedVideo = URL.createObjectURL(videoBlob);
+const videoElement = document.createElement('video');
+videoElement.src = recordedVideo;
+videoElement.controls = true;
+videoElement.style.width = '100%';
+videoElement.style.height = '100%';
+videoElement.style.objectFit = 'cover';
+videoPreview.innerHTML = '';
+videoPreview.appendChild(videoElement);
+stream.getTracks().forEach(track => track.stop());
+};
+mediaRecorder.start();
+document.querySelector('.btn-primary[onclick="startRecording()"]').style.display = 'none';
+document.getElementById('stopRecord').style.display = 'inline-block';
+} catch (err) {
+showAlert('تعذر الوصول للكاميرا: ' + err.message, 'danger');
+}
+}
+
+function stopRecording() {
+if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+mediaRecorder.stop();
+document.querySelector('.btn-primary[onclick="startRecording()"]').style.display = 'inline-block';
+document.getElementById('stopRecord').style.display = 'none';
+}
+}
+
+function handleAdSubmit(event) {
+event.preventDefault();
+if (!currentUser) {
+showAlert('يجب تسجيل الدخول أولاً لنشر إعلان', 'warning');
+openAuthModal();
+return;
+}
+if (uploadedImages.length < 1) {
+showAlert('يجب رفع صورة واحدة على الأقل', 'danger');
+return;
+}
+currentAdData = {
+type: document.getElementById('adType').value,
+category: document.getElementById('adCategory').value,
+title: document.getElementById('adTitle').value,
+phone: document.getElementById('clientPhone').value,
+whatsapp: document.getElementById('whatsappNumber').value,
+price: document.getElementById('adPrice').value,
+currency: document.getElementById('currency').value,
+isVIP: document.getElementById('isVIP').checked,
+description: document.getElementById('adDescription').value,
+images: uploadedImages,
+video: recordedVideo,
+date: new Date().toISOString(),
+id: Date.now(),
+sold: false,
+commissionPaid: false,
+userId: currentUser.id,
+userName: currentUser.name
+};
+previewAd();
+}
+
+function previewAd() {
+if (!currentAdData) {
+showAlert('يرجى ملء جميع الحقول المطلوبة', 'warning');
+return;
+}
+const previewContent = document.getElementById('previewContent');
+const currencySymbol = currentAdData.currency === 'USD' ? '$' : 'ل.س';
+previewContent.innerHTML = `
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">${currentAdData.title}</h3>
+${currentAdData.isVIP ? '<span class="vip-badge">VIP <span class="stars">★★★★★</span></span>' : ''}
+</div>
+<div class="ad-images">
+<img src="${currentAdData.images[0]}" alt="Main Image">
+</div>
+<div class="ad-content">
+<p><strong>القسم:</strong> ${getCategoryName(currentAdData.category)}</p>
+<p><strong>النوع:</strong> ${getTypeName(currentAdData.type)}</p>
+<div class="ad-price">${currentAdData.price} ${currencySymbol}</div>
+${getAdPriceConversionsHTML(currentAdData.price, currentAdData.currency)}
+<p><strong>المواصفات:</strong> ${currentAdData.description}</p>
+</div>
+</div>
+`;
+document.getElementById('previewModal').classList.add('active');
+}
+
+function closeModal(modalId) {
+document.getElementById(modalId).classList.remove('active');
+}
+
+function confirmAndPublish() {
+if (currentAdData) {
+if (checkInappropriateContent(currentAdData.description) || checkInappropriateContent(currentAdData.title)) {
+handleWarning(currentAdData.phone);
+return;
+}
+publishAd(currentAdData);
+allAds.push(currentAdData);
+localStorage.setItem('allAds', JSON.stringify(allAds));
+closeModal('previewModal');
+showAlert('تم نشر الإعلان بنجاح! سيظل محفوظاً حتى يتم بيعه.', 'success');
+document.getElementById('adForm').reset();
+uploadedImages = [];
+recordedVideo = null;
+document.getElementById('imagePreview').innerHTML = '';
+document.getElementById('videoStudio').style.display = 'none';
+currentAdData = null;
+addNotification('إعلان جديد', 'تم نشر إعلانك بنجاح', 'ad');
+}
+}
+
+function checkInappropriateContent(text) {
+const inappropriateWords = ['كلمة سيئة', 'كلمة بذيئة'];
+return inappropriateWords.some(word => text.toLowerCase().includes(word.toLowerCase()));
+}
+
+function handleWarning(phone) {
+if (!warnings[phone]) warnings[phone] = 0;
+warnings[phone]++;
+const warningCount = warnings[phone];
+if (warningCount === 1) {
+showAlert('⚠️ تحذير: تم رصد محتوى غير لائق.', 'warning');
+sendWhatsAppToAdmin(`⚠️ تحذير أول - رقم: ${phone}`);
+} else if (warningCount === 2) {
+showAlert('🚫 تم حظر حسابك لمدة 12 ساعة', 'danger');
+sendWhatsAppToAdmin(`🚫 حظر 12 ساعة - رقم: ${phone}`);
+setTimeout(() => { warnings[phone] = 0; }, 12 * 60 * 60 * 1000);
+} else {
+showAlert('⛔ تم حظر حسابك نهائياً', 'danger');
+sendWhatsAppToAdmin(`⛔ حظر نهائي - رقم: ${phone}`);
+}
+}
+
+function publishAd(adData) {
+renderAdToAllGrids(adData);
+}
+
+function renderAdToAllGrids(adData) {
+const adHTML = createAdHTML(adData);
+const categoryGrid = document.getElementById(`${adData.category}Grid`);
+if (categoryGrid) {
+const noAdsMsg = categoryGrid.querySelector('p');
+if (noAdsMsg) noAdsMsg.remove();
+if (adData.isVIP) {
+categoryGrid.insertAdjacentHTML('afterbegin', adHTML);
+} else {
+categoryGrid.insertAdjacentHTML('beforeend', adHTML);
+}
+}
+const combinedGrid = document.getElementById(`combined-${adData.category}Grid`);
+if (combinedGrid) {
+const noAdsMsg = combinedGrid.querySelector('p');
+if (noAdsMsg) noAdsMsg.remove();
+if (adData.isVIP) {
+combinedGrid.insertAdjacentHTML('afterbegin', adHTML);
+} else {
+combinedGrid.insertAdjacentHTML('beforeend', adHTML);
+}
+}
+const adsGrid = document.getElementById('adsGrid');
+if (adsGrid) {
+if (adData.isVIP) {
+adsGrid.insertAdjacentHTML('afterbegin', adHTML);
+} else {
+adsGrid.insertAdjacentHTML('beforeend', adHTML);
+}
+}
+}
+
+function createAdHTML(adData) {
+const currencySymbol = adData.currency === 'USD' ? '$' : 'ل.س';
+const whatsappLink = `https://wa.me/963${adData.whatsapp.substring(1)}`;
+const commercialCategories = ['cars', 'realestate', 'furniture', 'mobiles', 'laptops', 'bikes', 'appliances', 'electronics', 'machines', 'courses'];
+const isCommercial = commercialCategories.includes(adData.category);
+const isOwner = currentUser && currentUser.id === adData.userId;
+return `
+<div class="ad-card" data-id="${adData.id}" data-category="${adData.category}"
+data-type="${adData.type}" data-price="${adData.price}" data-currency="${adData.currency}"
+data-date="${adData.date}" data-vip="${adData.isVIP}" id="ad-${adData.id}">
+<div class="ad-images">
+<img src="${adData.images[0]}" alt="Ad Image">
+${adData.isVIP ? `<div class="vip-badge" style="position:absolute;top:10px;right:10px;">VIP <span class="stars">★★★★★</span></div>` : ''}
+${adData.sold ? '<div class="sold-overlay">تم البيع</div>' : ''}
+</div>
+<div class="ad-content">
+<div class="card-header">
+<h3 class="card-title">${adData.title}</h3>
+<small>${new Date(adData.date).toLocaleDateString('ar-SY')}</small>
+</div>
+<p>${adData.description.substring(0, 100)}...</p>
+<div class="ad-price">${adData.price} ${currencySymbol}</div>
+${getAdPriceConversionsHTML(adData.price, adData.currency)}
+${isCommercial && !adData.sold ? `
+<div class="commission-info" style="padding: 0.5rem; font-size: 0.85rem;">
+<i class="fas fa-percentage"></i>
+عمولة 0.2%: ${calculateCommission(adData.price, adData.currency)}
+</div>
+` : ''}
+<div class="ad-buttons">
+<a href="tel:${adData.phone}" class="btn btn-success">
+<i class="fas fa-phone"></i> اتصال
+</a>
+<a href="${whatsappLink}" class="btn btn-success" target="_blank">
+<i class="fab fa-whatsapp"></i> واتساب
+</a>
+<button class="btn btn-info" onclick="openAdChat(${adData.id})">
+<i class="fas fa-comment"></i> دردشة
+</button>
+${isCommercial && !adData.sold ? `
+<button class="btn btn-primary" onclick="openPayment(${adData.id})">
+<i class="fas fa-shopping-cart"></i> شراء
+</button>
+<button class="btn btn-warning" onclick="confirmSold(${adData.id})">
+<i class="fas fa-check"></i> تم البيع
+</button>
+` : ''}
+${isOwner ? `
+<button class="btn btn-secondary" onclick="deleteAd(${adData.id})">
+<i class="fas fa-trash"></i>
+</button>
+` : ''}
+<button class="btn btn-danger" onclick="openComplaint('${adData.id}')">
+<i class="fas fa-exclamation-triangle"></i> شكوى
+</button>
+</div>
+</div>
+</div>
+`;
+}
+
+function calculateCommission(price, currency) {
+const commission = parseFloat(price) * COMMISSION_RATE;
+if (currency === 'USD') {
+return `$${commission.toFixed(2)}`;
+} else {
+const sypToUsd = 13000;
+const commissionUSD = commission / sypToUsd;
+return `$${commissionUSD.toFixed(2)} (${commission.toFixed(0)} ل.س)`;
+}
+}
+
+function deleteAd(adId) {
+if (!confirm('هل أنت متأكد من حذف هذا الإعلان؟')) return;
+allAds = allAds.filter(ad => ad.id !== adId);
+localStorage.setItem('allAds', JSON.stringify(allAds));
+document.querySelectorAll(`[data-id="${adId}"]`).forEach(el => el.remove());
+showAlert('تم حذف الإعلان', 'success');
+addNotification('حذف إعلان', 'تم حذف إعلانك بنجاح', 'delete');
+}
+
+function applyFilters() {
+const category = document.getElementById('filterCategory').value;
+const type = document.getElementById('filterType').value;
+const priceMin = parseFloat(document.getElementById('filterPriceMin').value) || 0;
+const priceMax = parseFloat(document.getElementById('filterPriceMax').value) || Infinity;
+const currency = document.getElementById('filterCurrency').value;
+const sort = document.getElementById('filterSort').value;
+const adsGrid = document.getElementById('adsGrid');
+const adCards = Array.from(adsGrid.querySelectorAll('.ad-card'));
+adCards.forEach(card => {
+const cardCategory = card.dataset.category;
+const cardType = card.dataset.type;
+const cardPrice = parseFloat(card.dataset.price);
+const cardCurrency = card.dataset.currency;
+let show = true;
+if (category && cardCategory !== category) show = false;
+if (type && cardType !== type) show = false;
+if (currency && cardCurrency !== currency) show = false;
+if (cardPrice < priceMin || cardPrice > priceMax) show = false;
+card.style.display = show ? 'block' : 'none';
+});
+const visibleCards = adCards.filter(card => card.style.display !== 'none');
+visibleCards.sort((a, b) => {
+if (sort === 'newest') return new Date(b.dataset.date) - new Date(a.dataset.date);
+if (sort === 'oldest') return new Date(a.dataset.date) - new Date(b.dataset.date);
+if (sort === 'price-low') return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+if (sort === 'price-high') return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+if (sort === 'vip') return (b.dataset.vip === 'true') - (a.dataset.vip === 'true');
+return 0;
+});
+visibleCards.forEach(card => adsGrid.appendChild(card));
+}
+
+function resetFilters() {
+document.getElementById('filterCategory').value = '';
+document.getElementById('filterType').value = '';
+document.getElementById('filterPriceMin').value = '';
+document.getElementById('filterPriceMax').value = '';
+document.getElementById('filterCurrency').value = '';
+document.getElementById('filterSort').value = 'newest';
+document.querySelectorAll('#adsGrid .ad-card').forEach(card => {
+card.style.display = 'block';
+});
+}
+
+function searchAds() {
+const searchTerm = document.getElementById('adSearch').value.toLowerCase();
+const ads = document.querySelectorAll('#adsGrid .ad-card');
+ads.forEach(ad => {
+const text = ad.textContent.toLowerCase();
+ad.style.display = text.includes(searchTerm) ? 'block' : 'none';
+});
+}
+
+function openPayment(adId) {
+const ad = findAdById(adId);
+if (!ad) return;
+currentTransactionNumber = generateTransactionNumber();
+const currencySymbol = ad.currency === 'USD' ? '$' : 'ل.س';
+const commission = calculateCommission(ad.price, ad.currency);
+const totalWithCommission = ad.currency === 'USD'
+? `$${(parseFloat(ad.price) * (1 + COMMISSION_RATE)).toFixed(2)}`
+: `${(parseFloat(ad.price) * (1 + COMMISSION_RATE)).toFixed(0)} ل.س`;
+const paymentContent = document.getElementById('paymentContent');
+paymentContent.innerHTML = `
+${getTransactionNumberHTML(currentTransactionNumber)}
+<div class="card">
+<h3>${ad.title}</h3>
+<p><strong>النوع:</strong> ${getTypeName(ad.type)}</p>
+<p><strong>المواصفات:</strong> ${ad.description.substring(0, 150)}...</p>
+<p><strong>السعر:</strong> ${ad.price} ${currencySymbol}</p>
+${getAdPriceConversionsHTML(ad.price, ad.currency)}
+<p><strong>العمولة (0.2%):</strong> ${commission}</p>
+<p><strong>الإجمالي مع العمولة:</strong> ${totalWithCommission}</p>
+</div>
+<div class="qr-section">
+<h3 style="text-align: center; margin-bottom: 1rem;">
+<i class="fas fa-qrcode"></i> حسابات الدفع
+</h3>
+<div class="qr-grid">
+<div class="qr-card">
+<h4>📱 شام كاش - المدير</h4>
+<div class="qr-code">
+<img src="${shamCashDirectorQR}" alt="QR شام كاش المدير" style="width:150px;height:150px;">
+</div>
+<p><strong>الرقم:</strong> ${adminPhone}</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+<span class="account-status account-active"><i class="fas fa-check-circle"></i> مفعّل</span>
+</div>
+<div class="qr-card">
+<h4>📱 شام كاش - مسارك 2</h4>
+<div class="qr-code" id="qr-sham-masarak"></div>
+<p><strong>الرقم:</strong> ${adminPhone}</p>
+<p><strong>الاسم:</strong> مسارك الآن 2</p>
+<span class="account-status account-active"><i class="fas fa-check-circle"></i> مفعّل</span>
+</div>
+<div class="qr-card">
+<h4>📡 سيريتل كاش</h4>
+<div class="qr-code" id="qr-syriatel"></div>
+<p><strong>الرقم:</strong> ${adminPhone}</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+<span class="account-status account-active"><i class="fas fa-check-circle"></i> مفعّل</span>
+</div>
+<div class="qr-card">
+<h4>📡 MTN كاش</h4>
+<div class="qr-code" id="qr-mtn"></div>
+<p><strong>الرقم:</strong> ${adminMTN}</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+<span class="account-status account-active"><i class="fas fa-check-circle"></i> مفعّل</span>
+</div>
+<div class="qr-card">
+<h4>🏦 حوالات الهرم</h4>
+<div class="qr-code" id="qr-haram"></div>
+<p><strong>الرقم:</strong> ${adminPhone} (سيرياتيل)</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+<span class="account-status account-active"><i class="fas fa-check-circle"></i> مفعّل</span>
+</div>
+<div class="qr-card">
+<h4>🏦 حوالات الفؤاد</h4>
+<div class="qr-code" id="qr-fouad"></div>
+<p><strong>الرقم:</strong> ${adminPhone} (سيرياتيل)</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+<span class="account-status account-active"><i class="fas fa-check-circle"></i> مفعّل</span>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-list"></i> اختر الحساب للتحويل</label>
+${getAccountSelectHTML()}
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-hashtag"></i> رقم المعاملة</label>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; font-family: monospace; font-weight: bold; text-align: center; border: 2px dashed var(--success-color);">
+${currentTransactionNumber}
+</div>
+</div>
+<div class="sms-indicator">
+<i class="fas fa-sms"></i>
+<span>سيتم إرسال رسالة نصية وإشعار واتساب للمدير تلقائياً عند تأكيد الدفع</span>
+</div>
+<button class="btn btn-success" style="width: 100%;" onclick="completePayment(${adId})">
+<i class="fas fa-check"></i> تأكيد الدفع وإرسال الإشعارات
+</button>
+`;
+document.getElementById('paymentModal').classList.add('active');
+setTimeout(() => {
+generateQRCode('qr-sham-masarak', `shamcash://${adminPhone}?name=مسارك الآن 2`);
+generateQRCode('qr-syriatel', `syriatelcash://${adminPhone}`);
+generateQRCode('qr-mtn', `mtncash://${adminMTN}`);
+generateQRCode('qr-haram', `haram://${adminPhone}?name=مسارك الآن`);
+generateQRCode('qr-fouad', `fouad://${adminPhone}?name=مسارك الآن`);
+}, 100);
+}
+
+function generateQRCode(elementId, data) {
+const element = document.getElementById(elementId);
+if (element) {
+element.innerHTML = '';
+new QRCode(element, {
+text: data,
+width: 150,
+height: 150,
+colorDark: '#000000',
+colorLight: '#ffffff',
+correctLevel: QRCode.CorrectLevel.H
+});
+}
+}
+
+let selectedPaymentMethod = null;
+
+function selectPayment(element, method) {
+document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('selected'));
+element.classList.add('selected');
+selectedPaymentMethod = method;
+}
+
+async function completePayment(adId) {
+const selectedAccount = document.getElementById('selectedAccount').value;
+if (!selectedAccount) {
+showAlert('يرجى اختيار الحساب للتحويل', 'warning');
+return;
+}
+const ad = findAdById(adId);
+if (!ad) return;
+const accountInfo = paymentAccounts.find(a => a.id === selectedAccount);
+const currencySymbol = ad.currency === 'USD' ? '$' : 'ل.س';
+const commission = calculateCommission(ad.price, ad.currency);
+const totalWithCommission = ad.currency === 'USD'
+? `$${(parseFloat(ad.price) * (1 + COMMISSION_RATE)).toFixed(2)}`
+: `${(parseFloat(ad.price) * (1 + COMMISSION_RATE)).toFixed(0)} ل.س`;
+showAlert('جاري إرسال الإشعارات...', 'info');
+const message = `🛒 عملية شراء جديدة - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 الإعلان: ${ad.title}
+📝 النوع: ${getTypeName(ad.type)}
+📄 المواصفات: ${ad.description.substring(0, 100)}
+💰 السعر: ${ad.price} ${currencySymbol}
+📊 العمولة: ${commission}
+💵 الإجمالي: ${totalWithCommission}
+🏦 الحساب: ${accountInfo.name} (${accountInfo.number})
+👤 الاسم: ${accountInfo.displayName}
+🔢 رقم المعاملة: ${currentTransactionNumber}
+📅 التاريخ: ${new Date().toLocaleString('ar-SY')}
+━━━━━━━━━━━━━━━━━━━━`;
+const result = await sendComprehensiveNotification(message, currentTransactionNumber);
+closeModal('paymentModal');
+if (result.sms.success) {
+showAlert(`✅ تم تسجيل عملية الدفع بنجاح!
+📱 تم إرسال رسالة SMS للمدير
+💬 تم إرسال إشعار واتساب
+🔢 رقم المعاملة: ${currentTransactionNumber}`, 'success');
+} else {
+showAlert(`✅ تم تسجيل عملية الدفع بنجاح!
+💬 تم إرسال إشعار واتساب
+🔢 رقم المعاملة: ${currentTransactionNumber}
+⚠️ ملاحظة: لم يتم إرسال SMS (خدمة العرض المجانية)`, 'success');
+}
+addNotification('عملية دفع', `تم تسجيل عملية دفع للإعلان: ${ad.title}`, 'payment');
+}
+
+function confirmSold(adId) {
+const ad = findAdById(adId);
+if (!ad) return;
+const currencySymbol = ad.currency === 'USD' ? '$' : 'ل.س';
+const commission = calculateCommission(ad.price, ad.currency);
+const adLink = `${window.location.origin}${window.location.pathname}?ad=${adId}`;
+const soldContent = document.getElementById('soldContent');
+soldContent.innerHTML = `
+<div class="card">
+<h3>تأكيد إتمام البيع</h3>
+<p><strong>📋 اسم المنتج:</strong> ${ad.title}</p>
+<p><strong>📝 النوع:</strong> ${getTypeName(ad.type)}</p>
+<p><strong>💰 السعر:</strong> ${ad.price} ${currencySymbol}</p>
+<p><strong>📄 المواصفات:</strong> ${ad.description.substring(0, 200)}...</p>
+${getAdPriceConversionsHTML(ad.price, ad.currency)}
+<p><strong>📊 العمولة (0.2%):</strong> ${commission}</p>
+<div class="commission-info">
+<i class="fas fa-info-circle"></i>
+عند التأكيد:
+<ul style="margin-top: 0.5rem; padding-right: 1.5rem;">
+<li>سيتم إرسال إشعار واتساب للمدير بكل التفاصيل</li>
+<li>يجب إرسال العمولة إلى شام كاش المدير (0982657714)</li>
+<li>الاسم: مسارك الآن</li>
+<li>رابط الإعلان: ${adLink}</li>
+</ul>
+</div>
+</div>
+<div style="display: flex; gap: 1rem;">
+<button class="btn btn-secondary" onclick="closeModal('soldModal')">إلغاء</button>
+<button class="btn btn-success" onclick="finalizeSale(${adId})">
+<i class="fas fa-check"></i> تأكيد البيع
+</button>
+</div>
+`;
+document.getElementById('soldModal').classList.add('active');
+}
+
+function finalizeSale(adId) {
+const ad = findAdById(adId);
+if (!ad) return;
+ad.sold = true;
+const adIndex = allAds.findIndex(a => a.id === adId);
+if (adIndex !== -1) {
+allAds[adIndex].sold = true;
+allAds[adIndex].soldDate = new Date().toISOString();
+allAds[adIndex].commissionPaid = false;
+localStorage.setItem('allAds', JSON.stringify(allAds));
+}
+document.querySelectorAll(`#ad-${adId} .ad-images`).forEach(imgContainer => {
+if (!imgContainer.querySelector('.sold-overlay')) {
+imgContainer.insertAdjacentHTML('beforeend', '<div class="sold-overlay">تم البيع</div>');
+}
+});
+document.querySelectorAll(`#ad-${adId} .ad-buttons`).forEach(buttons => {
+const buyBtn = buttons.querySelector('.btn-primary');
+const soldBtn = buttons.querySelector('.btn-warning');
+if (buyBtn) buyBtn.remove();
+if (soldBtn) soldBtn.remove();
+});
+const commissionValue = ad.currency === 'USD'
+? parseFloat(ad.price) * COMMISSION_RATE
+: (parseFloat(ad.price) * COMMISSION_RATE) / 13000;
+commissionData.totalSales++;
+commissionData.totalCommission += commissionValue;
+commissionData.todaySales++;
+commissionData.logs.unshift({
+id: ad.id,
+title: ad.title,
+type: ad.type,
+price: ad.price,
+currency: ad.currency,
+description: ad.description,
+commission: commissionValue,
+commissionPaid: false,
+soldDate: new Date().toISOString(),
+reminderCount: 0
+});
+// Add to pending commissions
+commissionData.pendingCommissions = commissionData.pendingCommissions || [];
+commissionData.pendingCommissions.push({
+adId: ad.id,
+title: ad.title,
+type: ad.type,
+price: ad.price,
+currency: ad.currency,
+description: ad.description,
+commission: commissionValue,
+soldDate: new Date().toISOString(),
+status: 'waiting',
+reminderCount: 0
+});
+saveCommissionData();
+updateCommissionStats();
+closeModal('soldModal');
+showAlert('تم تأكيد البيع بنجاح! تم حفظ حالة الإعلان كمباع.', 'success');
+const currencySymbol = ad.currency === 'USD' ? '$' : 'ل.س';
+const commissionText = calculateCommission(ad.price, ad.currency);
+const adLink = `${window.location.origin}${window.location.pathname}?ad=${adId}`;
+// رسالة الواتساب الكاملة مع كل التفاصيل
+const message = `✅ تم البيع - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 اسم المنتج: ${ad.title}
+📝 نوع الإعلان: ${getTypeName(ad.type)}
+💰 سعر الإعلان: ${ad.price} ${currencySymbol}
+📄 المواصفات: ${ad.description}
+━━━━━━━━━━━━━━━━━━━━
+🏷️ مسارك الآن
+🔗 رابط الإعلان: ${adLink}
+━━━━━━━━━━━━━━━━━━━━
+💵 العمولة المطلوبة (0.2%): ${commissionText}
+━━━━━━━━━━━━━━━━━━━━
+📱 أرسل العمولة إلى:
+شام كاش المدير: 0982657714
+الاسم: مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📅 التاريخ: ${new Date().toLocaleString('ar-SY')}
+━━━━━━━━━━━━━━━━━━━━`;
+sendWhatsAppToAdmin(message);
+addNotification('تم البيع', `تم بيع الإعلان: ${ad.title} - العمولة المطلوبة: ${commissionText}`, 'sale');
+// Schedule commission check
+scheduleCommissionReminder(adId);
+}
+
+// ============= بوت متابعة العمولات =============
+function scheduleCommissionReminder(adId) {
+// Check after 24 hours
+setTimeout(() => checkCommissionStatus(adId, 1), 24 * 60 * 60 * 1000);
+// Check after 48 hours
+setTimeout(() => checkCommissionStatus(adId, 2), 48 * 60 * 60 * 1000);
+// Check after 72 hours
+setTimeout(() => checkCommissionStatus(adId, 3), 72 * 60 * 60 * 1000);
+}
+
+function checkCommissionStatus(adId, reminderLevel) {
+const pending = commissionData.pendingCommissions.find(p => p.adId === adId && p.status !== 'paid');
+if (!pending) return;
+const ad = findAdById(adId);
+if (!ad) return;
+const commissionText = calculateCommission(ad.price, ad.currency);
+if (reminderLevel === 1) {
+// First reminder - 24 hours
+pending.reminderCount = 1;
+pending.status = 'reminded-1';
+const message = `⏰ تذكير أول - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 الإعلان: ${ad.title}
+💰 العمولة المطلوبة: ${commissionText}
+━━━━━━━━━━━━━━━━━━━━
+لم نستلم العمولة بعد.
+📱 أرسل إلى شام كاش المدير: 0982657714
+الاسم: مسارك الآن
+━━━━━━━━━━━━━━━━━━━━`;
+sendWhatsAppToAdmin(message);
+addNotification('تذكير عمولة', `تذكير أول: عمولة الإعلان "${ad.title}" لم تُدفع بعد`, 'commission');
+} else if (reminderLevel === 2) {
+// Second reminder - 48 hours
+pending.reminderCount = 2;
+pending.status = 'reminded-2';
+const message = `⚠️ تذكير ثاني - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 الإعلان: ${ad.title}
+💰 العمولة المطلوبة: ${commissionText}
+━━━━━━━━━━━━━━━━━━━━
+مرّت 48 ساعة دون استلام العمولة.
+⚠️ سيتم تعليق الإعلان خلال 24 ساعة
+📱 أرسل إلى شام كاش المدير: 0982657714
+━━━━━━━━━━━━━━━━━━━━`;
+sendWhatsAppToAdmin(message);
+addNotification('تذكير عمولة', `تذكير ثاني: عمولة الإعلان "${ad.title}" لم تُدفع بعد`, 'commission');
+} else if (reminderLevel === 3) {
+// Third reminder - 72 hours - Suspend ad
+pending.reminderCount = 3;
+pending.status = 'overdue';
+const message = `🚫 تعليق إعلان - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 الإعلان: ${ad.title}
+💰 العمولة المطلوبة: ${commissionText}
+━━━━━━━━━━━━━━━━━━━━
+مرّت 72 ساعة دون استلام العمولة.
+❌ تم تعليق الإعلان مؤقتاً
+⚠️ تواصل مع الإدارة لإعادة التفعيل
+━━━━━━━━━━━━━━━━━━━━`;
+sendWhatsAppToAdmin(message);
+addNotification('تعليق إعلان', `تم تعليق الإعلان "${ad.title}" لعدم دفع العمولة`, 'commission');
+}
+saveCommissionData();
+updateCommissionStats();
+}
+
+function runCommissionBot() {
+const pendingList = document.getElementById('pendingCommissionsList');
+if (!commissionData.pendingCommissions || commissionData.pendingCommissions.length === 0) {
+pendingList.innerHTML = '<p style="text-align: center; opacity: 0.8;">✅ لا توجد عمولات معلقة حالياً</p>';
+showAlert('✅ لا توجد عمولات معلقة. كل شيء على ما يرام!', 'success');
+return;
+}
+let html = '';
+commissionData.pendingCommissions.forEach(p => {
+if (p.status === 'paid') return;
+const statusClass = p.status === 'waiting' ? 'status-waiting' :
+p.status === 'overdue' ? 'status-overdue' : 'status-waiting';
+const statusText = p.status === 'waiting' ? 'بانتظار الدفع' :
+p.status === 'reminded-1' ? 'تذكير أول' :
+p.status === 'reminded-2' ? 'تذكير ثاني' : 'متأخر';
+html += `
+<div class="pending-commission">
+<div>
+<strong>${p.title}</strong>
+<div style="font-size: 0.85rem; opacity: 0.9;">
+النوع: ${getTypeName(p.type)} | العمولة: $${p.commission.toFixed(2)}
+</div>
+<div style="font-size: 0.8rem; opacity: 0.7;">
+تاريخ البيع: ${new Date(p.soldDate).toLocaleString('ar-SY')}
+</div>
+</div>
+<div>
+<span class="status-badge ${statusClass}">${statusText}</span>
+<button class="btn btn-success" style="padding: 0.3rem 0.6rem; font-size: 0.8rem; margin-right: 0.5rem;" onclick="markCommissionPaid(${p.adId})">
+<i class="fas fa-check"></i> تم الدفع
+</button>
+<button class="btn btn-info" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;" onclick="sendCommissionReminder(${p.adId})">
+<i class="fas fa-bell"></i> تذكير
+</button>
+</div>
+</div>
+`;
+});
+pendingList.innerHTML = html;
+document.getElementById('pendingCommissions').textContent = commissionData.pendingCommissions.filter(p => p.status !== 'paid').length;
+showAlert('🤖 تم تشغيل بوت المتابعة. جارٍ فحص العمولات المعلقة...', 'info');
+}
+
+function markCommissionPaid(adId) {
+const pending = commissionData.pendingCommissions.find(p => p.adId === adId);
+if (pending) {
+pending.status = 'paid';
+const log = commissionData.logs.find(l => l.id === adId);
+if (log) log.commissionPaid = true;
+const adIndex = allAds.findIndex(a => a.id === adId);
+if (adIndex !== -1) {
+allAds[adIndex].commissionPaid = true;
+localStorage.setItem('allAds', JSON.stringify(allAds));
+}
+saveCommissionData();
+updateCommissionStats();
+runCommissionBot();
+showAlert('✅ تم تأكيد استلام العمولة بنجاح!', 'success');
+addNotification('عمولة مدفوعة', `تم استلام عمولة الإعلان "${pending.title}"`, 'commission');
+const message = `✅ تم استلام العمولة - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 الإعلان: ${pending.title}
+💰 العمولة: $${pending.commission.toFixed(2)}
+📅 التاريخ: ${new Date().toLocaleString('ar-SY')}
+━━━━━━━━━━━━━━━━━━━━
+شكراً لتعاونك! 🙏`;
+sendWhatsAppToAdmin(message);
+}
+}
+
+function sendCommissionReminder(adId) {
+const pending = commissionData.pendingCommissions.find(p => p.adId === adId);
+if (!pending) return;
+const message = `🔔 تذكير يدوي - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 الإعلان: ${pending.title}
+💰 العمولة المطلوبة: $${pending.commission.toFixed(2)}
+━━━━━━━━━━━━━━━━━━━━
+📱 أرسل إلى شام كاش المدير: 0982657714
+الاسم: مسارك الآن
+━━━━━━━━━━━━━━━━━━━━`;
+sendWhatsAppToAdmin(message);
+showAlert('📱 تم إرسال التذكير بنجاح', 'success');
+}
+
+function checkPendingCommissions() {
+if (!commissionData.pendingCommissions) return;
+commissionData.pendingCommissions.forEach(p => {
+if (p.status === 'paid') return;
+const soldDate = new Date(p.soldDate);
+const now = new Date();
+const hoursDiff = (now - soldDate) / (1000 * 60 * 60);
+if (hoursDiff >= 72 && p.status !== 'overdue') {
+checkCommissionStatus(p.adId, 3);
+} else if (hoursDiff >= 48 && p.reminderCount < 2) {
+checkCommissionStatus(p.adId, 2);
+} else if (hoursDiff >= 24 && p.reminderCount < 1) {
+checkCommissionStatus(p.adId, 1);
+}
+});
+}
+
+function findAdById(id) {
+return allAds.find(a => a.id === parseInt(id));
+}
+
+function updateCommissionStats() {
+document.getElementById('totalSales').textContent = commissionData.totalSales;
+document.getElementById('totalCommission').textContent = `$${commissionData.totalCommission.toFixed(2)}`;
+document.getElementById('todaySales').textContent = commissionData.todaySales;
+const pendingCount = commissionData.pendingCommissions ? commissionData.pendingCommissions.filter(p => p.status !== 'paid').length : 0;
+document.getElementById('pendingCommissions').textContent = pendingCount;
+const logContainer = document.getElementById('commissionLog');
+if (commissionData.logs.length === 0) {
+logContainer.innerHTML = '<p style="text-align: center; color: #999;">لا توجد عمليات حالياً</p>';
+} else {
+logContainer.innerHTML = commissionData.logs.map(log => `
+<div class="card" style="padding: 1rem; margin-bottom: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<div>
+<strong>${log.title}</strong>
+<div style="font-size: 0.85rem; color: #666;">
+النوع: ${getTypeName(log.type)} | ${new Date(log.soldDate || log.date).toLocaleString('ar-SY')}
+</div>
+<div style="font-size: 0.8rem; color: #999;">
+${log.commissionPaid ? '<span style="color: var(--success-color);">✅ العمولة مدفوعة</span>' : '<span style="color: var(--accent-color);">⏳ العمولة معلقة</span>'}
+</div>
+</div>
+<div style="text-align: left;">
+<div style="color: var(--success-color); font-weight: bold;">
+$${log.commission.toFixed(2)}
+</div>
+<div style="font-size: 0.85rem;">عمولة</div>
+</div>
+</div>
+</div>
+`).join('');
+}
+}
+
+function saveCommissionData() {
+localStorage.setItem('commissionData', JSON.stringify(commissionData));
+}
+
+function loadCommissionData() {
+const saved = localStorage.getItem('commissionData');
+if (saved) {
+commissionData = JSON.parse(saved);
+if (!commissionData.pendingCommissions) commissionData.pendingCommissions = [];
+updateCommissionStats();
+}
+}
+
+function renderHospitals() {
+const containers = ['hospitalsContainer', 'combined-hospitalsContainer'];
+containers.forEach(containerId => {
+const container = document.getElementById(containerId);
+if (!container) return;
+container.innerHTML = '';
+hospitals.forEach(hospital => {
+const hospitalHTML = `
+<div class="hospital-card">
+<img src="${hospital.coverImage}" alt="${hospital.name} - ${hospital.desc}" class="hospital-cover" onerror="this.src='https://via.placeholder.com/800x400/3498db/ffffff?text=${encodeURIComponent(hospital.name)}'">
+<div class="hospital-header">
+<img src="${hospital.image}" alt="${hospital.name}" class="hospital-img" onerror="this.src='https://via.placeholder.com/100'">
+<div>
+<h3>${hospital.name}</h3>
+<div class="bot-indicator">${hospital.desc}</div>
+</div>
+</div>
+<div class="donation-buttons">
+<button class="btn btn-primary" onclick="showMedicalDonation(${hospital.id})">
+<i class="fas fa-heartbeat"></i> التبرع بالأجهزة الطبية
+</button>
+<button class="btn btn-success" onclick="showMedicineDonation(${hospital.id})">
+<i class="fas fa-pills"></i> التبرع بالأدوية
+</button>
+<button class="btn btn-warning" onclick="showMoneyDonation(${hospital.id})">
+<i class="fas fa-money-bill-wave"></i> التبرع بالنقود
+</button>
+</div>
+<div class="hospital-info">
+<h4>مشاريع التبرع الحالية:</h4>
+<div style="margin-top: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span>الأجهزة المطلوبة</span>
+<span style="color: var(--success-color);">
+<i class="fas fa-arrow-up"></i> 45%
+</span>
+</div>
+<div style="background: #ddd; height: 10px; border-radius: 5px; margin-top: 0.5rem;">
+<div style="background: var(--success-color); width: 45%; height: 100%; border-radius: 5px;"></div>
+</div>
+</div>
+</div>
+</div>
+`;
+container.insertAdjacentHTML('beforeend', hospitalHTML);
+});
+});
+}
+
+function showMedicalDonation(hospitalId) {
+const hospital = hospitals.find(h => h.id === hospitalId);
+currentTransactionNumber = generateTransactionNumber();
+let equipmentList = medicalEquipment.map(eq => {
+const priceSYP = (eq.price * SYR_EXCHANGE_RATE).toLocaleString('ar-SY');
+const priceNewSYP = (eq.price * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY');
+return `<option value="${eq.name}" data-price="${eq.price}">
+${eq.name} - ${eq.price}$ / ${priceSYP} ل.س / ${priceNewSYP} ل.س.ج
+</option>`;
+}).join('');
+const content = document.getElementById('donationContent');
+document.getElementById('donationTitle').textContent = `التبرع بالأجهزة - ${hospital.name}`;
+content.innerHTML = `
+${getTransactionNumberHTML(currentTransactionNumber)}
+<div class="form-group">
+<label class="form-label"><i class="fas fa-coins"></i> اختر العملة</label>
+${getCurrencySelectHTML()}
+</div>
+<form onsubmit="submitDonation(event, 'medical', ${hospitalId})">
+<div class="form-group">
+<label class="form-label">اختر الجهاز</label>
+<select class="form-control" id="donationItem" required onchange="calculateDonationTotal()">
+<option value="">اختر الجهاز</option>
+${equipmentList}
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">عدد القطع</label>
+<input type="number" class="form-control" id="donationQty" min="1" value="1" onchange="calculateDonationTotal()" required>
+</div>
+<div class="form-group">
+<label class="form-label">السعر الإجمالي</label>
+<input type="text" class="form-control" id="donationTotal" readonly style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);">
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-list"></i> اختر الحساب للتحويل</label>
+${getAccountSelectHTML()}
+</div>
+<div class="sms-indicator">
+<i class="fas fa-sms"></i>
+<span>سيتم إرسال رسالة SMS و WhatsApp للمدير تلقائياً</span>
+</div>
+<button type="submit" class="btn btn-success" style="width: 100%;">
+<i class="fas fa-donate"></i> تأكيد التبرع وإرسال الإشعارات
+</button>
+</form>
+`;
+document.getElementById('donationModal').classList.add('active');
+}
+
+function calculateDonationTotal() {
+const select = document.getElementById('donationItem');
+const qty = parseInt(document.getElementById('donationQty').value) || 1;
+const selectedOption = select.options[select.selectedIndex];
+if (selectedOption && selectedOption.value) {
+const price = parseFloat(selectedOption.dataset.price);
+const total = price * qty;
+if (currentDonationCurrency === 'SYP') {
+const totalSYP = total * SYR_EXCHANGE_RATE;
+const totalNewSYP = totalSYP / NEW_SYP_DIVISOR;
+document.getElementById('donationTotal').value = `${totalSYP.toLocaleString('ar-SY')} ل.س (${totalNewSYP.toLocaleString('ar-SY')} ل.س.ج)`;
+} else {
+document.getElementById('donationTotal').value = `${total.toLocaleString('ar-SY')} دولار أمريكي`;
+}
+} else {
+document.getElementById('donationTotal').value = '';
+}
+}
+
+function showMedicineDonation(hospitalId) {
+const hospital = hospitals.find(h => h.id === hospitalId);
+currentTransactionNumber = generateTransactionNumber();
+let medicineList = medicines.map(med => {
+const priceSYP = (med.price * SYR_EXCHANGE_RATE).toLocaleString('ar-SY');
+const priceNewSYP = (med.price * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY');
+return `<option value="${med.name}" data-price="${med.price}">
+${med.name} - ${med.price}$ / ${priceSYP} ل.س / ${priceNewSYP} ل.س.ج
+</option>`;
+}).join('');
+const content = document.getElementById('donationContent');
+document.getElementById('donationTitle').textContent = `التبرع بالأدوية - ${hospital.name}`;
+content.innerHTML = `
+${getTransactionNumberHTML(currentTransactionNumber)}
+<div class="form-group">
+<label class="form-label"><i class="fas fa-coins"></i> اختر العملة</label>
+${getCurrencySelectHTML()}
+</div>
+<form onsubmit="submitDonation(event, 'medicine', ${hospitalId})">
+<div class="form-group">
+<label class="form-label">اختر الدواء</label>
+<select class="form-control" id="medicineItems" required onchange="updateMedicineTotal()">
+<option value="">اختر الدواء</option>
+${medicineList}
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">الكمية</label>
+<input type="number" class="form-control" id="medicineQty" min="1" value="1" required onchange="updateMedicineTotal()">
+</div>
+<div class="form-group">
+<label class="form-label">السعر الإجمالي</label>
+<input type="text" class="form-control" id="medicineTotal" readonly style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);">
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-list"></i> اختر الحساب للتحويل</label>
+${getAccountSelectHTML()}
+</div>
+<div class="sms-indicator">
+<i class="fas fa-sms"></i>
+<span>سيتم إرسال رسالة SMS و WhatsApp للمدير تلقائياً</span>
+</div>
+<button type="submit" class="btn btn-success" style="width: 100%;">
+<i class="fas fa-donate"></i> تأكيد التبرع وإرسال الإشعارات
+</button>
+</form>
+`;
+document.getElementById('donationModal').classList.add('active');
+}
+
+function updateMedicineTotal() {
+const select = document.getElementById('medicineItems');
+const qty = parseInt(document.getElementById('medicineQty').value) || 1;
+const selectedOption = select.options[select.selectedIndex];
+if (selectedOption && selectedOption.value) {
+const price = parseFloat(selectedOption.dataset.price);
+const total = price * qty;
+if (currentDonationCurrency === 'SYP') {
+const totalSYP = total * SYR_EXCHANGE_RATE;
+const totalNewSYP = totalSYP / NEW_SYP_DIVISOR;
+document.getElementById('medicineTotal').value = `${totalSYP.toLocaleString('ar-SY')} ل.س (${totalNewSYP.toLocaleString('ar-SY')} ل.س.ج)`;
+} else {
+document.getElementById('medicineTotal').value = `${total.toLocaleString('ar-SY')} دولار أمريكي`;
+}
+} else {
+document.getElementById('medicineTotal').value = '';
+}
+}
+
+function showMoneyDonation(hospitalId) {
+const hospital = hospitals.find(h => h.id === hospitalId);
+currentTransactionNumber = generateTransactionNumber();
+const content = document.getElementById('donationContent');
+document.getElementById('donationTitle').textContent = `💰 التبرع النقدي - ${hospital.name}`;
+content.innerHTML = `
+${getTransactionNumberHTML(currentTransactionNumber)}
+<div class="qr-section">
+<h3 style="text-align: center; margin-bottom: 1rem;">
+<i class="fas fa-qrcode"></i> حسابات التبرع المتاحة
+</h3>
+<div class="qr-grid">
+<div class="qr-card">
+<h4>📱 شام كاش - المدير</h4>
+<div class="qr-code">
+<img src="${shamCashDirectorQR}" alt="QR شام كاش المدير" style="width:150px;height:150px;">
+</div>
+<p><strong>الرقم:</strong> ${adminPhone}</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+</div>
+<div class="qr-card">
+<h4>📱 شام كاش - مسارك 2</h4>
+<div class="qr-code" id="qr-don-sham2"></div>
+<p><strong>الرقم:</strong> ${adminPhone}</p>
+<p><strong>الاسم:</strong> مسارك الآن 2</p>
+</div>
+<div class="qr-card">
+<h4>📡 سيريتل كاش</h4>
+<div class="qr-code" id="qr-don-syriatel"></div>
+<p><strong>الرقم:</strong> ${adminPhone}</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+</div>
+<div class="qr-card">
+<h4>📡 MTN كاش</h4>
+<div class="qr-code" id="qr-don-mtn"></div>
+<p><strong>الرقم:</strong> ${adminMTN}</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+</div>
+<div class="qr-card">
+<h4>🏦 حوالات الهرم</h4>
+<div class="qr-code" id="qr-don-haram"></div>
+<p><strong>الرقم:</strong> ${adminPhone} (سيرياتيل)</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+</div>
+<div class="qr-card">
+<h4>🏦 حوالات الفؤاد</h4>
+<div class="qr-code" id="qr-don-fouad"></div>
+<p><strong>الرقم:</strong> ${adminPhone} (سيرياتيل)</p>
+<p><strong>الاسم:</strong> مسارك الآن</p>
+</div>
+</div>
+</div>
+<form onsubmit="submitDonation(event, 'money', ${hospitalId})">
+<div class="form-group">
+<label class="form-label"><i class="fas fa-coins"></i> 1. اختر العملة</label>
+${getCurrencySelectHTML()}
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-list"></i> 2. اختر الحساب للتحويل</label>
+${getAccountSelectHTML()}
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-money-bill-wave"></i> 3. المبلغ</label>
+<input type="number" class="form-control" id="moneyAmount" min="1" required
+placeholder="${currentDonationCurrency === 'SYP' ? 'أدخل المبلغ بالليرة السورية' : 'أدخل المبلغ بالدولار'}"
+oninput="updateAmountConversion(parseFloat(this.value) || 0)">
+<div id="amountConversion" class="amount-conversion"></div>
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-hashtag"></i> 4. رقم المعاملة (تلقائي)</label>
+<div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; font-family: monospace; font-weight: bold; text-align: center; border: 2px dashed var(--success-color);">
+${currentTransactionNumber}
+</div>
+</div>
+<div class="sms-indicator">
+<i class="fas fa-sms"></i>
+<span>📱 سيتم إرسال رسالة SMS إلى رقم المدير (963982657714) + إشعار واتساب تلقائياً</span>
+</div>
+<div class="donation-summary">
+<h4><i class="fas fa-heart"></i> ملخص التبرع</h4>
+<div id="donationSummaryText" style="font-size: 0.9rem;">اختر الحساب والمبلغ لعرض الملخص</div>
+</div>
+<button type="submit" class="btn btn-success" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+<i class="fas fa-check-circle"></i> تأكيد التبرع وإرسال الإشعارات
+</button>
+</form>
+`;
+document.getElementById('donationModal').classList.add('active');
+const updateSummary = () => {
+const account = document.getElementById('selectedAccount')?.value;
+const amount = parseFloat(document.getElementById('moneyAmount')?.value) || 0;
+const summaryDiv = document.getElementById('donationSummaryText');
+if (!summaryDiv) return;
+if (account && amount > 0) {
+const accInfo = paymentAccounts.find(a => a.id === account);
+const currency = currentDonationCurrency === 'SYP' ? 'ل.س' : '$';
+summaryDiv.innerHTML = `
+🏦 ${accInfo.name} (${accInfo.number})<br>
+👤 الاسم: ${accInfo.displayName}<br>
+💵 المبلغ: ${amount.toLocaleString('ar-SY')} ${currency}<br>
+🔢 ${currentTransactionNumber}
+`;
+} else {
+summaryDiv.textContent = 'اختر الحساب والمبلغ لعرض الملخص';
+}
+};
+setTimeout(() => {
+document.getElementById('selectedAccount')?.addEventListener('change', updateSummary);
+document.getElementById('moneyAmount')?.addEventListener('input', updateSummary);
+generateQRCode('qr-don-sham2', `shamcash://${adminPhone}?name=مسارك الآن 2`);
+generateQRCode('qr-don-syriatel', `syriatelcash://${adminPhone}`);
+generateQRCode('qr-don-mtn', `mtncash://${adminMTN}`);
+generateQRCode('qr-don-haram', `haram://${adminPhone}?name=مسارك الآن`);
+generateQRCode('qr-don-fouad', `fouad://${adminPhone}?name=مسارك الآن`);
+}, 100);
+}
+
+async function submitDonation(event, type, hospitalId) {
+event.preventDefault();
+const hospital = hospitals.find(h => h.id === hospitalId);
+const selectedAccount = document.getElementById('selectedAccount')?.value;
+if (!selectedAccount && type === 'money') {
+showAlert('يرجى اختيار الحساب للتحويل', 'warning');
+return;
+}
+let donationDetails = '';
+let amountUSD = 0;
+if (type === 'medical') {
+const item = document.getElementById('donationItem').value;
+const qty = document.getElementById('donationQty').value;
+const total = document.getElementById('donationTotal').value;
+const selectedOption = document.getElementById('donationItem').options[document.getElementById('donationItem').selectedIndex];
+amountUSD = parseFloat(selectedOption.dataset.price) * parseInt(qty);
+donationDetails = `
+💊 الجهاز: ${item}
+🔢 الكمية: ${qty}
+💰 الإجمالي: ${total}`;
+} else if (type === 'medicine') {
+const item = document.getElementById('medicineItems').value;
+const qty = document.getElementById('medicineQty').value;
+const total = document.getElementById('medicineTotal').value;
+const selectedOption = document.getElementById('medicineItems').options[document.getElementById('medicineItems').selectedIndex];
+amountUSD = parseFloat(selectedOption.dataset.price) * parseInt(qty);
+donationDetails = `
+💊 الدواء: ${item}
+🔢 الكمية: ${qty}
+💰 الإجمالي: ${total}`;
+} else if (type === 'money') {
+const amount = parseFloat(document.getElementById('moneyAmount').value);
+const currency = currentDonationCurrency === 'SYP' ? 'ليرة سورية' : 'دولار أمريكي';
+amountUSD = currentDonationCurrency === 'SYP' ? amount / SYR_EXCHANGE_RATE : amount;
+donationDetails = `
+💵 المبلغ: ${amount.toLocaleString('ar-SY')} ${currency}`;
+} else if (type === 'food') {
+const foodType = document.getElementById('foodType').value;
+const qty = document.getElementById('foodQty').value;
+const total = document.getElementById('foodTotal').value;
+donationDetails = `
+🛒 نوع الكفالة: ${foodType}
+👥 العدد: ${qty}
+💰 الإجمالي: ${total}`;
+} else if (type === 'sponsorship') {
+const sponsorType = document.getElementById('sponsorType').value;
+const qty = document.getElementById('sponsorQty').value;
+const total = document.getElementById('sponsorTotal').value;
+donationDetails = `
+👶 مدة الكفالة: ${sponsorType}
+👥 العدد: ${qty}
+💰 الإجمالي: ${total}`;
+} else if (type === 'building') {
+const material = document.getElementById('buildingMaterial').value;
+const qty = document.getElementById('materialQty').value;
+const total = document.getElementById('buildingTotal').value;
+donationDetails = `
+🏗️ المادة: ${material}
+🔢 الكمية: ${qty}
+💰 الإجمالي: ${total}`;
+}
+const accountInfo = paymentAccounts.find(a => a.id === selectedAccount);
+const accountText = accountInfo ? `
+🏦 الحساب: ${accountInfo.name} (${accountInfo.number})
+👤 الاسم: ${accountInfo.displayName}` : '';
+showAlert('جاري إرسال الإشعارات...', 'info');
+const message = `💝 تبرع جديد - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+🏥 المشفى/الجمعية: ${hospital.name}
+📋 نوع التبرع: ${getTypeName(type)}${donationDetails}
+💵 المبلغ بالدولار: $${amountUSD.toFixed(2)}
+💱 المبلغ بالليرة: ${(amountUSD * SYR_EXCHANGE_RATE).toLocaleString('ar-SY')} ل.س
+🆕 بالليرة الجديدة: ${(amountUSD * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY')} ل.س.ج${accountText}
+🔢 رقم المعاملة: ${currentTransactionNumber}
+📅 التاريخ: ${new Date().toLocaleString('ar-SY')}
+━━━━━━━━━━━━━━━━━━━━`;
+const result = await sendComprehensiveNotification(message, currentTransactionNumber);
+closeModal('donationModal');
+if (result.sms.success) {
+showAlert(`✅ تم إرسال طلب التبرع بنجاح!
+📱 تم إرسال رسالة SMS للمدير
+💬 تم إرسال إشعار واتساب
+🔢 رقم المعاملة: ${currentTransactionNumber}`, 'success');
+} else {
+showAlert(`✅ تم إرسال طلب التبرع بنجاح!
+💬 تم إرسال إشعار واتساب
+🔢 رقم المعاملة: ${currentTransactionNumber}
+⚠️ SMS: خدمة العرض المجانية - استبدلها بخدمة محلية للإنتاج`, 'success');
+}
+addNotification('تبرع جديد', `تم تسجيل تبرع لـ ${hospital.name}`, 'donation');
+}
+
+function renderCharities() {
+const containers = ['charitiesContainer', 'combined-charitiesContainer'];
+containers.forEach(containerId => {
+const container = document.getElementById(containerId);
+if (!container) return;
+container.innerHTML = '';
+charities.forEach(charity => {
+let extraButtons = '';
+if (charity.type === 'orphans') {
+extraButtons = `
+<button class="btn btn-info" onclick="showFoodBasket(${charity.id})">
+<i class="fas fa-shopping-basket"></i> السلة الغذائية
+</button>
+<button class="btn btn-primary" onclick="showSponsorship(${charity.id})">
+<i class="fas fa-users"></i> كفالة أشخاص
+</button>
+`;
+} else {
+extraButtons = `
+<button class="btn btn-info" onclick="showBuildingDonation(${charity.id})">
+<i class="fas fa-hammer"></i> التبرع بالمواد
+</button>
+`;
+}
+const charityHTML = `
+<div class="charity-card">
+<div class="charity-header">
+<img src="${charity.image}" alt="${charity.name}" class="charity-img">
+<div>
+<h3>${charity.name}</h3>
+<div class="bot-indicator">بوت التبرعات نشط</div>
+</div>
+</div>
+<div class="donation-buttons">
+${extraButtons}
+<button class="btn btn-warning" onclick="showMoneyDonationCharity(${charity.id})">
+<i class="fas fa-money-bill-wave"></i> التبرع بالنقود
+</button>
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 8px;">
+<h4>التبرعات الحالية:</h4>
+<div style="margin-top: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span>نسبة الإنجاز</span>
+<span style="color: var(--success-color);">
+<i class="fas fa-arrow-up"></i> 62%
+</span>
+</div>
+<div style="background: #ddd; height: 10px; border-radius: 5px; margin-top: 0.5rem;">
+<div style="background: var(--success-color); width: 62%; height: 100%; border-radius: 5px;"></div>
+</div>
+</div>
+</div>
+</div>
+`;
+container.insertAdjacentHTML('beforeend', charityHTML);
+});
+});
+}
+
+function showFoodBasket(charityId) {
+const content = document.getElementById('donationContent');
+document.getElementById('donationTitle').textContent = '🛒 السلة الغذائية';
+currentTransactionNumber = generateTransactionNumber();
+const weekPriceUSD = 25;
+const monthPriceUSD = 100;
+const yearPriceUSD = 1100;
+content.innerHTML = `
+${getTransactionNumberHTML(currentTransactionNumber)}
+<div class="form-group">
+<label class="form-label"><i class="fas fa-coins"></i> اختر العملة</label>
+${getCurrencySelectHTML()}
+</div>
+<form onsubmit="submitDonation(event, 'food', ${charityId})">
+<div class="form-group">
+<label class="form-label">نوع الكفالة</label>
+<select class="form-control" id="foodType" required onchange="updateFoodTotal()">
+<option value="">اختر النوع</option>
+<option value="week" data-price="${weekPriceUSD}">كفالة أسبوع - ${weekPriceUSD}$ / ${(weekPriceUSD * SYR_EXCHANGE_RATE).toLocaleString('ar-SY')} ل.س / ${(weekPriceUSD * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY')} ل.س.ج</option>
+<option value="month" data-price="${monthPriceUSD}">كفالة شهر - ${monthPriceUSD}$ / ${(monthPriceUSD * SYR_EXCHANGE_RATE).toLocaleString('ar-SY')} ل.س / ${(monthPriceUSD * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY')} ل.س.ج</option>
+<option value="year" data-price="${yearPriceUSD}">كفالة سنة - ${yearPriceUSD}$ / ${(yearPriceUSD * SYR_EXCHANGE_RATE).toLocaleString('ar-SY')} ل.س / ${(yearPriceUSD * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY')} ل.س.ج</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">عدد الأشخاص</label>
+<input type="number" class="form-control" id="foodQty" min="1" value="1" required onchange="updateFoodTotal()">
+</div>
+<div class="form-group">
+<label class="form-label">السعر الإجمالي</label>
+<input type="text" class="form-control" id="foodTotal" readonly style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);">
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-list"></i> اختر الحساب للتحويل</label>
+${getAccountSelectHTML()}
+</div>
+<div class="sms-indicator">
+<i class="fas fa-sms"></i>
+<span>سيتم إرسال رسالة SMS و WhatsApp للمدير تلقائياً</span>
+</div>
+<button type="submit" class="btn btn-success" style="width: 100%;">
+<i class="fas fa-donate"></i> تأكيد الكفالة وإرسال الإشعارات
+</button>
+</form>
+`;
+document.getElementById('donationModal').classList.add('active');
+}
+
+function updateFoodTotal() {
+const select = document.getElementById('foodType');
+const qty = parseInt(document.getElementById('foodQty').value) || 1;
+const selectedOption = select.options[select.selectedIndex];
+if (selectedOption && selectedOption.value) {
+const price = parseFloat(selectedOption.dataset.price);
+const total = price * qty;
+if (currentDonationCurrency === 'SYP') {
+const totalSYP = total * SYR_EXCHANGE_RATE;
+const totalNewSYP = totalSYP / NEW_SYP_DIVISOR;
+document.getElementById('foodTotal').value = `${totalSYP.toLocaleString('ar-SY')} ل.س (${totalNewSYP.toLocaleString('ar-SY')} ل.س.ج)`;
+} else {
+document.getElementById('foodTotal').value = `${total.toLocaleString('ar-SY')} دولار أمريكي`;
+}
+} else {
+document.getElementById('foodTotal').value = '';
+}
+}
+
+function showSponsorship(charityId) {
+const content = document.getElementById('donationContent');
+document.getElementById('donationTitle').textContent = '👶 كفالة الأيتام';
+currentTransactionNumber = generateTransactionNumber();
+const weekPriceUSD = 30;
+const monthPriceUSD = 120;
+const yearPriceUSD = 1300;
+content.innerHTML = `
+${getTransactionNumberHTML(currentTransactionNumber)}
+<div class="form-group">
+<label class="form-label"><i class="fas fa-coins"></i> اختر العملة</label>
+${getCurrencySelectHTML()}
+</div>
+<form onsubmit="submitDonation(event, 'sponsorship', ${charityId})">
+<div class="form-group">
+<label class="form-label">مدة الكفالة</label>
+<select class="form-control" id="sponsorType" required onchange="updateSponsorTotal()">
+<option value="">اختر المدة</option>
+<option value="week" data-price="${weekPriceUSD}">أسبوع - ${weekPriceUSD}$ / ${(weekPriceUSD * SYR_EXCHANGE_RATE).toLocaleString('ar-SY')} ل.س / ${(weekPriceUSD * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY')} ل.س.ج</option>
+<option value="month" data-price="${monthPriceUSD}">شهر - ${monthPriceUSD}$ / ${(monthPriceUSD * SYR_EXCHANGE_RATE).toLocaleString('ar-SY')} ل.س / ${(monthPriceUSD * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY')} ل.س.ج</option>
+<option value="year" data-price="${yearPriceUSD}">سنة - ${yearPriceUSD}$ / ${(yearPriceUSD * SYR_EXCHANGE_RATE).toLocaleString('ar-SY')} ل.س / ${(yearPriceUSD * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY')} ل.س.ج</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">عدد الأشخاص</label>
+<input type="number" class="form-control" id="sponsorQty" min="1" value="1" required onchange="updateSponsorTotal()">
+</div>
+<div class="form-group">
+<label class="form-label">السعر الإجمالي</label>
+<input type="text" class="form-control" id="sponsorTotal" readonly style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);">
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-list"></i> اختر الحساب للتحويل</label>
+${getAccountSelectHTML()}
+</div>
+<div class="sms-indicator">
+<i class="fas fa-sms"></i>
+<span>سيتم إرسال رسالة SMS و WhatsApp للمدير تلقائياً</span>
+</div>
+<button type="submit" class="btn btn-success" style="width: 100%;">
+<i class="fas fa-heart"></i> تأكيد الكفالة وإرسال الإشعارات
+</button>
+</form>
+`;
+document.getElementById('donationModal').classList.add('active');
+}
+
+function updateSponsorTotal() {
+const select = document.getElementById('sponsorType');
+const qty = parseInt(document.getElementById('sponsorQty').value) || 1;
+const selectedOption = select.options[select.selectedIndex];
+if (selectedOption && selectedOption.value) {
+const price = parseFloat(selectedOption.dataset.price);
+const total = price * qty;
+if (currentDonationCurrency === 'SYP') {
+const totalSYP = total * SYR_EXCHANGE_RATE;
+const totalNewSYP = totalSYP / NEW_SYP_DIVISOR;
+document.getElementById('sponsorTotal').value = `${totalSYP.toLocaleString('ar-SY')} ل.س (${totalNewSYP.toLocaleString('ar-SY')} ل.س.ج)`;
+} else {
+document.getElementById('sponsorTotal').value = `${total.toLocaleString('ar-SY')} دولار أمريكي`;
+}
+} else {
+document.getElementById('sponsorTotal').value = '';
+}
+}
+
+function showBuildingDonation(charityId) {
+currentTransactionNumber = generateTransactionNumber();
+let materialsList = buildingMaterials.map(mat => {
+const priceSYP = (mat.price * SYR_EXCHANGE_RATE).toLocaleString('ar-SY');
+const priceNewSYP = (mat.price * SYR_EXCHANGE_RATE / NEW_SYP_DIVISOR).toLocaleString('ar-SY');
+return `<option value="${mat.name}" data-price="${mat.price}">
+${mat.name} - ${mat.price}$ / ${priceSYP} ل.س / ${priceNewSYP} ل.س.ج
+</option>`;
+}).join('');
+const content = document.getElementById('donationContent');
+document.getElementById('donationTitle').textContent = '🏗️ التبرع بمواد البناء';
+content.innerHTML = `
+${getTransactionNumberHTML(currentTransactionNumber)}
+<div class="form-group">
+<label class="form-label"><i class="fas fa-coins"></i> اختر العملة</label>
+${getCurrencySelectHTML()}
+</div>
+<form onsubmit="submitDonation(event, 'building', ${charityId})">
+<div class="form-group">
+<label class="form-label">اختر المادة</label>
+<select class="form-control" id="buildingMaterial" required onchange="calculateBuildingTotal()">
+<option value="">اختر المادة</option>
+${materialsList}
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">الكمية</label>
+<input type="number" class="form-control" id="materialQty" min="1" value="1" onchange="calculateBuildingTotal()">
+</div>
+<div class="form-group">
+<label class="form-label">السعر الإجمالي</label>
+<input type="text" class="form-control" id="buildingTotal" readonly style="font-size: 1.2rem; font-weight: bold; color: var(--success-color);">
+</div>
+<div class="form-group">
+<label class="form-label"><i class="fas fa-list"></i> اختر الحساب للتحويل</label>
+${getAccountSelectHTML()}
+</div>
+<div class="sms-indicator">
+<i class="fas fa-sms"></i>
+<span>سيتم إرسال رسالة SMS و WhatsApp للمدير تلقائياً</span>
+</div>
+<button type="submit" class="btn btn-success" style="width: 100%;">
+<i class="fas fa-donate"></i> تأكيد التبرع وإرسال الإشعارات
+</button>
+</form>
+`;
+document.getElementById('donationModal').classList.add('active');
+}
+
+function calculateBuildingTotal() {
+const select = document.getElementById('buildingMaterial');
+const qty = parseInt(document.getElementById('materialQty').value) || 1;
+const selectedOption = select.options[select.selectedIndex];
+if (selectedOption && selectedOption.value) {
+const price = parseFloat(selectedOption.dataset.price);
+const total = price * qty;
+if (currentDonationCurrency === 'SYP') {
+const totalSYP = total * SYR_EXCHANGE_RATE;
+const totalNewSYP = totalSYP / NEW_SYP_DIVISOR;
+document.getElementById('buildingTotal').value = `${totalSYP.toLocaleString('ar-SY')} ل.س (${totalNewSYP.toLocaleString('ar-SY')} ل.س.ج)`;
+} else {
+document.getElementById('buildingTotal').value = `${total.toLocaleString('ar-SY')} دولار أمريكي`;
+}
+} else {
+document.getElementById('buildingTotal').value = '';
+}
+}
+
+function showMoneyDonationCharity(charityId) {
+showMoneyDonation(charityId);
+}
+
+// ============= حوالات الهرم والفؤاد =============
+function sendHaramTransfer() {
+const type = document.getElementById('haramTransferType').value;
+const amount = document.getElementById('haramAmount').value;
+const details = document.getElementById('haramDetails').value;
+if (!amount || !details) {
+showAlert('يرجى ملء جميع الحقول', 'warning');
+return;
+}
+currentTransactionNumber = generateTransactionNumber();
+const typeNames = { donation: 'تبرع', commission: 'عمولة إعلان', payment: 'دفعة شراء', other: 'أخرى' };
+const transfer = {
+id: Date.now(),
+service: 'الهرم',
+type: typeNames[type],
+amount: amount,
+details: details,
+transactionNumber: currentTransactionNumber,
+date: new Date().toISOString(),
+status: 'pending'
+};
+transfersLog.unshift(transfer);
+localStorage.setItem('transfersLog', JSON.stringify(transfersLog));
+const message = `🏦 حوالة هرم جديدة - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 النوع: ${typeNames[type]}
+💰 المبلغ: ${amount}
+📄 التفاصيل: ${details}
+📱 الرقم المستلم: 0982657714 (سيرياتيل)
+👤 الاسم: مسارك الآن
+🔢 رقم المعاملة: ${currentTransactionNumber}
+📅 التاريخ: ${new Date().toLocaleString('ar-SY')}
+━━━━━━━━━━━━━━━━━━━━`;
+sendWhatsAppToAdmin(message);
+renderTransfersLog();
+showAlert(`✅ تم تسجيل حوالة الهرم بنجاح!
+🔢 رقم المعاملة: ${currentTransactionNumber}
+📱 أرسل المبلغ إلى: 0982657714 (سيرياتيل)
+👤 الاسم: مسارك الآن`, 'success');
+addNotification('حوالة هرم', `تم تسجيل حوالة هرم بمبلغ ${amount}`, 'transfer');
+}
+
+function sendFouadTransfer() {
+const type = document.getElementById('fouadTransferType').value;
+const amount = document.getElementById('fouadAmount').value;
+const details = document.getElementById('fouadDetails').value;
+if (!amount || !details) {
+showAlert('يرجى ملء جميع الحقول', 'warning');
+return;
+}
+currentTransactionNumber = generateTransactionNumber();
+const typeNames = { donation: 'تبرع', commission: 'عمولة إعلان', payment: 'دفعة شراء', other: 'أخرى' };
+const transfer = {
+id: Date.now(),
+service: 'الفؤاد',
+type: typeNames[type],
+amount: amount,
+details: details,
+transactionNumber: currentTransactionNumber,
+date: new Date().toISOString(),
+status: 'pending'
+};
+transfersLog.unshift(transfer);
+localStorage.setItem('transfersLog', JSON.stringify(transfersLog));
+const message = `🏦 حوالة فؤاد جديدة - مسارك الآن
+━━━━━━━━━━━━━━━━━━━━
+📋 النوع: ${typeNames[type]}
+💰 المبلغ: ${amount}
+📄 التفاصيل: ${details}
+📱 الرقم المستلم: 0982657714 (سيرياتيل)
+👤 الاسم: مسارك الآن
+🔢 رقم المعاملة: ${currentTransactionNumber}
+📅 التاريخ: ${new Date().toLocaleString('ar-SY')}
+━━━━━━━━━━━━━━━━━━━━`;
+sendWhatsAppToAdmin(message);
+renderTransfersLog();
+showAlert(`✅ تم تسجيل حوالة الفؤاد بنجاح!
+🔢 رقم المعاملة: ${currentTransactionNumber}
+📱 أرسل المبلغ إلى: 0982657714 (سيرياتيل)
+👤 الاسم: مسارك الآن`, 'success');
+addNotification('حوالة فؤاد', `تم تسجيل حوالة فؤاد بمبلغ ${amount}`, 'transfer');
+}
+
+function loadTransfersLog() {
+const saved = localStorage.getItem('transfersLog');
+if (saved) transfersLog = JSON.parse(saved);
+renderTransfersLog();
+}
+
+function renderTransfersLog() {
+const container = document.getElementById('transfersLog');
+if (!container) return;
+if (transfersLog.length === 0) {
+container.innerHTML = '<p style="text-align: center; color: #999;">لا توجد حوالات مسجلة</p>';
+return;
+}
+container.innerHTML = transfersLog.map(t => `
+<div class="card" style="padding: 1rem; margin-bottom: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+<div>
+<strong>${t.service} - ${t.type}</strong>
+<div style="font-size: 0.85rem; color: #666;">
+💰 ${t.amount} | 🔢 ${t.transactionNumber}
+</div>
+<div style="font-size: 0.8rem; color: #999;">
+${new Date(t.date).toLocaleString('ar-SY')}
+</div>
+</div>
+<span class="status-badge ${t.status === 'pending' ? 'status-waiting' : 'status-confirmed'}">
+${t.status === 'pending' ? 'بانتظار التأكيد' : 'مؤكدة'}
+</span>
+</div>
+</div>
+`).join('');
+}
+
+function updateExchangeRates() {
+const bodies = ['exchangeBody', 'combined-exchangeBody'];
+bodies.forEach(bodyId => {
+const tbody = document.getElementById(bodyId);
+if (!tbody) return;
+tbody.innerHTML = '';
+Object.keys(exchangeRates).forEach(code => {
+const currency = exchangeRates[code];
+const trend = Math.random() > 0.5 ? 'up' : (Math.random() > 0.5 ? 'down' : 'stable');
+const trendIcon = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+const trendClass = `trend-${trend}`;
+const buyNewSYP = (currency.buy / NEW_SYP_DIVISOR).toLocaleString('ar-SY', {maximumFractionDigits: 2});
+const sellNewSYP = (currency.sell / NEW_SYP_DIVISOR).toLocaleString('ar-SY', {maximumFractionDigits: 2});
+const row = `
+<tr>
+<td>${currency.name}</td>
+<td><span style="font-size: 1.5rem;">${currency.flag}</span></td>
+<td>${currency.symbol}</td>
+<td class="buy-price">${currency.buy.toLocaleString()}</td>
+<td class="sell-price">${currency.sell.toLocaleString()}</td>
+<td class="buy-price">${buyNewSYP}</td>
+<td class="sell-price">${sellNewSYP}</td>
+<td class="${trendClass}">${trendIcon}</td>
+</tr>
+`;
+tbody.insertAdjacentHTML('beforeend', row);
+});
+});
+}
+
+function updateGoldPrices() {
+const bodies = ['goldBody', 'combined-goldBody'];
+bodies.forEach(bodyId => {
+const tbody = document.getElementById(bodyId);
+if (!tbody) return;
+tbody.innerHTML = '';
+const goldHeader = `<tr style="background: linear-gradient(135deg, rgba(247,151,30,0.1), rgba(255,210,0,0.1));">
+<td colspan="9" style="font-weight: bold; color: #f7971e; font-size: 1.1rem;">
+<i class="fas fa-coins"></i> الذهب
+</td>
+</tr>`;
+tbody.insertAdjacentHTML('beforeend', goldHeader);
+Object.keys(preciousMetals).forEach(key => {
+const item = preciousMetals[key];
+if (item.type !== 'gold') return;
+const trend = Math.random() > 0.5 ? 'up' : (Math.random() > 0.5 ? 'down' : 'stable');
+const trendIcon = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+const trendClass = `trend-${trend}`;
+const buyOldSYP = item.buyUSD * SYR_EXCHANGE_RATE;
+const sellOldSYP = item.sellUSD * SYR_EXCHANGE_RATE;
+const buyNewSYP = buyOldSYP / NEW_SYP_DIVISOR;
+const sellNewSYP = sellOldSYP / NEW_SYP_DIVISOR;
+const row = `
+<tr>
+<td>${item.name}</td>
+<td>${item.karat}</td>
+<td class="buy-price">${buyOldSYP.toLocaleString('ar-SY')} ل.س</td>
+<td class="sell-price">${sellOldSYP.toLocaleString('ar-SY')} ل.س</td>
+<td class="buy-price">$${item.buyUSD.toFixed(2)}</td>
+<td class="sell-price">$${item.sellUSD.toFixed(2)}</td>
+<td class="buy-price">${buyNewSYP.toLocaleString('ar-SY', {maximumFractionDigits: 2})} ل.س.ج</td>
+<td class="sell-price">${sellNewSYP.toLocaleString('ar-SY', {maximumFractionDigits: 2})} ل.س.ج</td>
+<td class="${trendClass}">${trendIcon}</td>
+</tr>
+`;
+tbody.insertAdjacentHTML('beforeend', row);
+});
+const silverHeader = `<tr style="background: linear-gradient(135deg, rgba(189,195,199,0.1), rgba(236,240,241,0.1));">
+<td colspan="9" style="font-weight: bold; color: #7f8c8d; font-size: 1.1rem;">
+<i class="fas fa-medal"></i> الفضة
+</td>
+</tr>`;
+tbody.insertAdjacentHTML('beforeend', silverHeader);
+Object.keys(preciousMetals).forEach(key => {
+const item = preciousMetals[key];
+if (item.type !== 'silver') return;
+const trend = Math.random() > 0.5 ? 'up' : (Math.random() > 0.5 ? 'down' : 'stable');
+const trendIcon = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+const trendClass = `trend-${trend}`;
+const buyOldSYP = item.buyUSD * SYR_EXCHANGE_RATE;
+const sellOldSYP = item.sellUSD * SYR_EXCHANGE_RATE;
+const buyNewSYP = buyOldSYP / NEW_SYP_DIVISOR;
+const sellNewSYP = sellOldSYP / NEW_SYP_DIVISOR;
+const row = `
+<tr>
+<td>${item.name}</td>
+<td>${item.karat}</td>
+<td class="buy-price">${buyOldSYP.toLocaleString('ar-SY')} ل.س</td>
+<td class="sell-price">${sellOldSYP.toLocaleString('ar-SY')} ل.س</td>
+<td class="buy-price">$${item.buyUSD.toFixed(2)}</td>
+<td class="sell-price">$${item.sellUSD.toFixed(2)}</td>
+<td class="buy-price">${buyNewSYP.toLocaleString('ar-SY', {maximumFractionDigits: 2})} ل.س.ج</td>
+<td class="sell-price">${sellNewSYP.toLocaleString('ar-SY', {maximumFractionDigits: 2})} ل.س.ج</td>
+<td class="${trendClass}">${trendIcon}</td>
+</tr>
+`;
+tbody.insertAdjacentHTML('beforeend', row);
+});
+});
+}
+
+function toggleChat() {
+document.getElementById('chatBot').classList.toggle('active');
+}
+
+function handleChatKeypress(event) {
+if (event.key === 'Enter') sendMessage();
+}
+
+function sendMessage() {
+const input = document.getElementById('chatInput');
+const message = input.value.trim();
+if (message) {
+addChatMessage(message, 'user');
+input.value = '';
+setTimeout(() => {
+const response = getBotResponse(message);
+addChatMessage(response, 'bot');
+}, 800);
+}
+}
+
+function sendQuickReply(text) {
+document.getElementById('chatInput').value = text;
+sendMessage();
+}
+
+function addChatMessage(message, sender) {
+const chatBody = document.getElementById('chatBody');
+const messageDiv = document.createElement('div');
+messageDiv.className = `chat-message ${sender}`;
+messageDiv.textContent = message;
+chatBody.appendChild(messageDiv);
+chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function getBotResponse(message) {
+const lowerMessage = message.toLowerCase();
+if (lowerMessage.includes('مرحبا') || lowerMessage.includes('السلام') || lowerMessage.includes('هاي')) {
+return 'وعليكم السلام ورحمة الله! أهلاً بك في مسارك الآن. كيف يمكنني مساعدتك اليوم؟';
+} else if (lowerMessage.includes('اعلان') || lowerMessage.includes('نشر')) {
+return 'لنشر إعلان:\n1. سجل دخولك أولاً\n2. انتقل لقسم "نشر إعلان"\n3. املأ النموذج وارفع الصور\n4. اضغط نشر\nالإعلان مجاني تماماً!';
+} else if (lowerMessage.includes('تبرع') || lowerMessage.includes('مشفى')) {
+return '💝 للتبرع:\n• اختر نوع التبرع (أجهزة/أدوية/نقود)\n• اختر الحساب من القائمة المنسدلة\n• اختر العملة (دولار/ليرة سورية)\n• رقم المعاملة يُولّد تلقائياً\n• سيتم إرسال SMS و WhatsApp للمدير';
+} else if (lowerMessage.includes('حوالة') || lowerMessage.includes('هرم') || lowerMessage.includes('فؤاد')) {
+return '🏦 الحوالات المالية:\n• حوالات الهرم: أرسل إلى 0982657714 (سيرياتيل)\n• حوالات الفؤاد: أرسل إلى 0982657714 (سيرياتيل)\n• الاسم: مسارك الآن\n• اذكر نوع الحوالة والتفاصيل';
+} else if (lowerMessage.includes('سعر') || lowerMessage.includes('عملة')) {
+return '💱 أسعار العملات:\n• تُحدث كل 15 دقيقة\n• تعرض بالليرة القديمة والجديدة\n• سعر الدولار: 13,000 ل.س قديمة = 130 ل.س.ج';
+} else if (lowerMessage.includes('ذهب') || lowerMessage.includes('فضة') || lowerMessage.includes('مجوهرات')) {
+return '💰 أسعار الذهب والفضة:\n• تُحدث كل 15 دقيقة\n• ذهب: عيار 24، 21، 18 + ليرات ذهبية\n• فضة: أونصة، كيلو، ليرة فضية، سبيكة\n• تعرض بأسعار الشراء والبيع\n• بالليرة القديمة والجديدة والدولار';
+} else if (lowerMessage.includes('ليرة') && lowerMessage.includes('جديدة')) {
+return '🆕 الليرة السورية الجديدة:\n• 1 ل.س.ج = 100 ل.س قديمة\n• جميع الإعلانات تعرض السعر بالعملتين\n• أسعار العملات والذهب تعرض بالليرتين';
+} else if (lowerMessage.includes('عمولة') || lowerMessage.includes('بيع')) {
+return 'العمولة 0.2% تُخصم فقط عند إتمام البيع.\nمثال: بيع 1000$ = عمولة 2$ فقط.\n\n📱 أرسل العمولة إلى:\nشام كاش المدير: 0982657714\nالاسم: مسارك الآن\n\n⏰ بوت المتابعة يتحقق تلقائياً خلال 24-72 ساعة';
+} else if (lowerMessage.includes('شكوى')) {
+return 'لتقديم شكوى، اضغط على زر الشكوى في أي إعلان. سيتم مراجعة شكواك من قبل الإدارة.';
+} else if (lowerMessage.includes('حساب') || lowerMessage.includes('تسجيل')) {
+return 'للتسجيل: اضغط على "تسجيل الدخول" ثم "حساب جديد". أدخل اسمك ورقمك وكلمة مرور.';
+} else if (lowerMessage.includes('دفع') || lowerMessage.includes('شام كاش') || lowerMessage.includes('سيريتل')) {
+return '💳 طرق الدفع:\n📱 شام كاش المدير: 0982657714\n📱 شام كاش مسارك 2: 0982657714\n📡 سيريتل كاش: 0982657714\n📡 MTN كاش: 0958357949\n🏦 حوالات الهرم: 0982657714 (سيرياتيل)\n🏦 حوالات الفؤاد: 0982657714 (سيرياتيل)\n✨ رقم المعاملة يُولّد تلقائياً\n📱 سيتم إرسال SMS للمدير';
+} else if (lowerMessage.includes('ليرة') || lowerMessage.includes('سورية')) {
+return 'نعم! يمكنك التبرع بالليرة السورية. سعر الصرف الحالي: 1$ = 13,000 ل.س قديمة = 130 ل.س.ج';
+} else if (lowerMessage.includes('sms') || lowerMessage.includes('رسالة') || lowerMessage.includes('نصية')) {
+return '📱 نعم! يتم إرسال رسالة نصية (SMS) للمدير تلقائياً عند كل عملية تبرع أو شراء، بالإضافة إلى إشعار واتساب. رقم الاستلام: 963982657714';
+} else if (lowerMessage.includes('رقم') && lowerMessage.includes('معاملة')) {
+return '🔢 رقم المعاملة يُولّد تلقائياً بصيغة: TXN-YYYYMMDD-HHMMSS-XXXX\nمثال: TXN-20260804-143522-8472\nوهو فريد لكل عملية ولا يمكن تعديله.';
+} else if (lowerMessage.includes('شكر') || lowerMessage.includes('ممتاز')) {
+return 'العفو! سعيد بمساعدتك. إذا احتجت أي شيء آخر، أنا هنا.';
+} else if (lowerMessage.includes('مدير') || lowerMessage.includes('تواصل')) {
+return 'للتواصل مع المدير:\n📞 هاتف: 0982657714\n💬 واتساب: 0982657714\n📱 SMS: 963982657714';
+} else {
+return 'شكراً لتواصلك. يمكنني مساعدتك في:\n• نشر الإعلانات\n• التبرعات (بالدولار والليرة السورية)\n• الأسعار\n• العمولات\n• الحسابات\n• الحوالات (الهرم والفؤاد)\n• رسائل SMS\n• أرقام المعاملات\n• الليرة السورية الجديدة\nجرب أن تسأل بشكل محدد أكثر.';
+}
+}
+
+function openAdChat(adId) {
+const ad = findAdById(adId);
+if (!ad) return;
+chatContext = `ad-${adId}`;
+document.getElementById('chatBotTitle').textContent = `دردشة: ${ad.title}`;
+document.getElementById('chatBot').classList.add('active');
+const chatBody = document.getElementById('chatBody');
+chatBody.innerHTML = `
+<div class="chat-message bot">
+مرحباً! هذه دردشة حول الإعلان: ${ad.title}\nالسعر: ${ad.price} ${ad.currency === 'USD' ? '$' : 'ل.س'}\nكيف يمكنني مساعدتك؟
+</div>
+`;
+document.getElementById('chatQuickReplies').innerHTML = `
+<button class="quick-reply-btn" onclick="sendQuickReply('هل لا يزال متاحاً؟')">متاح؟</button>
+<button class="quick-reply-btn" onclick="sendQuickReply('ما هي الحالة؟')">الحالة</button>
+<button class="quick-reply-btn" onclick="sendQuickReply('هل يقبل المساومة؟')">المساومة</button>
+<button class="quick-reply-btn" onclick="sendQuickReply('أريد رؤية المزيد')">المزيد</button>
+`;
+}
+
+function openComplaint(adId) {
+currentComplaintAdId = adId;
+document.getElementById('complaintModal').classList.add('active');
+}
+
+function submitComplaint(event) {
+event.preventDefault();
+const complaint = {
+id: Date.now(),
+adId: currentComplaintAdId,
+type: document.getElementById('complaintType').value,
+details: document.getElementById('complaintDetails').value,
+date: new Date().toISOString(),
+status: 'pending',
+userId: currentUser ? currentUser.id : 'guest'
+};
+complaints.push(complaint);
+localStorage.setItem('complaints', JSON.stringify(complaints));
+showAlert('تم إرسال الشكوى بنجاح', 'success');
+closeModal('complaintModal');
+const message = `شكوى جديدة\nنوع: ${complaint.type}\nتفاصيل: ${complaint.details}\nID الإعلان: ${complaint.adId}`;
+sendWhatsAppToAdmin(message);
+addNotification('شكوى جديدة', 'تم تقديم شكوى جديدة', 'complaint');
+document.getElementById('complaintType').value = '';
+document.getElementById('complaintDetails').value = '';
+}
+
+function showAdminTab(tabId, event) {
+document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
+event.target.classList.add('active');
+document.getElementById(tabId).classList.add('active');
+}
+
+function updateAdminPanel() {
+if (!currentUser || !currentUser.isAdmin) return;
+document.getElementById('adminTotalAds').textContent = allAds.length;
+document.getElementById('adminTotalSales').textContent = commissionData.totalSales;
+document.getElementById('adminTotalComplaints').textContent = complaints.length;
+document.getElementById('adminTotalUsers').textContent = users.length;
+const adsList = document.getElementById('adminAdsList');
+if (allAds.length === 0) {
+adsList.innerHTML = '<p style="text-align: center; color: #999;">لا توجد إعلانات</p>';
+} else {
+adsList.innerHTML = allAds.map(ad => `
+<div class="card" style="padding: 1rem; margin-bottom: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+<div>
+<strong>${ad.title}</strong>
+<div style="font-size: 0.85rem; color: #666;">
+${getCategoryName(ad.category)} | ${ad.price} ${ad.currency === 'USD' ? '$' : 'ل.س'}
+${ad.sold ? ' | <span style="color: var(--accent-color);">مباع</span>' : ''}
+${ad.commissionPaid ? ' | <span style="color: var(--success-color);">✅ العمولة مدفوعة</span>' : ''}
+</div>
+<div style="font-size: 0.8rem; color: #999;">
+بواسطة: ${ad.userName || 'غير معروف'} | ${new Date(ad.date).toLocaleDateString('ar-SY')}
+</div>
+</div>
+<div>
+<button class="btn btn-danger" onclick="adminDeleteAd(${ad.id})">
+<i class="fas fa-trash"></i>
+</button>
+</div>
+</div>
+</div>
+`).join('');
+}
+const usersList = document.getElementById('adminUsersList');
+if (users.length === 0) {
+usersList.innerHTML = '<p style="text-align: center; color: #999;">لا يوجد مستخدمين</p>';
+} else {
+usersList.innerHTML = users.map(u => `
+<div class="card" style="padding: 1rem; margin-bottom: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+<div>
+<strong>${u.name}</strong>
+<div style="font-size: 0.85rem; color: #666;">
+📱 ${u.phone} | ${u.warnings || 0} تحذيرات
+${u.banned ? ' | <span style="color: var(--accent-color);">محظور</span>' : ''}
+</div>
+<div style="font-size: 0.8rem; color: #999;">
+انضم: ${new Date(u.joinDate).toLocaleDateString('ar-SY')}
+</div>
+</div>
+<div>
+${!u.banned ? `
+<button class="btn btn-warning" onclick="adminBanUser(${u.id})">
+<i class="fas fa-ban"></i> حظر
+</button>
+` : `
+<button class="btn btn-success" onclick="adminUnbanUser(${u.id})">
+<i class="fas fa-check"></i> إلغاء الحظر
+</button>
+`}
+</div>
+</div>
+</div>
+`).join('');
+}
+const complaintsList = document.getElementById('adminComplaintsList');
+if (complaints.length === 0) {
+complaintsList.innerHTML = '<p style="text-align: center; color: #999;">لا توجد شكاوى</p>';
+} else {
+complaintsList.innerHTML = complaints.map(c => `
+<div class="card" style="padding: 1rem; margin-bottom: 0.5rem;">
+<div>
+<strong>نوع: ${c.type}</strong>
+<div style="font-size: 0.85rem; margin-top: 0.5rem;">${c.details}</div>
+<div style="font-size: 0.8rem; color: #999; margin-top: 0.5rem;">
+ID الإعلان: ${c.adId} | ${new Date(c.date).toLocaleString('ar-SY')}
+</div>
+</div>
+</div>
+`).join('');
+}
+const commissionsList = document.getElementById('adminCommissionsList');
+if (commissionData.logs.length === 0) {
+commissionsList.innerHTML = '<p style="text-align: center; color: #999;">لا توجد عمولات</p>';
+} else {
+commissionsList.innerHTML = commissionData.logs.map(log => `
+<div class="card" style="padding: 1rem; margin-bottom: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<div>
+<strong>${log.title}</strong>
+<div style="font-size: 0.85rem; color: #666;">
+${log.price} ${log.currency === 'USD' ? '$' : 'ل.س'} | ${new Date(log.soldDate || log.date).toLocaleString('ar-SY')}
+</div>
+<div style="font-size: 0.8rem;">
+${log.commissionPaid ? '<span style="color: var(--success-color);">✅ مدفوعة</span>' : '<span style="color: var(--accent-color);">⏳ معلقة</span>'}
+</div>
+</div>
+<div style="color: var(--success-color); font-weight: bold;">
+$${log.commission.toFixed(2)}
+</div>
+</div>
+</div>
+`).join('');
+}
+}
+
+function adminDeleteAd(adId) {
+if (!confirm('هل أنت متأكد من حذف هذا الإعلان؟')) return;
+allAds = allAds.filter(ad => ad.id !== adId);
+localStorage.setItem('allAds', JSON.stringify(allAds));
+document.querySelectorAll(`[data-id="${adId}"]`).forEach(el => el.remove());
+showAlert('تم حذف الإعلان', 'success');
+updateAdminPanel();
+}
+
+function adminBanUser(userId) {
+if (!confirm('هل أنت متأكد من حظر هذا المستخدم؟')) return;
+const user = users.find(u => u.id === userId);
+if (user) {
+user.banned = true;
+localStorage.setItem('users', JSON.stringify(users));
+showAlert('تم حظر المستخدم', 'success');
+updateAdminPanel();
+}
+}
+
+function adminUnbanUser(userId) {
+const user = users.find(u => u.id === userId);
+if (user) {
+user.banned = false;
+localStorage.setItem('users', JSON.stringify(users));
+showAlert('تم إلغاء حظر المستخدم', 'success');
+updateAdminPanel();
+}
+}
+
+function toggleFaq(element) {
+element.classList.toggle('active');
+}
+
+function submitContactForm(event) {
+event.preventDefault();
+showAlert('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً', 'success');
+event.target.reset();
+addNotification('رسالة جديدة', 'تم استلام رسالتك وسيتم الرد عليك قريباً', 'contact');
+}
+
+function getCategoryName(category) {
+const names = {
+cars: 'سيارات', realestate: 'عقارات', furniture: 'أثاث منزلي',
+mobiles: 'جوالات', laptops: 'لابتوبات', bikes: 'دراجات',
+appliances: 'كهربائيات', electronics: 'الكترونات',
+machines: 'مكنات صناعية', courses: 'كورسات',
+medical: 'أجهزة طبية', medicine: 'أدوية', money: 'نقود',
+food: 'سلة غذائية', sponsorship: 'كفالة', building: 'مواد بناء'
+};
+return names[category] || category;
+}
+
+function getTypeName(type) {
+const types = {
+sell: 'بيع', buy: 'شراء', exchange: 'تبادل', service: 'خدمة',
+medical: 'أجهزة طبية', medicine: 'أدوية', money: 'تبرع نقدي',
+food: 'سلة غذائية', sponsorship: 'كفالة', building: 'مواد بناء'
+};
+return types[type] || type;
+}
+
+function sendWhatsAppToAdmin(message) {
+const url = `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(message)}`;
+console.log('WhatsApp:', message);
+window.open(url, '_blank');
+}
+
+function showAlert(message, type) {
+const container = document.getElementById('alertContainer');
+const alertDiv = document.createElement('div');
+alertDiv.className = `alert alert-${type}`;
+alertDiv.innerHTML = message.replace(/\n/g, '<br>');
+alertDiv.style.display = 'block';
+container.appendChild(alertDiv);
+setTimeout(() => { alertDiv.remove(); }, 6000);
+}
+
+function initializeSections() {
+const sections = ['cars', 'realestate', 'furniture', 'mobiles', 'laptops', 'bikes', 'appliances', 'electronics', 'machines', 'courses'];
+sections.forEach(section => {
+const grid = document.getElementById(`${section}Grid`);
+if (grid) {
+grid.innerHTML = '<p style="text-align: center; color: #999;">لا توجد إعلانات حالياً</p>';
+}
+const combinedGrid = document.getElementById(`combined-${section}Grid`);
+if (combinedGrid) {
+combinedGrid.innerHTML = '<p style="text-align: center; color: #999;">لا توجد إعلانات حالياً</p>';
+}
+});
+}
+
+function addSampleAds() {
+if (allAds.length > 0) return;
+const sampleAds = [
+{
+id: 1, type: 'sell', category: 'cars',
+title: 'مرسيدس S-Class 2020',
+phone: '0982657714', whatsapp: '0982657714',
+price: '15000', currency: 'USD', isVIP: true,
+description: 'سيارة مرسيدس S-Class موديل 2020 بحالة ممتازة، فل كامل، لون أسود',
+images: ['https://images.unsplash.com/photo-1563720223185-11003d516935?w=400'],
+date: new Date().toISOString(), sold: false, commissionPaid: false, userId: 'sample', userName: 'نموذج'
+},
+{
+id: 2, type: 'sell', category: 'realestate',
+title: 'شقة في المزة - دمشق',
+phone: '0958357949', whatsapp: '0958357949',
+price: '50000000', currency: 'SYP', isVIP: false,
+description: 'شقة 150 متر في منطقة المزة - دمشق، 3 غرف نوم، صالون، مطبخ، 2 حمام',
+images: ['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400'],
+date: new Date().toISOString(), sold: false, commissionPaid: false, userId: 'sample', userName: 'نموذج'
+},
+{
+id: 3, type: 'sell', category: 'furniture',
+title: 'غرفة نوم كاملة',
+phone: '0912345678', whatsapp: '0912345678',
+price: '800', currency: 'USD', isVIP: false,
+description: 'غرفة نوم كاملة خشب زان، سرير مزدوج + 2 كومودينو + خزانة 6 أبواب + تسريحة',
+images: ['https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400'],
+date: new Date().toISOString(), sold: false, commissionPaid: false, userId: 'sample', userName: 'نموذج'
+},
+{
+id: 4, type: 'sell', category: 'mobiles',
+title: 'آيفون 14 برو ماكس',
+phone: '0933456789', whatsapp: '0933456789',
+price: '800', currency: 'USD', isVIP: true,
+description: 'آيفون 14 برو ماكس 256 جيجا، لون ذهبي، بحالة جديدة، مع جميع الملحقات',
+images: ['https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?w=400'],
+date: new Date().toISOString(), sold: false, commissionPaid: false, userId: 'sample', userName: 'نموذج'
+}
+];
+sampleAds.forEach(ad => {
+allAds.push(ad);
+renderAdToAllGrids(ad);
+});
+localStorage.setItem('allAds', JSON.stringify(allAds));
+}
+
+document.addEventListener('click', function(e) {
+if (!e.target.closest('.notification-wrapper')) {
+document.getElementById('notificationDropdown').classList.remove('active');
+}
+if (!e.target.closest('.user-menu-wrapper')) {
+document.getElementById('userDropdown').classList.remove('active');
+}
+});
+</script>
+</body>
+</html>
